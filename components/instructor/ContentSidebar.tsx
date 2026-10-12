@@ -56,14 +56,14 @@ function AddUnitModal({
           <button
             type="button"
             onClick={onClose}
-            className="text-sm font-bold text-gray-500 px-4 py-2 hover:bg-gray-50 rounded"
+            className="text-sm font-bold text-gray-500 px-4 py-2 btn-fill-gray-50 rounded"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={submit}
-            className="text-sm font-semibold rounded-lg border border-gray-300 px-4 py-2 hover:bg-gray-50"
+            className="text-sm font-semibold rounded-lg border border-gray-300 px-4 py-2 btn-fill-gray-50"
           >
             Create unit
           </button>
@@ -469,7 +469,7 @@ export default function ContentSidebar({
           <button
             type="button"
             onClick={onPublishAll}
-            className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50"
+            className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 btn-fill-gray-50 hover:border-gray-400"
           >
             <UploadCloud size={15} />
             Publish all ({unpublishedCount} unpublished)
@@ -478,14 +478,14 @@ export default function ContentSidebar({
         <button
           type="button"
           onClick={() => setIsAddUnitOpen(true)}
-          className="w-full text-center text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50"
+          className="w-full text-center text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 btn-fill-gray-50 hover:border-gray-400"
         >
           + Add unit
         </button>
         <button
           type="button"
           onClick={() => setIsDriveImportOpen(true)}
-          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50"
+          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 btn-fill-gray-50 hover:border-gray-400"
         >
           <FolderInput size={15} />
           Import from Google Drive
@@ -495,7 +495,7 @@ export default function ContentSidebar({
           onClick={handleSyncCogniterra}
           disabled={isSyncingCogniterra}
           title="Places any Cogniterra assignment that isn't wired to a lesson yet into the right unit by topic — safe to re-run any time, already-wired assignments are skipped."
-          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50 disabled:opacity-50"
+          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 btn-fill-gray-50 hover:border-gray-400 disabled:opacity-50"
         >
           <RefreshCw size={15} className={isSyncingCogniterra ? "animate-spin" : ""} />
           {isSyncingCogniterra ? "Syncing Cogniterra…" : "Sync Cogniterra assignments"}

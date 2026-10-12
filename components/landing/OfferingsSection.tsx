@@ -40,7 +40,7 @@ const OFFERINGS: Offering[] = [
   },
   {
     title: "Study on campus",
-    description: "Join the School of Computer Science in Pittsburgh as a full-time student at Carnegie Mellon University.",
+    description: "Join the Kenneth C. Griffin School of Computer Science in Pittsburgh as a full-time student at Carnegie Mellon University.",
     cta: "Explore admissions",
     href: null,
     image: "/landing/photos/campus-walk.jpg",
@@ -52,12 +52,12 @@ export default function OfferingsSection() {
   return (
     <section className={`bg-white text-black ${sectionPadding}`}>
       <Container>
-        <h2 className={`${heading2} reveal mb-10`}>Ready for more?</h2>
+        <h2 className={`${heading2} mb-10`}>Ready for more?</h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {OFFERINGS.map(({ title, description, cta, href, image, color, wide }, i) => {
+          {OFFERINGS.map(({ title, description, cta, href, image, color, wide }) => {
             const isYouTube = href === SCS_LEARN_YOUTUBE_URL;
-            const className = `reveal group relative isolate flex min-h-[18rem] flex-col justify-end overflow-hidden p-8 text-white md:min-h-[20rem] md:p-10 ${
+            const className = `group relative isolate flex min-h-[18rem] flex-col justify-end overflow-hidden p-8 text-white md:min-h-[20rem] md:p-10 ${
               wide ? "md:col-span-2" : ""
             } ${image ? "bg-black" : color}`;
             const content = (
@@ -70,7 +70,7 @@ export default function OfferingsSection() {
                       fill
                       sizes="(min-width: 48rem) 66vw, 100vw"
                       quality={90}
-                      className="-z-20 object-cover transition-transform duration-[3s] ease-out group-hover:scale-110"
+                      className="-z-20 object-cover"
                     />
                     <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/55 to-black/30" />
                   </>
@@ -97,12 +97,11 @@ export default function OfferingsSection() {
                 target={isYouTube ? "_blank" : undefined}
                 rel={isYouTube ? "noopener noreferrer" : undefined}
                 className={className}
-                style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
               >
                 {content}
               </a>
             ) : (
-              <div key={title} className={className} style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
+              <div key={title} className={className}>
                 {content}
               </div>
             );

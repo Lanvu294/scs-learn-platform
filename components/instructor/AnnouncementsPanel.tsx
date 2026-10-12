@@ -60,7 +60,7 @@ export default function AnnouncementsPanel({
           type="button"
           onClick={post}
           disabled={!draft.trim() || !targetCourseCode || isPending}
-          className="mt-3 w-full flex items-center justify-center gap-2 rounded-lg text-sm font-semibold bg-primary text-white py-2.5 transition-colors hover:bg-primary-dark disabled:opacity-40"
+          className="mt-3 w-full flex items-center justify-center gap-2 rounded-lg text-sm font-semibold bg-primary text-white py-2.5 btn-fill-primary-dark disabled:opacity-40"
         >
           <Send size={15} />
           Post announcement

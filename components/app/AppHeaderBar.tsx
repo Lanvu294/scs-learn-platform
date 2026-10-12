@@ -74,7 +74,7 @@ export default function AppHeaderBar({
           {backHref && (
             <Link
               href={backHref}
-              className="hidden items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 hover:text-black sm:flex"
+              className="hidden items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 btn-fill-gray-100 hover:text-black sm:flex"
             >
               <ArrowLeft size={15} />
               {backLabel ?? "Back"}
@@ -87,7 +87,7 @@ export default function AppHeaderBar({
               onClick={() => setOpen((v) => !v)}
               aria-haspopup="menu"
               aria-expanded={open}
-              className="flex items-center gap-1.5 rounded-full p-0.5 pr-1.5 hover:bg-gray-100"
+              className="flex items-center gap-1.5 rounded-full p-0.5 pr-1.5 btn-fill-gray-100"
             >
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
                 {initials}

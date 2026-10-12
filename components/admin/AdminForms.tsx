@@ -7,7 +7,7 @@ import { addAdmin, addCourseInstructor, addInstructor, type AdminActionState } f
 const input =
   "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10";
 const button =
-  "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60";
+  "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white btn-fill-primary-dark disabled:opacity-60";
 
 function Feedback({ state }: { state: AdminActionState }) {
   if (state.status === "idle") return null;

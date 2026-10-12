@@ -24,7 +24,7 @@ export default function ProfileNameForm({ initialName }: { initialName: string }
         <button
           type="submit"
           disabled={pending}
-          className="shrink-0 bg-primary px-5 py-2 text-sm font-bold text-white hover:bg-primary-dark disabled:opacity-60"
+          className="shrink-0 bg-primary px-5 py-2 text-sm font-bold text-white btn-fill-primary-dark disabled:opacity-60"
         >
           {pending ? "Saving…" : "Save"}
         </button>

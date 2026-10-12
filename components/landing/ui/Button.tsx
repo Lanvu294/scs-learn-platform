@@ -3,12 +3,12 @@ import { ReactNode } from "react";
 type Variant = "primary" | "outline" | "outlineInverse";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 font-medium text-sm px-6 py-3 transition-colors";
+  "inline-flex items-center justify-center gap-2 font-medium text-sm px-6 py-3";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-primary text-white hover:bg-primary-dark",
-  outline: "border border-primary text-primary hover:bg-primary hover:text-white",
-  outlineInverse: "border border-white text-white hover:bg-white hover:text-primary",
+  primary: "bg-primary text-white btn-fill-primary-dark",
+  outline: "border border-primary text-primary btn-fill-primary hover:text-white",
+  outlineInverse: "border border-white text-white btn-fill-white hover:text-primary",
 };
 
 type ButtonProps = {

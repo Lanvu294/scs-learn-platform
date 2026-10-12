@@ -20,7 +20,7 @@ type Stamped = AuthFormState & { at: number };
 const inputClass =
   "mt-1.5 w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-sm transition-shadow focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10";
 const primaryButton =
-  "w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60";
+  "w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white btn-fill-primary-dark disabled:opacity-60";
 const linkButton = "font-semibold text-primary hover:underline";
 
 /** useActionState whose results carry their arrival time, so cooldowns can tick without reading the clock in render. */
@@ -127,7 +127,7 @@ export default function LoginForm({
             <button
               type="submit"
               disabled={resetting || linking || remaining > 0}
-              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 btn-fill-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {resetting || linking ? "Sending…" : remaining > 0 ? `Resend in ${remaining}s` : "Resend email"}
             </button>
@@ -264,7 +264,7 @@ export default function LoginForm({
           <button
             type="button"
             onClick={() => switchMode("link")}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:bg-gray-50"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 btn-fill-gray-50"
           >
             <Mail size={15} />
             Email me a sign-in link instead

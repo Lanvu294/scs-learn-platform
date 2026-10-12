@@ -8,7 +8,7 @@ const FAQS = [
   {
     question: "What is SCS Learn, and who is it for?",
     answer:
-      "SCS Learn brings real Carnegie Mellon School of Computer Science courses to anyone, anywhere - no application, no tuition, and no prerequisites. It's for anyone who wants to build real computing skills, whether you're switching careers, in school, or upskilling on the job.",
+      "SCS Learn brings real courses from Carnegie Mellon's Kenneth C. Griffin School of Computer Science to anyone, anywhere - no application, no tuition, and no prerequisites. It's for anyone who wants to build real computing skills, whether you're switching careers, in school, or upskilling on the job.",
   },
   {
     question: "Do I need any prior background to join?",
@@ -18,17 +18,7 @@ const FAQS = [
   {
     question: "Is it really free? What's the catch?",
     answer:
-      "Every course is free to attend live and free to learn from. The AI tutor is free to try - deeper access and a certificate are paid upgrades, but the course itself always stays free.",
-  },
-  {
-    question: "How do the live sessions work?",
-    answer:
-      "You join your professor online at the scheduled time for real lectures and live Q&A, just like an on-campus course, taught by the same faculty who teach it at Carnegie Mellon.",
-  },
-  {
-    question: "What if I can't make the live session?",
-    answer:
-      "Every session is recorded, so you can watch it on demand and keep working with your AI tutor on your own schedule.",
+      "Every course is free to learn from. The AI tutor is free to try - deeper access and a certificate are paid upgrades, but the course itself always stays free.",
   },
   {
     question: "Do I get a certificate?",
@@ -41,12 +31,12 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className={`scroll-mt-4 bg-black text-white ${sectionPadding}`}>
+    <section id="faq" className={`scroll-mt-32 bg-black text-white ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
         <div className="mx-auto w-full max-w-5xl">
-          <h2 className={`${heading2} reveal`}>Got questions?</h2>
+          <h2 className={heading2}>Got questions?</h2>
 
-          <div className="reveal mt-10 border-t border-white/15 lg:mt-12">
+          <div className="mt-10 border-t border-white/15 lg:mt-12">
             {FAQS.map((faq, i) => {
               const isOpen = openIndex === i;
               return (

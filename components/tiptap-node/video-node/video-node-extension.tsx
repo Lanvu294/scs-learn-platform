@@ -55,7 +55,7 @@ function VideoView({ node }: ReactNodeViewProps<HTMLDivElement>) {
           target="_blank"
           rel="noreferrer"
           title={`Linked to ${href}`}
-          className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/70 text-white text-xs rounded px-1.5 py-1 hover:bg-black"
+          className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/70 text-white text-xs rounded px-1.5 py-1 btn-fill-black"
         >
           <Link2 size={12} />
         </a>

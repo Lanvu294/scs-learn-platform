@@ -49,7 +49,7 @@ export default async function LoginPage({
         <div className="max-w-md">
           <p className="font-serif text-4xl font-semibold leading-tight">Take real Carnegie Mellon courses.</p>
           <p className="mt-4 text-base leading-relaxed text-white/80">
-            Lectures, notes, autograded coursework and quizzes from the Griffin School of Computer Science.
+            Lectures, notes, autograded coursework and quizzes from the Kenneth C. Griffin School of Computer Science.
           </p>
         </div>
       </section>

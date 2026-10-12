@@ -269,7 +269,7 @@ export default function ExternalActivity({
               target="_blank"
               rel="noopener noreferrer"
               onClick={openInCogniterra}
-              className="whitespace-nowrap rounded bg-amber-900 px-3 py-1 font-medium text-white hover:bg-amber-800"
+              className="whitespace-nowrap rounded bg-amber-900 px-3 py-1 font-medium text-white btn-fill-amber-800"
             >
               Open in a new tab ↗
             </a>
@@ -316,7 +316,7 @@ export default function ExternalActivity({
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-md bg-stone-800 px-3 py-2 text-sm font-medium text-white hover:bg-stone-700"
+              className="rounded-md bg-stone-800 px-3 py-2 text-sm font-medium text-white btn-fill-stone-700"
             >
               Open {kind === "autolab" ? "in Autolab" : "activity"}
             </a>
@@ -325,7 +325,7 @@ export default function ExternalActivity({
                 type="button"
                 onClick={pullAutolabScore}
                 disabled={sync.status === "syncing"}
-                className="rounded-md border border-stone-300 px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-50"
+                className="rounded-md border border-stone-300 px-3 py-2 text-sm font-medium text-stone-700 btn-fill-stone-50 disabled:opacity-50"
               >
                 {sync.status === "syncing" ? "Checking..." : "Check my score"}
               </button>

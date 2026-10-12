@@ -136,7 +136,7 @@ export default function CalendarView({
           type="button"
           onClick={() => goToMonth(-1)}
           aria-label="Previous month"
-          className="text-black border border-black rounded p-1.5 hover:bg-gray-50"
+          className="text-black border border-black rounded p-1.5 btn-fill-gray-50"
         >
           <ChevronLeft size={16} />
         </button>
@@ -147,7 +147,7 @@ export default function CalendarView({
           type="button"
           onClick={() => goToMonth(1)}
           aria-label="Next month"
-          className="text-black border border-black rounded p-1.5 hover:bg-gray-50"
+          className="text-black border border-black rounded p-1.5 btn-fill-gray-50"
         >
           <ChevronRight size={16} />
         </button>
@@ -171,7 +171,7 @@ export default function CalendarView({
             className={`text-xs font-bold rounded-full px-3 py-1.5 border ${
               scopeFilter === option.value
                 ? "bg-black text-white border-black"
-                : "text-gray-600 border-gray-200 hover:bg-gray-100"
+                : "text-gray-600 border-gray-200 btn-fill-gray-100"
             }`}
           >
             {option.label}
@@ -367,7 +367,7 @@ export default function CalendarView({
 
               <button
                 type="submit"
-                className="mt-1 w-full text-xs font-bold text-black border border-black rounded py-1.5 hover:bg-gray-50"
+                className="mt-1 w-full text-xs font-bold text-black border border-black rounded py-1.5 btn-fill-gray-50"
               >
                 Save event
               </button>

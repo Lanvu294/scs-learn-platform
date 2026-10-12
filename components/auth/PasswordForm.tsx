@@ -34,7 +34,7 @@ export default function PasswordForm({ redirectTo, submitLabel = "Save password"
       <button
         type="submit"
         disabled={pending}
-        className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60"
+        className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white btn-fill-primary-dark disabled:opacity-60"
       >
         {pending ? "Saving…" : submitLabel}
       </button>

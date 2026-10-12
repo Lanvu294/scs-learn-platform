@@ -8,13 +8,13 @@ export const card = "rounded-xl border border-gray-200 bg-white shadow-sm";
 export const cardHover = "transition-shadow hover:shadow-md hover:border-gray-300";
 
 export const btnPrimary =
-  "inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60";
+  "inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white btn-fill-primary-dark disabled:opacity-60";
 
 export const btnSecondary =
-  "inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50 disabled:opacity-60";
+  "inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 btn-fill-gray-50 hover:border-gray-400 disabled:opacity-60";
 
 export const btnGhost =
-  "inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-100 hover:text-black";
+  "inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 btn-fill-gray-100 hover:text-black";
 
 export const eyebrow = "text-xs font-bold uppercase tracking-[0.08em] text-primary";
 

@@ -242,7 +242,7 @@ export default function LessonSettingsSidebar({
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={!lessonId || isUploading}
-            className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50 disabled:opacity-50"
+            className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 btn-fill-gray-50 hover:border-gray-400 disabled:opacity-50"
           >
             <Upload size={15} />
             {isUploading ? "Uploading…" : "Upload a file"}
@@ -255,7 +255,7 @@ export default function LessonSettingsSidebar({
           type="button"
           onClick={onPublish}
           disabled={!lessonId}
-          className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg text-sm font-semibold bg-primary text-white px-4 py-3 transition-colors hover:bg-primary-dark disabled:opacity-40"
+          className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg text-sm font-semibold bg-primary text-white px-4 py-3 btn-fill-primary-dark disabled:opacity-40"
         >
           <Send size={16} />
           Publish
@@ -264,7 +264,7 @@ export default function LessonSettingsSidebar({
           type="button"
           onClick={onSaveDraft}
           disabled={!lessonId}
-          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50 disabled:opacity-40"
+          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 btn-fill-gray-50 hover:border-gray-400 disabled:opacity-40"
         >
           <Save size={15} />
           Save draft
@@ -273,7 +273,7 @@ export default function LessonSettingsSidebar({
           type="button"
           onClick={onPreview}
           disabled={!lessonId}
-          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50 disabled:opacity-40"
+          className="w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 btn-fill-gray-50 hover:border-gray-400 disabled:opacity-40"
         >
           <Eye size={15} />
           Preview

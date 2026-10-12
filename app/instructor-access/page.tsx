@@ -48,7 +48,7 @@ export default async function InstructorAccessPage() {
                   <input type="hidden" name="instructorId" value={row.id} />
                   <button
                     type="submit"
-                    className="w-full border border-amber-900 bg-white px-3 py-2 text-left text-sm font-bold text-amber-900 hover:bg-amber-100"
+                    className="w-full border border-amber-900 bg-white px-3 py-2 text-left text-sm font-bold text-amber-900 btn-fill-amber-100"
                   >
                     Continue as {row.name}
                   </button>

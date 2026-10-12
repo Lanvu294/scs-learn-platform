@@ -155,7 +155,7 @@ export default function GoogleDriveImportModal({
                 </p>
                 <a
                   href={`/api/google/oauth/start?return_to=${encodeURIComponent(`/instructor/${courseCode}/edit`)}`}
-                  className="shrink-0 text-xs font-bold text-black border border-black px-3 py-1.5 rounded hover:bg-gray-50"
+                  className="shrink-0 text-xs font-bold text-black border border-black px-3 py-1.5 rounded btn-fill-gray-50"
                 >
                   Connect Google Drive
                 </a>
@@ -223,7 +223,7 @@ export default function GoogleDriveImportModal({
                 </p>
                 <a
                   href={`/api/cogniterra/oauth/start?return_to=${encodeURIComponent(`/instructor/${courseCode}/edit`)}`}
-                  className="shrink-0 text-xs font-bold text-black border border-black px-3 py-1.5 rounded hover:bg-gray-50"
+                  className="shrink-0 text-xs font-bold text-black border border-black px-3 py-1.5 rounded btn-fill-gray-50"
                 >
                   Connect Cogniterra
                 </a>
@@ -247,7 +247,7 @@ export default function GoogleDriveImportModal({
                 type="button"
                 onClick={onClose}
                 disabled={status === "scanning"}
-                className="text-sm font-bold text-gray-500 px-4 py-2 hover:bg-gray-50 rounded disabled:opacity-40"
+                className="text-sm font-bold text-gray-500 px-4 py-2 btn-fill-gray-50 rounded disabled:opacity-40"
               >
                 Cancel
               </button>
@@ -255,7 +255,7 @@ export default function GoogleDriveImportModal({
                 type="button"
                 onClick={scanFolder}
                 disabled={!folderUrl.trim() || status === "scanning"}
-                className="text-sm font-bold text-black border border-black px-4 py-2 rounded hover:bg-gray-50 disabled:opacity-40 inline-flex items-center gap-2"
+                className="text-sm font-bold text-black border border-black px-4 py-2 rounded btn-fill-gray-50 disabled:opacity-40 inline-flex items-center gap-2"
               >
                 {status === "scanning" && <Loader2 size={14} className="animate-spin" />}
                 Scan folder
@@ -277,7 +277,7 @@ export default function GoogleDriveImportModal({
               <button
                 type="button"
                 onClick={() => setStatus("input")}
-                className="text-sm font-bold text-gray-500 px-4 py-2 hover:bg-gray-50 rounded"
+                className="text-sm font-bold text-gray-500 px-4 py-2 btn-fill-gray-50 rounded"
               >
                 Back
               </button>
@@ -285,7 +285,7 @@ export default function GoogleDriveImportModal({
                 type="button"
                 onClick={confirmImport}
                 disabled={(preview.fileCount ?? preview.lessonCount) === 0}
-                className="text-sm font-bold text-black border border-black px-4 py-2 rounded hover:bg-gray-50 disabled:opacity-40"
+                className="text-sm font-bold text-black border border-black px-4 py-2 rounded btn-fill-gray-50 disabled:opacity-40"
               >
                 Import{cogniterraReady ? " & link Cogniterra" : ""}
               </button>
@@ -307,7 +307,7 @@ export default function GoogleDriveImportModal({
               <button
                 type="button"
                 onClick={() => setStatus("input")}
-                className="text-sm font-bold text-gray-500 px-4 py-2 hover:bg-gray-50 rounded"
+                className="text-sm font-bold text-gray-500 px-4 py-2 btn-fill-gray-50 rounded"
               >
                 <ArrowLeft size={14} className="inline mr-1" />
                 Try again

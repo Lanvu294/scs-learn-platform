@@ -25,7 +25,7 @@ export default function EducatorsSection() {
       <Container>
         <h2 className={`${heading2} mb-4`}>Taught by world leading Carnegie Mellon educators.</h2>
         <p className="text-iron-gray max-w-2xl mb-16">
-          The professors who built the course teach it — live, in every session.
+          Every course is taught by the professors who built it.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

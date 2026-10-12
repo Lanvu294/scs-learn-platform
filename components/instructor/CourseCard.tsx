@@ -25,7 +25,7 @@ export default function CourseCard({
         <button
           type="button"
           aria-label={`Delete ${course.title}`}
-          className="absolute top-3 right-3 z-20 rounded-md bg-black/30 p-1.5 text-white opacity-0 transition hover:bg-red-600 group-hover:opacity-100 focus:opacity-100"
+          className="absolute top-3 right-3 z-20 rounded-md bg-black/30 p-1.5 text-white opacity-0 btn-fill-red-600 group-hover:opacity-100 focus:opacity-100"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();

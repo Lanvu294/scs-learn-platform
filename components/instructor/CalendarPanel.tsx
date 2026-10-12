@@ -103,7 +103,7 @@ export default function CalendarPanel({
       <button
         type="button"
         onClick={() => window.alert("This would give you an iCal subscription link.")}
-        className="mt-3 w-full shrink-0 flex items-center justify-center gap-1.5 text-xs font-bold text-gray-500 border border-gray-200 rounded py-1.5 hover:bg-gray-50"
+        className="mt-3 w-full shrink-0 flex items-center justify-center gap-1.5 text-xs font-bold text-gray-500 border border-gray-200 rounded py-1.5 btn-fill-gray-50"
       >
         <CalendarPlus size={13} />
         Subscribe to this calendar

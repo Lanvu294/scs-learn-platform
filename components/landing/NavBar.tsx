@@ -1,5 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
+import { Search } from "lucide-react";
+import NavLogo from "./NavLogo";
+import { wideContainer as CONTAINER } from "./ui/layout";
 
 const LINKS = [
   { label: "Courses", href: "#courses" },
@@ -7,42 +9,74 @@ const LINKS = [
   { label: "FAQ", href: "#faq" },
 ];
 
-// Modeled on cmu.edu's header: black bar, a solid Carnegie Red block (here the
-// official SCS Learn icon), the SCS unitmark, white links, and square outlined
-// buttons. Brand assets are from the SCS Learn logo kit (public/brand/).
+const SIGN_IN = [
+  { label: "Student sign in", href: "/login" },
+  { label: "Instructor sign in", href: "/login?next=/instructor" },
+];
+
+const ROW = "flex items-center justify-between gap-6";
+
+// Modeled on cmu.edu's header: a black utility row with a breadcrumb and
+// square outlined buttons, then a Carnegie Red rule above the main row with
+// the SCS Learn band logo and white links. Brand assets are from the SCS
+// Learn logo kit (public/).
 export default function NavBar() {
   return (
-    <header className="bg-black text-white">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-stretch justify-between gap-4 pr-4 sm:pr-6 md:px-12 lg:px-16">
-        <Link href="/" aria-label="SCS Learn home" className="flex shrink-0 items-center gap-4">
-          <Image src="/brand/scs-learn-icon-red.png" alt="" width={64} height={64} priority className="h-16 w-16" />
-          <Image
-            src="/brand/scs-unitmark-white.png"
-            alt="Carnegie Mellon University School of Computer Science"
-            width={3833}
-            height={686}
-            priority
-            className="hidden h-8 w-auto lg:block"
-          />
-        </Link>
-
-        <div className="flex items-center gap-5 sm:gap-7">
-          <nav className="hidden md:flex items-center gap-7">
-            {LINKS.map(({ label, href }) => (
-              <a key={label} href={href} className="link-swipe text-[15px] font-bold">
-                {label}
+    <header className="sticky top-0 z-50 bg-black text-white">
+      <div className={`${CONTAINER} ${ROW} py-3`}>
+        <nav aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2 text-base font-semibold uppercase">
+            <li>
+              <a href="https://www.cmu.edu" className="link-swipe">
+                CMU.EDU
               </a>
-            ))}
-            <Link href="/instructor" className="link-swipe text-[15px] font-bold">
-              For instructors
+            </li>
+            <li aria-hidden className="text-white/50">
+              &gt;
+            </li>
+            <li>
+              <Link href="/" aria-current="page" className="link-swipe">
+                SCS Learn
+              </Link>
+            </li>
+          </ol>
+        </nav>
+        <div className="flex items-center gap-6">
+          {SIGN_IN.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              className="border border-white px-5 py-2.5 text-sm font-semibold whitespace-nowrap btn-fill-white hover:text-black"
+            >
+              {label}
             </Link>
-          </nav>
-          <Link
-            href="/login"
-            className="border border-white px-4 py-2 text-sm font-semibold transition-colors hover:bg-white hover:text-black"
-          >
-            Sign in
-          </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className={CONTAINER}>
+        <div className={`${ROW} relative h-10 border-t border-primary xl:h-12`}>
+          {/* At the top of the page the mark is twice the row's height, so half of it hangs over the hero below. */}
+          <NavLogo />
+          <div className="ml-auto flex items-center gap-6 self-stretch lg:gap-8">
+            <nav className="hidden items-center gap-6 md:flex lg:gap-8">
+              {LINKS.map(({ label, href }) => (
+                <a key={label} href={href} className="link-swipe whitespace-nowrap text-[15px] font-bold">
+                  {label}
+                </a>
+              ))}
+              <Link href="/instructor" className="link-swipe whitespace-nowrap text-[15px] font-bold">
+                For instructors
+              </Link>
+            </nav>
+            <button
+              type="button"
+              aria-label="Search"
+              className="flex aspect-square items-center justify-center self-stretch bg-primary text-white btn-fill-primary-dark"
+            >
+              <Search className="h-5 w-5" strokeWidth={2.5} aria-hidden />
+            </button>
+          </div>
         </div>
       </div>
     </header>

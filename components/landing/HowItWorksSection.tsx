@@ -128,17 +128,17 @@ export default function HowItWorksSection() {
   const step = STEPS[active];
 
   return (
-    <section id="how-it-works" className={`scroll-mt-4 bg-gray-light text-black ${sectionPadding}`}>
+    <section id="how-it-works" className={`scroll-mt-32 bg-gray-light text-black ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
-        <h2 className={`${heading2} reveal`}>Here&apos;s how it works</h2>
-        <p className="reveal mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-iron-gray">
+        <h2 className={heading2}>Here&apos;s how it works</h2>
+        <p className="mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-iron-gray">
           Three steps from signing in to working through a real Carnegie Mellon course.
         </p>
 
         <div
           role="tablist"
           aria-label="How it works steps"
-          className="reveal mt-10 flex max-w-full gap-6 overflow-x-auto border-b border-steel-gray [scrollbar-width:none] sm:gap-10"
+          className="mt-10 flex max-w-full gap-6 overflow-x-auto border-b border-steel-gray [scrollbar-width:none] sm:gap-10"
         >
           {STEPS.map(({ tab }, i) => (
             <button
@@ -162,7 +162,7 @@ export default function HowItWorksSection() {
           id="how-panel"
           role="tabpanel"
           aria-labelledby={`how-tab-${active}`}
-          className="reveal mt-8 grid grid-cols-1 overflow-hidden bg-white md:grid-cols-2"
+          className="mt-8 grid grid-cols-1 overflow-hidden bg-white md:grid-cols-2"
         >
           <div
             aria-hidden

@@ -51,7 +51,7 @@ export default function EmailSignupForm({
         <button
           type="submit"
           disabled={pending}
-          className="shrink-0 whitespace-nowrap bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-70"
+          className="shrink-0 whitespace-nowrap bg-primary px-6 py-3 text-sm font-semibold text-white btn-fill-primary-dark disabled:opacity-70"
         >
           {pending ? "Saving…" : buttonLabel}
         </button>

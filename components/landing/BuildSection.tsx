@@ -149,11 +149,11 @@ export default function BuildSection() {
   return (
     <section className={`bg-white text-black ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
-        <h2 className={`${heading2} max-w-3xl reveal`}>You&apos;ll learn how to build, and have the project to prove it.</h2>
+        <h2 className={`${heading2} max-w-3xl`}>You&apos;ll learn how to build, and have the project to prove it.</h2>
 
         <div className="mt-12 flex flex-col gap-14 lg:mt-16 lg:gap-20">
           {FEATURES.map(({ eyebrow, text, panel, graphic }, i) => (
-            <div key={eyebrow} className="reveal grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
+            <div key={eyebrow} className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
               <div className="md:col-span-5">
                 <p className={eyebrowStyle}>{eyebrow}</p>
                 <p className="mt-3 text-balance font-brand text-[1.75rem] font-semibold leading-[1.2] md:text-[2rem]">

@@ -163,7 +163,7 @@ function CreateCourseModal({
                   setStatus("input");
                   setError("");
                 }}
-                className="text-sm font-bold text-gray-500 px-4 py-2 hover:bg-gray-50 rounded"
+                className="text-sm font-bold text-gray-500 px-4 py-2 btn-fill-gray-50 rounded"
               >
                 <ArrowLeft size={14} className="inline mr-1" />
                 Back
@@ -172,7 +172,7 @@ function CreateCourseModal({
                 type="button"
                 onClick={submit}
                 disabled={preview.fileCount === 0}
-                className="text-sm font-bold bg-black text-white px-4 py-2 rounded hover:bg-iron-gray disabled:opacity-40"
+                className="text-sm font-bold bg-black text-white px-4 py-2 rounded btn-fill-iron-gray disabled:opacity-40"
               >
                 Create & import
               </button>
@@ -238,7 +238,7 @@ function CreateCourseModal({
                 </p>
                 <a
                   href={`/api/google/oauth/start?return_to=${encodeURIComponent("/instructor")}`}
-                  className="shrink-0 text-xs font-bold text-black border border-black px-3 py-1.5 rounded hover:bg-gray-50"
+                  className="shrink-0 text-xs font-bold text-black border border-black px-3 py-1.5 rounded btn-fill-gray-50"
                 >
                   Connect Google Drive
                 </a>
@@ -278,7 +278,7 @@ function CreateCourseModal({
                 type="button"
                 onClick={onClose}
                 disabled={status === "scanning"}
-                className="text-sm font-bold text-gray-500 px-4 py-2 hover:bg-gray-50 rounded disabled:opacity-40"
+                className="text-sm font-bold text-gray-500 px-4 py-2 btn-fill-gray-50 rounded disabled:opacity-40"
               >
                 Cancel
               </button>
@@ -286,7 +286,7 @@ function CreateCourseModal({
                 type="button"
                 onClick={scanFolder}
                 disabled={!folderUrl.trim() || status === "scanning"}
-                className="text-sm font-bold bg-black text-white px-4 py-2 rounded hover:bg-iron-gray disabled:opacity-40 inline-flex items-center gap-2"
+                className="text-sm font-bold bg-black text-white px-4 py-2 rounded btn-fill-iron-gray disabled:opacity-40 inline-flex items-center gap-2"
               >
                 {status === "scanning" && <Loader2 size={14} className="animate-spin" />}
                 Scan folder
@@ -340,7 +340,7 @@ export default function CourseListSection({ courses: initialCourses }: { courses
         <button
           type="button"
           onClick={() => setShowModal(true)}
-          className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark shrink-0"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white btn-fill-primary-dark shrink-0"
         >
           <Plus size={16} />
           New course
@@ -351,7 +351,7 @@ export default function CourseListSection({ courses: initialCourses }: { courses
         <button
           type="button"
           onClick={() => setShowModal(true)}
-          className="w-full border-2 border-dashed border-gray-300 rounded-xl p-10 text-center hover:border-gray-400 hover:bg-white transition"
+          className="w-full border-2 border-dashed border-gray-300 rounded-xl p-10 text-center hover:border-gray-400 btn-fill-white"
         >
           <Plus size={24} className="mx-auto mb-2 text-gray-400" />
           <p className="text-sm font-bold mb-1">Create your first course</p>

@@ -70,7 +70,7 @@ export default async function AdminPage() {
                     <button
                       type="submit"
                       title="Remove instructor access (courses they own are kept)"
-                      className="rounded-md px-2 py-1 text-xs font-semibold text-gray-500 hover:bg-red-50 hover:text-red-700"
+                      className="rounded-md px-2 py-1 text-xs font-semibold text-gray-500 btn-fill-red-50 hover:text-red-700"
                     >
                       Remove
                     </button>
@@ -121,7 +121,7 @@ export default async function AdminPage() {
                                 <button
                                   type="submit"
                                   aria-label={`Remove ${i.name} from ${course.code}`}
-                                  className="rounded-md p-1 text-gray-400 hover:bg-red-50 hover:text-red-700"
+                                  className="rounded-md p-1 text-gray-400 btn-fill-red-50 hover:text-red-700"
                                 >
                                   <X size={14} />
                                 </button>
@@ -160,7 +160,7 @@ export default async function AdminPage() {
                     <input type="hidden" name="email" value={a.email} />
                     <button
                       type="submit"
-                      className="rounded-md px-2 py-1 text-xs font-semibold text-gray-500 hover:bg-red-50 hover:text-red-700"
+                      className="rounded-md px-2 py-1 text-xs font-semibold text-gray-500 btn-fill-red-50 hover:text-red-700"
                     >
                       Remove
                     </button>

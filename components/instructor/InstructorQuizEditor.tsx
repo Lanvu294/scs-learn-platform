@@ -113,7 +113,7 @@ function QuestionEditorCard({
           type="button"
           onClick={save}
           disabled={isPending}
-          className="text-base font-bold text-black border border-black px-5 py-2.5 hover:bg-gray-50 disabled:opacity-60 inline-flex items-center gap-2"
+          className="text-base font-bold text-black border border-black px-5 py-2.5 btn-fill-gray-50 disabled:opacity-60 inline-flex items-center gap-2"
         >
           {isPending && <Loader2 size={16} className="animate-spin" />}
           Save question
@@ -195,7 +195,7 @@ export default function InstructorQuizEditor({
             type="button"
             onClick={addQuestion}
             disabled={isAdding}
-            className="self-start text-base font-semibold text-black border border-black px-5 py-2.5 hover:bg-gray-50 disabled:opacity-60 inline-flex items-center gap-2"
+            className="self-start text-base font-semibold text-black border border-black px-5 py-2.5 btn-fill-gray-50 disabled:opacity-60 inline-flex items-center gap-2"
           >
             {isAdding ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
             Add question

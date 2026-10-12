@@ -173,7 +173,7 @@ export default function QuizBlock({
           <button
             type="button"
             onClick={reset}
-            className="flex items-center gap-1.5 text-sm border border-gray-300 px-3 py-1.5 text-gray-700 hover:bg-gray-50"
+            className="flex items-center gap-1.5 text-sm border border-gray-300 px-3 py-1.5 text-gray-700 btn-fill-gray-50"
           >
             <RotateCcw size={13} />
             Try again
@@ -244,7 +244,7 @@ export default function QuizBlock({
                   className={`p-1 rounded ${
                     score?.feedbackRating === "up"
                       ? "text-green-600 bg-green-50"
-                      : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+                      : "text-gray-400 hover:text-gray-600 btn-fill-gray-50"
                   }`}
                 >
                   <ThumbsUp size={14} />
@@ -257,7 +257,7 @@ export default function QuizBlock({
                   className={`p-1 rounded ${
                     score?.feedbackRating === "down"
                       ? "text-red-600 bg-red-50"
-                      : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+                      : "text-gray-400 hover:text-gray-600 btn-fill-gray-50"
                   }`}
                 >
                   <ThumbsDown size={14} />
