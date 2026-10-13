@@ -56,7 +56,8 @@ export default function Footer() {
             height={409}
             className="h-auto w-54"
           />
-          <address className="mt-10 text-[15px] leading-snug not-italic">
+          <p className="mt-10 text-2xl font-bold tracking-tight">SCS Learn</p>
+          <address className="mt-3 text-[15px] leading-snug not-italic">
             5000 Forbes Avenue
             <br />
             Pittsburgh, PA 15213

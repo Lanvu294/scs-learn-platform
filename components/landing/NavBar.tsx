@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Search } from "lucide-react";
 import NavLogo from "./NavLogo";
 import { wideContainer as CONTAINER } from "./ui/layout";
 
@@ -21,6 +20,14 @@ export default function NavBar() {
         <div className={`${ROW} relative h-14 border-t border-primary xl:h-16`}>
           {/* At the top of the page the mark is taller than the row, so part of it hangs over the hero below. */}
           <NavLogo />
+          {/* The site name, set apart from the school mark by clear space and a rule
+              (never locked up with it). The offset clears the mark at its widest. */}
+          <Link
+            href="/"
+            className="ml-[21rem] hidden items-center self-stretch border-l border-white/30 pl-6 text-2xl font-bold tracking-tight whitespace-nowrap lg:flex xl:ml-[24rem] xl:text-[1.7rem]"
+          >
+            SCS Learn
+          </Link>
           <div className="ml-auto flex items-center gap-6 self-stretch lg:gap-8">
             <nav className="hidden items-center gap-6 md:flex lg:gap-8">
               {LINKS.map(({ label, href }) => (
@@ -38,13 +45,6 @@ export default function NavBar() {
             >
               Sign in
             </Link>
-            <button
-              type="button"
-              aria-label="Search"
-              className="flex aspect-square items-center justify-center self-stretch bg-primary text-white btn-fill-primary-dark"
-            >
-              <Search className="h-5 w-5" strokeWidth={2.5} aria-hidden />
-            </button>
           </div>
         </div>
       </div>

@@ -75,6 +75,9 @@ export default function HeroSection() {
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
 
         <div className="mx-auto w-full max-w-7xl px-4 pt-28 pb-16 sm:px-6 md:px-12 lg:px-16 lg:pt-36 lg:pb-20">
+          <p className="mb-4 text-base font-bold uppercase tracking-[0.12em] text-white">
+            SCS Learn
+          </p>
           <h1 className={`${heading1} max-w-3xl`}>
             Take real Carnegie Mellon courses.
           </h1>
