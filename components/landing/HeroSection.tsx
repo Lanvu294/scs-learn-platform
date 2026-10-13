@@ -58,34 +58,44 @@ const COURSES: CarouselCourse[] = [
 export default function HeroSection() {
   return (
     <>
-      {/* cmu.edu's hero: full-bleed photo under a dark scrim, white serif headline, red-arrow CTA. */}
-      <section className="relative isolate flex min-h-[32rem] items-center bg-black text-white lg:min-h-[38rem]">
-        <Image
-          src="/hero-background.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          // The file is already a compressed 2000px WebP, the largest copy we
-          // have. Re-encoding it through the optimizer (q75) compounded the
-          // loss, so it's served exactly as-is.
-          unoptimized
-          className="-z-20 object-cover"
-        />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
+      {/* Split hero: copy on a black panel, the learner photo filling the right
+          half. The photo's background is bright, so text never sits on it. */}
+      <section className="grid bg-black text-white lg:min-h-[36rem] lg:grid-cols-2">
+        <div className="relative order-1 aspect-[3/2] lg:order-2 lg:aspect-auto">
+          <Image
+            src="/landing/photos/learner-headphones.jpg"
+            alt="A student in headphones, focused on her laptop"
+            fill
+            priority
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover object-[50%_35%]"
+          />
+        </div>
 
-        <div className="mx-auto w-full max-w-7xl px-4 pt-16 pb-16 sm:px-6 md:px-12 lg:px-16 lg:pt-24 lg:pb-20">
-          <p className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">SCS Learn</p>
-          <div aria-hidden className="mt-3 mb-4 h-1 w-16 bg-primary lg:mt-4 lg:mb-5" />
-          <h1 className={`${heading2} max-w-3xl`}>
-            Take real Carnegie Mellon courses.
-          </h1>
-          <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-white/85">
-            Courses from the Kenneth C. Griffin School of Computer Science, taught by the professors who built them,
-            with an AI tutor trained on the material.
-          </p>
-          <div className="mt-8">
-            <EmailSignupForm buttonLabel="Claim my spot" source="hero" />
+        <div className="order-2 flex items-center px-4 py-12 sm:px-6 md:px-12 lg:order-1 lg:px-16 lg:py-20">
+          <div className="max-w-xl">
+            <p className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">SCS Learn</p>
+            <div aria-hidden className="mt-3 mb-4 h-1 w-16 bg-primary lg:mt-4 lg:mb-5" />
+            <h1 className={heading2}>Learn computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
+            <p className="mt-5 text-pretty text-lg leading-relaxed text-white/85">
+              Watch lectures and complete courseware from Carnegie Mellon&apos;s world-leading School of Computer
+              Science, where computing meets biology, robotics, design, and more.
+            </p>
+            <div className="mt-8">
+              <EmailSignupForm buttonLabel="Claim my spot" source="hero" />
+            </div>
+            <p className="mt-6 text-xs text-white/60">
+              Carnegie Mellon is ranked #1 in graduate computer science by{" "}
+              <a
+                href="https://www.cmu.edu/news/stories/archives/2026/april/cmu-ranks-no-1-in-2026-us-news-graduate-rankings"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-white"
+              >
+                U.S. News &amp; World Report (2026)
+              </a>
+              .
+            </p>
           </div>
         </div>
       </section>
