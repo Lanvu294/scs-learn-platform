@@ -83,15 +83,15 @@ export default function HeroSection() {
               Courseware from Carnegie Mellon&apos;s world-leading School of Computer Science, where computing meets
               AI, biology, robotics, design, and more.
             </p>
-            <p className="mt-8 text-sm font-semibold text-white">Be first in when the courseware opens.</p>
+            <p className="mt-8 text-sm font-semibold text-white">Courseware coming soon. Sign up to be first in.</p>
             <EmailSignupForm buttonLabel="Sign up early" source="hero" className="mt-2" />
             <a
               href={SCS_LEARN_YOUTUBE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-base font-semibold text-white/90 hover:text-white"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-white/70 hover:text-white"
             >
-              <YouTubeIcon className="h-5 w-5" />
+              <YouTubeIcon className="h-4 w-4" />
               <span className="link-swipe">In the meantime, watch our lectures on YouTube</span>
             </a>
           </div>
