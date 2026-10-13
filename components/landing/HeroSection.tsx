@@ -2,7 +2,7 @@ import Image from "next/image";
 import CourseCarousel, { type CarouselCourse } from "./CourseCarousel";
 import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
-import { heading1 } from "./ui/typography";
+import { heading2 } from "./ui/typography";
 
 const COURSES: CarouselCourse[] = [
   {
@@ -76,12 +76,12 @@ export default function HeroSection() {
 
         <div className="mx-auto w-full max-w-7xl px-4 pt-16 pb-16 sm:px-6 md:px-12 lg:px-16 lg:pt-24 lg:pb-20">
           <p className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">SCS Learn</p>
-          <div aria-hidden className="mt-5 mb-6 h-1 w-16 bg-primary lg:mt-6 lg:mb-7" />
-          <h1 className={`${heading1} max-w-3xl`}>
+          <div aria-hidden className="mt-3 mb-4 h-1 w-16 bg-primary lg:mt-4 lg:mb-5" />
+          <h1 className={`${heading2} max-w-3xl`}>
             Take real Carnegie Mellon courses.
           </h1>
           <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-white/85">
-            Real courses from the Kenneth C. Griffin School of Computer Science, taught by the professors who built them,
+            Courses from the Kenneth C. Griffin School of Computer Science, taught by the professors who built them,
             with an AI tutor trained on the material.
           </p>
           <div className="mt-8">
