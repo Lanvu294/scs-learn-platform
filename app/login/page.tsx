@@ -58,7 +58,7 @@ export default async function LoginPage({
         <div className="max-w-md">
           <p className="font-serif text-4xl font-semibold leading-tight">Carnegie Mellon courseware, free to start.</p>
           <p className="mt-4 text-base leading-relaxed text-white/80">
-            Lectures, notes, autograded coursework and quizzes from the Kenneth C. Griffin School of Computer Science.
+            Watch the lectures and get instant feedback from our autograders. AI tutor coming soon.
           </p>
         </div>
       </section>
