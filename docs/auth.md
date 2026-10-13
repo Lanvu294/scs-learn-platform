@@ -51,6 +51,20 @@ Setup (one time):
    Authentication → URL Configuration → Redirect URLs (Google returns to
    `/auth/callback`).
 
+## Pausing new sign-ups (one switch)
+
+**Supabase → Authentication → Sign In / Providers → "Allow new users to sign up"**
+
+- **Off** = sign-ups paused. Supabase refuses every new account - email/password
+  *and* first-time Google sign-ins - and the login page hides "Create account"
+  and says new accounts are paused. Everyone who already has an account keeps
+  signing in normally (password or Google).
+- **On** = open again. No code change or redeploy needed either way; the app
+  reads the switch live (`lib/auth/settings.ts`).
+
+The landing page's "Sign up early" waitlist form is separate (it only stores an
+email) and keeps working while sign-ups are paused.
+
 ## Supabase dashboard settings
 
 **Authentication → Sign In / Providers → Email**
