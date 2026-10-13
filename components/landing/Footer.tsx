@@ -42,22 +42,23 @@ const BOTTOM_LINKS = [{ label: "Legal Info", href: "https://www.cmu.edu/legal/" 
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-// Modeled on cs.cmu.edu's footer: the vertical mark hanging from the top edge,
-// link columns under red rules, and a white legal bar.
+// Modeled on cs.cmu.edu's footer: the SCS mark with the site name and address
+// set below it (never locked up with it), link columns under red rules, and a
+// white legal bar.
 export default function Footer() {
   return (
     <footer className="bg-gray-light text-black">
-      <div className={`${wideContainer} grid grid-cols-1 gap-12 pb-12 lg:grid-cols-[13.5rem_1fr] lg:gap-16`}>
-        <div className="flex flex-col items-start">
+      <div className={`${wideContainer} grid grid-cols-1 gap-12 pb-12 lg:grid-cols-[16rem_1fr] lg:gap-16`}>
+        <div className="flex flex-col items-start pt-12">
           <Image
-            src="/scs-2026-vertical-red.svg"
+            src="/scs-2026-primary-red-white.svg"
             alt="Carnegie Mellon University Kenneth C. Griffin School of Computer Science"
-            width={229}
-            height={409}
-            className="h-auto w-54"
+            width={685}
+            height={192}
+            className="h-auto w-64"
           />
-          <p className="mt-10 text-2xl font-bold tracking-tight">SCS Learn</p>
-          <address className="mt-3 text-[15px] leading-snug not-italic">
+          <p className="mt-10 text-xl font-bold tracking-tight">SCS Learn</p>
+          <address className="mt-2 text-[15px] leading-snug not-italic text-gray-700">
             5000 Forbes Avenue
             <br />
             Pittsburgh, PA 15213
@@ -66,16 +67,9 @@ export default function Footer() {
             href={SCS_LEARN_YOUTUBE_URL}
             {...external}
             aria-label="SCS Learn on YouTube"
-            className="mt-6 text-black hover:text-primary"
+            className="mt-5 text-black hover:text-primary"
           >
             <YouTubeIcon className="h-6 w-6" />
-          </a>
-          <a
-            href="https://www.cmu.edu"
-            {...external}
-            className="mt-8 border border-black px-4 py-2.5 text-sm btn-fill-black hover:text-white"
-          >
-            CMU.EDU
           </a>
         </div>
 
