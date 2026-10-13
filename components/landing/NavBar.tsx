@@ -9,54 +9,17 @@ const LINKS = [
   { label: "FAQ", href: "#faq" },
 ];
 
-const SIGN_IN = [
-  { label: "Student sign in", href: "/login" },
-  { label: "Instructor sign in", href: "/login?next=/instructor" },
-];
-
 const ROW = "flex items-center justify-between gap-6";
 
-// Modeled on cmu.edu's header: a black utility row with a breadcrumb and
-// square outlined buttons, then a Carnegie Red rule above the main row with
-// the SCS Learn band logo and white links. Brand assets are from the SCS
-// Learn logo kit (public/).
+// A single black row under a Carnegie Red rule: the SCS mark, white links,
+// and one sign-in button (the login page itself offers the instructor path).
+// Brand assets are from the SCS Learn logo kit (public/).
 export default function NavBar() {
   return (
     <header className="sticky top-0 z-50 bg-black text-white">
-      <div className={`${CONTAINER} ${ROW} py-3`}>
-        <nav aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-base font-semibold uppercase">
-            <li>
-              <a href="https://www.cmu.edu" className="link-swipe">
-                CMU.EDU
-              </a>
-            </li>
-            <li aria-hidden className="text-white/50">
-              &gt;
-            </li>
-            <li>
-              <Link href="/" aria-current="page" className="link-swipe">
-                SCS Learn
-              </Link>
-            </li>
-          </ol>
-        </nav>
-        <div className="flex items-center gap-6">
-          {SIGN_IN.map(({ label, href }) => (
-            <Link
-              key={label}
-              href={href}
-              className="border border-white px-5 py-2.5 text-sm font-semibold whitespace-nowrap btn-fill-white hover:text-black"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-      </div>
-
       <div className={CONTAINER}>
-        <div className={`${ROW} relative h-10 border-t border-primary xl:h-12`}>
-          {/* At the top of the page the mark is twice the row's height, so half of it hangs over the hero below. */}
+        <div className={`${ROW} relative h-14 border-t border-primary xl:h-16`}>
+          {/* At the top of the page the mark is taller than the row, so part of it hangs over the hero below. */}
           <NavLogo />
           <div className="ml-auto flex items-center gap-6 self-stretch lg:gap-8">
             <nav className="hidden items-center gap-6 md:flex lg:gap-8">
@@ -69,6 +32,12 @@ export default function NavBar() {
                 For instructors
               </Link>
             </nav>
+            <Link
+              href="/login"
+              className="border border-white px-5 py-2 text-sm font-semibold whitespace-nowrap btn-fill-white hover:text-black"
+            >
+              Sign in
+            </Link>
             <button
               type="button"
               aria-label="Search"

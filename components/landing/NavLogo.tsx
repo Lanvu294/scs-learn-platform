@@ -40,7 +40,7 @@ export default function NavLogo() {
         height={111}
         loading="eager"
         // The row's height less its 1px red top border, so the mark sits between the rule and the row's bottom edge.
-        className={`${swap} h-[calc(2.5rem-1px)] w-auto max-w-none xl:h-[calc(3rem-1px)] ${
+        className={`${swap} h-[calc(3.5rem-1px)] w-auto max-w-none xl:h-[calc(4rem-1px)] ${
           compact ? "relative" : "absolute top-0 left-0 scale-200 opacity-0"
         }`}
       />
