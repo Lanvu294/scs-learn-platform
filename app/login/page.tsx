@@ -34,10 +34,17 @@ export default async function LoginPage({
 
   return (
     <main className="grid min-h-screen bg-white text-black lg:grid-cols-[1.1fr_1fr]">
-      {/* Brand panel (desktop): the landing page's campus photo + the 2026 SCS mark. */}
+      {/* Brand panel (desktop): close-up of the landing-page hero learner + the 2026 SCS mark. */}
       <section className="relative isolate hidden flex-col justify-between overflow-hidden bg-black p-10 text-white lg:flex xl:p-14">
-        <Image src="/hero-background.webp" alt="" fill priority unoptimized sizes="55vw" className="-z-20 object-cover" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/55 to-black/40" />
+        <Image
+          src="/landing/photos/learner-headphones.jpg"
+          alt=""
+          fill
+          priority
+          sizes="55vw"
+          className="-z-20 object-cover object-[52%_40%]"
+        />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/25 to-black/50" />
         <Link href="/" aria-label="SCS Learn home" className="block self-start">
           <Image
             src="/scs-2026-primary-red-white.svg"
@@ -49,7 +56,7 @@ export default async function LoginPage({
           />
         </Link>
         <div className="max-w-md">
-          <p className="font-serif text-4xl font-semibold leading-tight">Take real Carnegie Mellon courses.</p>
+          <p className="font-serif text-4xl font-semibold leading-tight">Carnegie Mellon courseware, free to start.</p>
           <p className="mt-4 text-base leading-relaxed text-white/80">
             Lectures, notes, autograded coursework and quizzes from the Kenneth C. Griffin School of Computer Science.
           </p>
