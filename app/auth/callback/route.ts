@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { safeNextPath } from "@/lib/auth/redirect";
 
 /**
- * Where the magic-link email lands. @supabase/ssr uses the PKCE flow, so the
+ * Where Google sign-in and PKCE email links land. @supabase/ssr uses the PKCE flow, so the
  * link carries a ?code= that's only redeemable alongside the code-verifier
  * cookie set when the link was requested - i.e. the link must be opened in
  * the same browser it was requested from.
@@ -22,7 +22,13 @@ export async function GET(request: NextRequest) {
   }
 
   const loginUrl = new URL("/login", origin);
-  loginUrl.searchParams.set("error", "link_invalid");
+  // Providers report failures as ?error=... (e.g. access_denied when the user
+  // cancels Google's consent screen).
+  const providerError = searchParams.get("error");
+  loginUrl.searchParams.set(
+    "error",
+    providerError === "access_denied" ? "google_cancelled" : providerError ? "google_failed" : "link_invalid"
+  );
   loginUrl.searchParams.set("next", next);
   return NextResponse.redirect(loginUrl);
 }

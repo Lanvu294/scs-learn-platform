@@ -15,17 +15,11 @@ const COLUMNS = [
     ],
   },
   {
-    title: "Students",
+    title: "Account",
     links: [
       { label: "Sign in", href: "/login" },
-      { label: "My courses", href: "/student" },
-    ],
-  },
-  {
-    title: "Instructors",
-    links: [
-      { label: "Instructor sign in", href: "/login?next=/instructor" },
-      { label: "Instructor dashboard", href: "/instructor" },
+      { label: "My learning", href: "/student" },
+      { label: "Teaching", href: "/instructor" },
     ],
   },
   {
@@ -65,7 +59,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col lg:pt-12">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3">
             {COLUMNS.map((col) => (
               <div key={col.title}>
                 <h3 className="border-b-2 border-primary pb-3 font-sans text-lg font-bold">{col.title}</h3>

@@ -3,14 +3,14 @@
 import { useActionState, useEffect, useState } from "react";
 import { Eye, EyeOff, Mail } from "lucide-react";
 import {
+  signInWithGoogle,
   requestPasswordReset,
-  sendMagicLink,
   signInWithPassword,
   signUpWithPassword,
   type AuthFormState,
 } from "@/lib/auth/actions";
 
-type Mode = "signin" | "signup" | "forgot" | "link";
+type Mode = "signin" | "signup" | "forgot";
 
 /** Supabase's per-address cooldown between auth emails. */
 const RESEND_COOLDOWN_SECONDS = 60;
@@ -84,30 +84,44 @@ const SENT_COPY = {
   reset: { title: "Check your inbox", body: "If there's an account for this address, we sent a password reset link to" },
 } as const;
 
+/** Google's standard multicolor "G" (their sign-in branding guidelines call for it on Google buttons). */
+function GoogleG() {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden className="h-[18px] w-[18px]">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+    </svg>
+  );
+}
+
 export default function LoginForm({
   next,
   initialError,
   devInstant = false,
+  initialMode = "signin",
 }: {
   next: string;
   initialError?: string;
   devInstant?: boolean;
+  /** /login?mode=signup opens on Create account. */
+  initialMode?: "signin" | "signup";
 }) {
-  const [mode, setMode] = useState<Mode>("signin");
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState("");
   const [signInState, signInAction, signingIn] = useStampedAction(signInWithPassword);
   const [signUpState, signUpAction, signingUp] = useStampedAction(signUpWithPassword);
   const [resetState, resetAction, resetting] = useStampedAction(requestPasswordReset);
-  const [linkState, linkAction, linking] = useStampedAction(sendMagicLink);
   const now = useNow();
   // initialError (e.g. an expired link) shows until the user tries something.
   const [showInitialError, setShowInitialError] = useState(true);
 
   const sentState =
-    mode === "signup" ? signUpState : mode === "forgot" ? resetState : mode === "link" ? linkState : null;
+    mode === "signup" ? signUpState : mode === "forgot" ? resetState : null;
   if (sentState?.status === "sent") {
     const copy = SENT_COPY[sentState.kind];
-    const resendAction = sentState.kind === "reset" ? resetAction : sentState.kind === "link" ? linkAction : null;
+    const resendAction = sentState.kind === "reset" ? resetAction : null;
     const remaining = secondsLeft(sentState, now);
     return (
       <div className="space-y-5">
@@ -126,10 +140,10 @@ export default function LoginForm({
             <input type="hidden" name="next" value={sentState.next} />
             <button
               type="submit"
-              disabled={resetting || linking || remaining > 0}
+              disabled={resetting || remaining > 0}
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 btn-fill-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {resetting || linking ? "Sending…" : remaining > 0 ? `Resend in ${remaining}s` : "Resend email"}
+              {resetting ? "Sending…" : remaining > 0 ? `Resend in ${remaining}s` : "Resend email"}
             </button>
           </form>
         )}
@@ -236,39 +250,23 @@ export default function LoginForm({
         </form>
       )}
 
-      {mode === "link" && (
-        <form action={linkAction} className="space-y-5">
-          <input type="hidden" name="next" value={next} />
-          <div>
-            <p className="font-semibold">Sign in with an email link</p>
-            <p className="mt-1 text-sm text-gray-600">No password needed - we&apos;ll email you a one-time link.</p>
-          </div>
-          {emailField}
-          <ErrorText state={linkState} />
-          <button type="submit" disabled={linking || secondsLeft(linkState, now) > 0} className={primaryButton}>
-            {linking ? (devInstant ? "Signing in…" : "Sending…") : devInstant ? "Sign in (dev, no email)" : "Email me a link"}
-          </button>
-          <button type="button" onClick={() => switchMode("signin")} className={`w-full text-center text-sm ${linkButton}`}>
-            Sign in with a password instead
-          </button>
-        </form>
-      )}
-
-      {mode === "signin" && (
+      {(mode === "signin" || mode === "signup") && (
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-xs text-gray-400">
             <span className="h-px flex-1 bg-gray-200" />
             or
             <span className="h-px flex-1 bg-gray-200" />
           </div>
-          <button
-            type="button"
-            onClick={() => switchMode("link")}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 btn-fill-gray-50"
-          >
-            <Mail size={15} />
-            Email me a sign-in link instead
-          </button>
+          <form action={signInWithGoogle} onSubmit={() => setShowInitialError(false)}>
+            <input type="hidden" name="next" value={next} />
+            <button
+              type="submit"
+              className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 btn-fill-gray-50"
+            >
+              <GoogleG />
+              Continue with Google
+            </button>
+          </form>
         </div>
       )}
     </div>

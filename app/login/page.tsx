@@ -8,23 +8,25 @@ import { isDevInstantSignIn } from "@/lib/auth/actions";
 
 const ERROR_MESSAGES: Record<string, string> = {
   link_invalid: "That sign-in link is invalid or has expired. Request a new one below.",
+  google_disabled: "Google sign-in isn't switched on yet. Use your email and password for now.",
+  google_cancelled: "Google sign-in was cancelled. Try again, or use your email below.",
+  google_failed: "Google sign-in didn't work. Try again, or use your email below.",
 };
 
 /**
- * One login for everyone - students and instructors share Supabase Auth, and
- * the role comes from whether the account is linked to an instructors row
- * (lib/instructor/data/current-instructor.ts). The instructor variant is just
- * copy: it's shown whenever the sign-in was triggered from an instructor page,
- * or picked with the toggle at the bottom.
+ * One sign-in for everyone. Students, instructors and admins all have a single
+ * Supabase Auth account; roles come from the access lists (instructors row,
+ * admins table), so there's nothing role-specific to ask here. ?next= returns
+ * people to the page that sent them, /dashboard routes by role otherwise, and
+ * ?mode=signup opens on the Create account tab.
  */
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string; error?: string }>;
+  searchParams: Promise<{ next?: string; error?: string; mode?: string }>;
 }) {
-  const { next: rawNext, error } = await searchParams;
+  const { next: rawNext, error, mode } = await searchParams;
   const next = safeNextPath(rawNext);
-  const isInstructor = next.startsWith("/instructor");
 
   if (await getSessionUser()) {
     redirect(next);
@@ -65,37 +67,17 @@ export default async function LoginPage({
 
         <div className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
           <div className="w-full max-w-sm">
-            <p className="text-xs font-bold uppercase tracking-[0.08em] text-primary">
-              {isInstructor ? "Instructors" : "Students"}
-            </p>
-            <h1 className="mt-2 font-serif text-4xl font-semibold">{isInstructor ? "Instructor sign in" : "Sign in"}</h1>
+            <h1 className="font-serif text-4xl font-semibold">Sign in to SCS Learn</h1>
             <p className="mt-2 mb-8 text-sm leading-relaxed text-gray-600">
-              {isInstructor
-                ? "Sign in, or create an account with the email your department registered for instructor access."
-                : "Sign in to pick up where you left off, or create an account to start a course."}
+              One account for everyone - students, instructors and admins. We&apos;ll take you to the right place
+              after you sign in.
             </p>
             <LoginForm
               next={next}
               initialError={error ? ERROR_MESSAGES[error] : undefined}
               devInstant={await isDevInstantSignIn()}
+              initialMode={mode === "signup" ? "signup" : "signin"}
             />
-            <p className="mt-8 border-t border-gray-100 pt-5 text-sm text-gray-600">
-              {isInstructor ? (
-                <>
-                  Taking a course?{" "}
-                  <Link href="/login?next=/student" className="font-semibold text-primary hover:underline">
-                    Student sign in
-                  </Link>
-                </>
-              ) : (
-                <>
-                  Teaching a course?{" "}
-                  <Link href="/login?next=/instructor" className="font-semibold text-primary hover:underline">
-                    Instructor sign in
-                  </Link>
-                </>
-              )}
-            </p>
           </div>
         </div>
       </section>

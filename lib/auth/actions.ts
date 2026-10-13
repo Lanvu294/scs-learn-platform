@@ -86,6 +86,65 @@ async function emailRedirect(next: string): Promise<string> {
   return url.toString();
 }
 
+// ------------------------------------------------------------------ google --
+
+/**
+ * "Continue with Google": Supabase sends the browser to Google's consent
+ * screen, Google returns to Supabase, and Supabase returns to /auth/callback
+ * with a code that route exchanges for a session (PKCE - the verifier cookie
+ * is set here, in the same browser). No email is sent, so no rate limits.
+ *
+ * Google-verified addresses arrive already confirmed, so a Google sign-in with
+ * an address on the instructors/admins lists gets those roles straight away,
+ * and Supabase links it to an existing email/password account with the same
+ * address. Requires the Google provider to be enabled in Supabase (see
+ * docs/auth.md); until then this lands back on /login with an explanation.
+ */
+/**
+ * Whether the Google provider is switched on in Supabase. signInWithOAuth
+ * doesn't check - with the provider off it still returns a URL, and the
+ * browser lands on a raw JSON error from Supabase - so ask the public auth
+ * settings endpoint first.
+ */
+async function googleProviderEnabled(): Promise<boolean> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/settings`, {
+      headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! },
+      // Never cached: a stale "off" would keep blocking Google sign-in after
+      // it's switched on. It's one tiny request per button click.
+      cache: "no-store",
+    });
+    if (!res.ok) return true; // can't tell - let Supabase decide
+    const settings = (await res.json()) as { external?: Record<string, boolean> };
+    return Boolean(settings.external?.google);
+  } catch {
+    return true;
+  }
+}
+
+export async function signInWithGoogle(formData: FormData): Promise<void> {
+  const next = safeNextPath(String(formData.get("next") ?? ""));
+  if (!(await googleProviderEnabled())) {
+    redirect(`/login?error=google_disabled&next=${encodeURIComponent(next)}`);
+  }
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: await emailRedirect(next),
+      // Always show the account chooser, so someone signed in to a personal
+      // Google account can pick their Andrew one.
+      queryParams: { prompt: "select_account" },
+    },
+  });
+  if (error || !data.url) {
+    console.error("signInWithGoogle:", error?.code ?? error?.status, error?.message);
+    const reason = error && /not enabled|unsupported provider/i.test(error.message) ? "google_disabled" : "google_failed";
+    redirect(`/login?error=${reason}&next=${encodeURIComponent(next)}`);
+  }
+  redirect(data.url);
+}
+
 // ---------------------------------------------------------------- password --
 
 export async function signInWithPassword(_prev: AuthFormState, formData: FormData): Promise<AuthFormState> {
