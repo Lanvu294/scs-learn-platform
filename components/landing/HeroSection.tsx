@@ -64,12 +64,12 @@ export default function HeroSection() {
       <section className="grid bg-black text-white lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div className="relative order-1 aspect-[3/2] lg:order-2 lg:aspect-auto">
           <Image
-            src="/landing/photos/learner-headphones.jpg"
+            src="/landing/photos/learner-headphones-medium.jpg"
             alt="A student in headphones, focused on her laptop"
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover object-[50%_40%]"
+            className="object-cover object-[88%_50%]"
           />
         </div>
 
