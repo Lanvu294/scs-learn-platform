@@ -5,12 +5,14 @@ import LoginForm from "@/components/auth/LoginForm";
 import { getSessionUser } from "@/lib/auth/session";
 import { safeNextPath } from "@/lib/auth/redirect";
 import { isDevInstantSignIn } from "@/lib/auth/actions";
+import { getAuthSettings } from "@/lib/auth/settings";
 
 const ERROR_MESSAGES: Record<string, string> = {
   link_invalid: "That sign-in link is invalid or has expired. Request a new one below.",
   google_disabled: "Google sign-in isn't switched on yet. Use your email and password for now.",
   google_cancelled: "Google sign-in was cancelled. Try again, or use your email below.",
   google_failed: "Google sign-in didn't work. Try again, or use your email below.",
+  signups_paused: "New accounts are paused for now. If you already have an account, sign in with it.",
 };
 
 /**
@@ -77,6 +79,7 @@ export default async function LoginPage({
               initialError={error ? ERROR_MESSAGES[error] : undefined}
               devInstant={await isDevInstantSignIn()}
               initialMode={mode === "signup" ? "signup" : "signin"}
+              signupsPaused={(await getAuthSettings()).signupsPaused}
             />
           </div>
         </div>

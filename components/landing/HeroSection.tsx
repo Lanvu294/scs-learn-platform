@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import CourseCarousel, { type CarouselCourse } from "./CourseCarousel";
 import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
@@ -84,6 +85,12 @@ export default function HeroSection() {
             </p>
             <p className="mt-6 text-sm font-semibold text-white">Coming soon. Sign up to be first in.</p>
             <EmailSignupForm buttonLabel="Sign up early" source="hero" className="mt-2" />
+            <p className="mt-3 text-sm text-white/75">
+              Already have an account?{" "}
+              <Link href="/login" className="font-semibold text-white">
+                <span className="link-swipe">Sign in</span> &rarr;
+              </Link>
+            </p>
             <a
               href={SCS_LEARN_YOUTUBE_URL}
               target="_blank"

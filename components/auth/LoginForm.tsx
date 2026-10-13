@@ -101,14 +101,17 @@ export default function LoginForm({
   initialError,
   devInstant = false,
   initialMode = "signin",
+  signupsPaused = false,
 }: {
   next: string;
   initialError?: string;
   devInstant?: boolean;
   /** /login?mode=signup opens on Create account. */
   initialMode?: "signin" | "signup";
+  /** Supabase's "Allow new users to sign up" is off: no Create account tab. */
+  signupsPaused?: boolean;
 }) {
-  const [mode, setMode] = useState<Mode>(initialMode);
+  const [mode, setMode] = useState<Mode>(signupsPaused ? "signin" : initialMode);
   const [email, setEmail] = useState("");
   const [signInState, signInAction, signingIn] = useStampedAction(signInWithPassword);
   const [signUpState, signUpAction, signingUp] = useStampedAction(signUpWithPassword);
@@ -177,7 +180,12 @@ export default function LoginForm({
 
   return (
     <div className="space-y-6">
-      {(mode === "signin" || mode === "signup") && (
+      {signupsPaused && mode === "signin" && (
+        <p className="rounded-lg border border-amber-200 bg-amber-50 px-3.5 py-2.5 text-sm text-amber-900">
+          New accounts are paused for now. Already have one? Sign in below.
+        </p>
+      )}
+      {!signupsPaused && (mode === "signin" || mode === "signup") && (
         <div role="tablist" className="grid grid-cols-2 gap-1 rounded-lg bg-gray-100 p-1">
           {(["signin", "signup"] as const).map((m) => (
             <button

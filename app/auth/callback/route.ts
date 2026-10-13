@@ -25,9 +25,20 @@ export async function GET(request: NextRequest) {
   // Providers report failures as ?error=... (e.g. access_denied when the user
   // cancels Google's consent screen).
   const providerError = searchParams.get("error");
+  const errorCode = searchParams.get("error_code");
+  const errorDescription = searchParams.get("error_description") ?? "";
+  // A brand-new Google user while sign-ups are paused (Supabase: "Signups not
+  // allowed for this instance") - tell them so, rather than "cancelled".
+  const signupsPaused = errorCode === "signup_disabled" || /signups? not allowed/i.test(errorDescription);
   loginUrl.searchParams.set(
     "error",
-    providerError === "access_denied" ? "google_cancelled" : providerError ? "google_failed" : "link_invalid"
+    signupsPaused
+      ? "signups_paused"
+      : providerError === "access_denied"
+        ? "google_cancelled"
+        : providerError
+          ? "google_failed"
+          : "link_invalid"
   );
   loginUrl.searchParams.set("next", next);
   return NextResponse.redirect(loginUrl);

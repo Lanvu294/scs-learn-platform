@@ -10,8 +10,8 @@ const LINKS = [
 
 const ROW = "flex items-center justify-between gap-3 sm:gap-6";
 
-// A black row under a Carnegie Red rule: SCS mark, white links, one sign-in
-// button (the login page itself offers the instructor path). The site name is
+// A black row under a Carnegie Red rule: SCS mark and white links. Sign-in
+// lives in the hero's "Sign up early" block, not here. The site name is
 // set in the hero, never beside the SCS mark: CMU's brand rules forbid locking
 // text up with a unitmark.
 export default function NavBar() {
@@ -38,12 +38,6 @@ export default function NavBar() {
                 For instructors
               </Link>
             </nav>
-            <Link
-              href="/login"
-              className="border border-white px-3 py-1 text-sm sm:px-5 sm:py-2 font-semibold whitespace-nowrap btn-fill-white hover:text-black"
-            >
-              Sign in
-            </Link>
           </div>
         </div>
       </div>

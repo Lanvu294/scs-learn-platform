@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requestOrigin } from "@/lib/auth/origin";
 import { safeNextPath } from "@/lib/auth/redirect";
+import { getAuthSettings } from "@/lib/auth/settings";
 
 /**
  * Sign-in model: email + password is the everyday login (no email sent, so no
@@ -20,6 +21,7 @@ import { safeNextPath } from "@/lib/auth/redirect";
 const IS_DEV = process.env.NODE_ENV === "development";
 const MIN_PASSWORD_LENGTH = 8;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SIGNUPS_PAUSED_MESSAGE = "New accounts are paused for now. If you already have an account, sign in instead.";
 
 export async function isDevInstantSignIn(): Promise<boolean> {
   return IS_DEV;
@@ -100,31 +102,11 @@ async function emailRedirect(next: string): Promise<string> {
  * address. Requires the Google provider to be enabled in Supabase (see
  * docs/auth.md); until then this lands back on /login with an explanation.
  */
-/**
- * Whether the Google provider is switched on in Supabase. signInWithOAuth
- * doesn't check - with the provider off it still returns a URL, and the
- * browser lands on a raw JSON error from Supabase - so ask the public auth
- * settings endpoint first.
- */
-async function googleProviderEnabled(): Promise<boolean> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/settings`, {
-      headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! },
-      // Never cached: a stale "off" would keep blocking Google sign-in after
-      // it's switched on. It's one tiny request per button click.
-      cache: "no-store",
-    });
-    if (!res.ok) return true; // can't tell - let Supabase decide
-    const settings = (await res.json()) as { external?: Record<string, boolean> };
-    return Boolean(settings.external?.google);
-  } catch {
-    return true;
-  }
-}
-
 export async function signInWithGoogle(formData: FormData): Promise<void> {
   const next = safeNextPath(String(formData.get("next") ?? ""));
-  if (!(await googleProviderEnabled())) {
+  // signInWithOAuth doesn't check the provider is on - with it off, the
+  // browser lands on a raw JSON error from Supabase - so check first.
+  if (!(await getAuthSettings()).googleEnabled) {
     redirect(`/login?error=google_disabled&next=${encodeURIComponent(next)}`);
   }
   const supabase = await createClient();
@@ -183,6 +165,11 @@ export async function signUpWithPassword(_prev: AuthFormState, formData: FormDat
   if (password.length < MIN_PASSWORD_LENGTH) {
     return { status: "error", email, message: `Use at least ${MIN_PASSWORD_LENGTH} characters for your password.` };
   }
+  // Checked here as well as by Supabase: the dev shortcut below creates users
+  // through the admin API, which ignores Supabase's sign-up switch.
+  if ((await getAuthSettings()).signupsPaused) {
+    return { status: "error", email, message: SIGNUPS_PAUSED_MESSAGE };
+  }
 
   const supabase = await createClient();
 
@@ -215,6 +202,7 @@ export async function signUpWithPassword(_prev: AuthFormState, formData: FormDat
       return { status: "error", email, message: "An account with this email already exists. Sign in instead." };
     }
     if (error.code === "weak_password") return { status: "error", email, message: error.message };
+    if (error.code === "signup_disabled") return { status: "error", email, message: SIGNUPS_PAUSED_MESSAGE };
     return rateLimitMessage(error) ?? { status: "error", email, message: error.message };
   }
 
