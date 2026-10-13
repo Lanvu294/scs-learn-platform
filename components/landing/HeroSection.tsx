@@ -4,7 +4,6 @@ import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
 import { SCS_LEARN_YOUTUBE_URL } from "./links";
 import YouTubeIcon from "./ui/YouTubeIcon";
-import { heading2 } from "./ui/typography";
 
 const COURSES: CarouselCourse[] = [
   {
@@ -62,7 +61,7 @@ export default function HeroSection() {
     <>
       {/* Split hero: copy on a black panel, the learner photo filling the right
           half. The photo's background is bright, so text never sits on it. */}
-      <section className="grid bg-black text-white lg:min-h-[36rem] lg:grid-cols-2">
+      <section className="grid bg-black text-white lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div className="relative order-1 aspect-[3/2] lg:order-2 lg:aspect-auto">
           <Image
             src="/landing/photos/learner-headphones.jpg"
@@ -70,20 +69,20 @@ export default function HeroSection() {
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover object-[50%_35%]"
+            className="object-cover object-[50%_40%]"
           />
         </div>
 
-        <div className="order-2 flex items-center px-4 py-12 sm:px-6 md:px-12 lg:order-1 lg:px-16 lg:py-20">
+        <div className="order-2 flex items-center px-4 py-10 sm:px-6 md:px-12 lg:order-1 lg:px-16 lg:py-14">
           <div className="max-w-xl">
-            <p className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">SCS Learn</p>
-            <div aria-hidden className="mt-3 mb-4 h-1 w-16 bg-primary lg:mt-4 lg:mb-5" />
-            <h1 className={heading2}>Computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
-            <p className="mt-5 text-pretty text-lg leading-relaxed text-white/85">
+            <p className="text-5xl font-bold tracking-tight lg:text-6xl">SCS Learn</p>
+            <div aria-hidden className="mt-3 mb-4 h-1 w-14 bg-primary" />
+            <h1 className="font-brand text-3xl font-semibold leading-[1.15] md:text-4xl xl:text-[2.6rem]">Computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
+            <p className="mt-4 text-pretty text-lg leading-relaxed text-white/85">
               Courseware from Carnegie Mellon&apos;s world-leading School of Computer Science, where computing meets
               AI, biology, robotics, design, and more.
             </p>
-            <p className="mt-8 text-sm font-semibold text-white">Courseware coming soon. Sign up to be first in.</p>
+            <p className="mt-6 text-sm font-semibold text-white">Coming soon. Sign up to be first in.</p>
             <EmailSignupForm buttonLabel="Sign up early" source="hero" className="mt-2" />
             <a
               href={SCS_LEARN_YOUTUBE_URL}
