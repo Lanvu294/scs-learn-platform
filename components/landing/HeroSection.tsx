@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import CourseCarousel, { type CarouselCourse } from "./CourseCarousel";
 import EmailSignupForm from "./EmailSignupForm";
+import YouTubeBand from "./YouTubeBand";
 import { heading1, heading2 } from "./ui/typography";
+import { SCHOOL_NAME } from "@/lib/brand";
 
 const COURSES: CarouselCourse[] = [
   {
@@ -79,8 +81,8 @@ export default function HeroSection() {
             Take real Carnegie Mellon courses.
           </h1>
           <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-white/85 animate-fade-in-up [animation-delay:450ms]">
-            Real courses from the Griffin School of Computer Science, taught live by the professors who built them,
-            with an AI tutor trained on the material.
+            Real courses from Carnegie Mellon&apos;s {SCHOOL_NAME}, taught live by the professors who built
+            them, with an AI tutor trained on the material.
           </p>
           <div className="mt-8 animate-fade-in-up [animation-delay:600ms]">
             <EmailSignupForm buttonLabel="Claim my spot" source="hero" />
@@ -95,6 +97,8 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
+
+      <YouTubeBand />
 
       <section id="courses" className="scroll-mt-4 bg-white text-black pt-14 pb-16 md:pt-20 md:pb-20">
         <div className="mx-auto mb-8 flex w-full max-w-7xl flex-col gap-4 px-4 sm:px-6 md:flex-row md:items-end md:justify-between md:px-12 lg:px-16">

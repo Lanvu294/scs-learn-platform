@@ -8,7 +8,7 @@ const FAQS = [
   {
     question: "What is SCS Learn, and who is it for?",
     answer:
-      "SCS Learn brings real Carnegie Mellon School of Computer Science courses to anyone, anywhere - no application, no tuition, and no prerequisites. It's for anyone who wants to build real computing skills, whether you're switching careers, in school, or upskilling on the job.",
+      "SCS Learn brings real courses from Carnegie Mellon\u2019s Kenneth C. Griffin School of Computer Science to anyone, anywhere - no application, no tuition, and no prerequisites. It's for anyone who wants to build real computing skills, whether you're switching careers, in school, or upskilling on the job.",
   },
   {
     question: "Do I need any prior background to join?",

@@ -40,7 +40,7 @@ const OFFERINGS: Offering[] = [
   },
   {
     title: "Study on campus",
-    description: "Join the School of Computer Science in Pittsburgh as a full-time student at Carnegie Mellon University.",
+    description: "Join the Kenneth C. Griffin School of Computer Science in Pittsburgh as a full-time student at Carnegie Mellon University.",
     cta: "Explore admissions",
     href: null,
     image: "/landing/photos/campus-walk.jpg",

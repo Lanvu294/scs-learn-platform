@@ -88,12 +88,15 @@ export default function LoginForm({
   next,
   initialError,
   devInstant = false,
+  initialMode = "signin",
 }: {
   next: string;
   initialError?: string;
   devInstant?: boolean;
+  /** /login?mode=signup (the landing page's "Sign up") opens on Create account. */
+  initialMode?: "signin" | "signup";
 }) {
-  const [mode, setMode] = useState<Mode>("signin");
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState("");
   const [signInState, signInAction, signingIn] = useStampedAction(signInWithPassword);
   const [signUpState, signUpAction, signingUp] = useStampedAction(signUpWithPassword);

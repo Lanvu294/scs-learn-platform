@@ -52,7 +52,9 @@ export default async function AdminPage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">{i.name}</p>
-                  <p className="truncate text-xs text-gray-500">{i.email ?? "No email - access revoked"}</p>
+                  <p className="truncate text-xs text-gray-500">
+                    {i.email ?? (i.linked ? "Linked account" : "Access revoked")}
+                  </p>
                 </div>
                 <span
                   className={`hidden rounded-full px-2 py-0.5 text-[11px] font-semibold sm:inline ${

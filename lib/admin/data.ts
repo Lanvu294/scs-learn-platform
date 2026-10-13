@@ -45,6 +45,19 @@ export async function getAdminOverview(): Promise<AdminOverview> {
   for (const c of courses.data ?? []) staffByCourse.set(c.id, new Set([c.instructor_id as string]));
   for (const s of staff.data ?? []) staffByCourse.get(s.course_id as string)?.add(s.instructor_id as string);
 
+  // Rows linked through the dev "Continue as" button (or before instructor
+  // emails existed) have an account but no email on the row - show the
+  // account's address instead of reporting them as revoked.
+  const accountEmailById = new Map<string, string | null>();
+  await Promise.all(
+    (instructors.data ?? [])
+      .filter((i) => i.auth_user_id && !i.email)
+      .map(async (i) => {
+        const { data } = await admin.auth.admin.getUserById(i.auth_user_id as string);
+        accountEmailById.set(i.id as string, data.user?.email ?? null);
+      })
+  );
+
   const courseCountByInstructor = new Map<string, number>();
   for (const ids of staffByCourse.values()) {
     for (const id of ids) courseCountByInstructor.set(id, (courseCountByInstructor.get(id) ?? 0) + 1);
@@ -56,7 +69,7 @@ export async function getAdminOverview(): Promise<AdminOverview> {
       id: i.id as string,
       name: i.name as string,
       initials: i.initials as string,
-      email: (i.email as string | null) ?? null,
+      email: (i.email as string | null) ?? accountEmailById.get(i.id as string) ?? null,
       linked: Boolean(i.auth_user_id),
       courseCount: courseCountByInstructor.get(i.id as string) ?? 0,
     })),
