@@ -32,18 +32,18 @@ export default async function LoginPage({
 
   return (
     <main className="grid min-h-screen bg-white text-black lg:grid-cols-[1.1fr_1fr]">
-      {/* Brand panel (desktop): the landing page's campus photo + CMU unitmark. */}
+      {/* Brand panel (desktop): the landing page's campus photo + the 2026 SCS mark. */}
       <section className="relative isolate hidden flex-col justify-between overflow-hidden bg-black p-10 text-white lg:flex xl:p-14">
         <Image src="/hero-background.webp" alt="" fill priority unoptimized sizes="55vw" className="-z-20 object-cover" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/55 to-black/40" />
-        <Link href="/" aria-label="SCS Learn home" className="flex items-center gap-4">
-          <Image src="/brand/scs-learn-icon-red.png" alt="" width={56} height={56} className="h-14 w-14 rounded-lg" />
+        <Link href="/" aria-label="SCS Learn home" className="block self-start">
           <Image
-            src="/brand/scs-unitmark-white.png"
-            alt="Carnegie Mellon University School of Computer Science"
-            width={3833}
-            height={686}
-            className="h-9 w-auto"
+            src="/scs-2026-primary-red-white.svg"
+            alt="Carnegie Mellon University Kenneth C. Griffin School of Computer Science"
+            width={685}
+            height={192}
+            priority
+            className="h-20 w-auto"
           />
         </Link>
         <div className="max-w-md">
