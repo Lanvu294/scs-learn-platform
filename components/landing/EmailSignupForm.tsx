@@ -30,7 +30,7 @@ export default function EmailSignupForm({
         <span className="flex h-6 w-6 items-center justify-center bg-primary">
           <Check size={15} strokeWidth={3} />
         </span>
-        You&apos;re on the list. We&apos;ll be in touch at {state.email}.
+        You&apos;re on the list. We&apos;ll email {state.email} when the courseware opens.
       </p>
     );
   }

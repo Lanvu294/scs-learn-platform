@@ -2,6 +2,8 @@ import Image from "next/image";
 import CourseCarousel, { type CarouselCourse } from "./CourseCarousel";
 import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
+import { SCS_LEARN_YOUTUBE_URL } from "./links";
+import YouTubeIcon from "./ui/YouTubeIcon";
 import { heading2 } from "./ui/typography";
 
 const COURSES: CarouselCourse[] = [
@@ -78,12 +80,21 @@ export default function HeroSection() {
             <div aria-hidden className="mt-3 mb-4 h-1 w-16 bg-primary lg:mt-4 lg:mb-5" />
             <h1 className={heading2}>Computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
             <p className="mt-5 text-pretty text-lg leading-relaxed text-white/85">
-              Watch lectures and complete courseware from Carnegie Mellon&apos;s world-leading School of Computer
-              Science, where computing meets AI, biology, robotics, design, and more.
+              Watch lectures from Carnegie Mellon&apos;s world-leading School of Computer Science, where computing
+              meets AI, biology, robotics, design, and more. Courseware is on the way: notes, exercises, and
+              autograded assignments to go with every lecture.
             </p>
-            <div className="mt-8">
-              <EmailSignupForm buttonLabel="Claim my spot" source="hero" />
-            </div>
+            <p className="mt-8 text-sm font-semibold text-white">Be first in when the courseware opens.</p>
+            <EmailSignupForm buttonLabel="Sign up early" source="hero" className="mt-2" />
+            <a
+              href={SCS_LEARN_YOUTUBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-base font-semibold text-white/90 hover:text-white"
+            >
+              <YouTubeIcon className="h-5 w-5" />
+              <span className="link-swipe">In the meantime, watch our lectures on YouTube</span>
+            </a>
           </div>
         </div>
       </section>
