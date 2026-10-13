@@ -74,17 +74,16 @@ export default async function LoginPage({
 
         <div className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
           <div className="w-full max-w-sm">
-            <h1 className="font-serif text-4xl font-semibold">Sign in to SCS Learn</h1>
-            <p className="mt-2 mb-8 text-sm leading-relaxed text-gray-600">
-              One account for everyone - students, instructors and admins. We&apos;ll take you to the right place
-              after you sign in.
-            </p>
+            <h1 className="mb-8 font-serif text-4xl font-semibold">Sign in to SCS Learn</h1>
             <LoginForm
               next={next}
               initialError={error ? ERROR_MESSAGES[error] : undefined}
               devInstant={await isDevInstantSignIn()}
               initialMode={mode === "signup" ? "signup" : "signin"}
             />
+            <p className="mt-8 text-center text-xs leading-relaxed text-gray-500">
+              Teaching with SCS Learn? Sign in with the email your course is registered under.
+            </p>
           </div>
         </div>
       </section>
