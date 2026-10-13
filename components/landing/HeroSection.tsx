@@ -2,7 +2,8 @@ import Image from "next/image";
 import CourseCarousel, { type CarouselCourse } from "./CourseCarousel";
 import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
-import { heading1 } from "./ui/typography";
+import { SCS_LEARN_YOUTUBE_URL } from "./links";
+import YouTubeIcon from "./ui/YouTubeIcon";
 
 const COURSES: CarouselCourse[] = [
   {
@@ -58,32 +59,40 @@ const COURSES: CarouselCourse[] = [
 export default function HeroSection() {
   return (
     <>
-      {/* cmu.edu's hero: full-bleed photo under a dark scrim, white serif headline, red-arrow CTA. */}
-      <section className="relative isolate flex min-h-[32rem] items-center bg-black text-white lg:min-h-[38rem]">
-        <Image
-          src="/hero-background.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          // The file is already a compressed 2000px WebP, the largest copy we
-          // have. Re-encoding it through the optimizer (q75) compounded the
-          // loss, so it's served exactly as-is.
-          unoptimized
-          className="-z-20 object-cover"
-        />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
+      {/* Split hero: copy on a black panel, the learner photo filling the right
+          half. The photo's background is bright, so text never sits on it. */}
+      <section className="grid bg-black text-white lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+        <div className="relative order-1 aspect-[3/2] lg:order-2 lg:aspect-auto">
+          <Image
+            src="/landing/photos/learner-headphones-medium.jpg"
+            alt="A student in headphones, focused on her laptop"
+            fill
+            priority
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover object-[88%_50%]"
+          />
+        </div>
 
-        <div className="mx-auto w-full max-w-7xl px-4 pt-28 pb-16 sm:px-6 md:px-12 lg:px-16 lg:pt-36 lg:pb-20">
-          <h1 className={`${heading1} max-w-3xl`}>
-            Take real Carnegie Mellon courses.
-          </h1>
-          <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-white/85">
-            Real courses from the Kenneth C. Griffin School of Computer Science, taught by the professors who built them,
-            with an AI tutor trained on the material.
-          </p>
-          <div className="mt-8">
-            <EmailSignupForm buttonLabel="Claim my spot" source="hero" />
+        <div className="order-2 flex items-center px-4 py-10 sm:px-6 md:px-12 lg:order-1 lg:px-16 lg:py-14">
+          <div className="max-w-xl">
+            <p className="text-5xl font-bold tracking-tight lg:text-6xl">SCS Learn</p>
+            <div aria-hidden className="mt-3 mb-4 h-1 w-14 bg-primary" />
+            <h1 className="font-brand text-3xl font-semibold leading-[1.15] md:text-4xl xl:text-[2.6rem]">Computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
+            <p className="mt-4 text-pretty text-lg leading-relaxed text-white/85">
+              Courseware from Carnegie Mellon&apos;s world-leading School of Computer Science, where computing meets
+              AI, biology, robotics, design, and more.
+            </p>
+            <p className="mt-6 text-sm font-semibold text-white">Coming soon. Sign up to be first in.</p>
+            <EmailSignupForm buttonLabel="Sign up early" source="hero" className="mt-2" />
+            <a
+              href={SCS_LEARN_YOUTUBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-white/70 hover:text-white"
+            >
+              <YouTubeIcon className="h-4 w-4" />
+              <span className="link-swipe">In the meantime, watch our lectures on YouTube</span>
+            </a>
           </div>
         </div>
       </section>
