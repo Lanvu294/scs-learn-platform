@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
-import YouTubeIcon from "./ui/YouTubeIcon";
 import { SCS_LEARN_YOUTUBE_URL } from "./links";
 import { wideContainer } from "./ui/layout";
 
@@ -63,14 +62,6 @@ export default function Footer() {
             <br />
             Pittsburgh, PA 15213
           </address>
-          <a
-            href={SCS_LEARN_YOUTUBE_URL}
-            {...external}
-            aria-label="SCS Learn on YouTube"
-            className="mt-5 text-black hover:text-primary"
-          >
-            <YouTubeIcon className="h-6 w-6" />
-          </a>
         </div>
 
         <div className="flex flex-col lg:pt-12">
@@ -78,13 +69,13 @@ export default function Footer() {
             {COLUMNS.map((col) => (
               <div key={col.title}>
                 <h3 className="border-b-2 border-primary pb-3 font-sans text-lg font-bold">{col.title}</h3>
-                <ul>
+                <ul className="mt-2">
                   {col.links.map((link) => (
-                    <li key={link.label} className="border-b border-steel-gray">
+                    <li key={link.label}>
                       <Link
                         href={link.href}
                         {...(link.href.startsWith("http") ? external : {})}
-                        className="block py-3 text-[15px] hover:text-primary"
+                        className="block py-2 text-[15px] hover:text-primary"
                       >
                         {link.label}
                       </Link>
