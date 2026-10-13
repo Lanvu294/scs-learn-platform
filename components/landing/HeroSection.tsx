@@ -76,26 +76,14 @@ export default function HeroSection() {
           <div className="max-w-xl">
             <p className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">SCS Learn</p>
             <div aria-hidden className="mt-3 mb-4 h-1 w-16 bg-primary lg:mt-4 lg:mb-5" />
-            <h1 className={heading2}>Learn computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
+            <h1 className={heading2}>Computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
             <p className="mt-5 text-pretty text-lg leading-relaxed text-white/85">
               Watch lectures and complete courseware from Carnegie Mellon&apos;s world-leading School of Computer
-              Science, where computing meets biology, robotics, design, and more.
+              Science, where computing meets AI, biology, robotics, design, and more.
             </p>
             <div className="mt-8">
               <EmailSignupForm buttonLabel="Claim my spot" source="hero" />
             </div>
-            <p className="mt-6 text-xs text-white/60">
-              Carnegie Mellon is ranked #1 in graduate computer science by{" "}
-              <a
-                href="https://www.cmu.edu/news/stories/archives/2026/april/cmu-ranks-no-1-in-2026-us-news-graduate-rankings"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-white"
-              >
-                U.S. News &amp; World Report (2026)
-              </a>
-              .
-            </p>
           </div>
         </div>
       </section>
