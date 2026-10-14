@@ -34,7 +34,7 @@ CMU's tartan wave pattern, as used on CMU Online's site (2026-10-14). Resized fr
 
 ## Faculty portraits (public/landing/faculty, added 2026-10-14)
 
-Official department directory headshots, background removed (rembg, u2net_human_seg, alpha matting), edges feathered, normalized to one 800x800 canvas with the same head size, bottom third faded to transparent. Shown in grayscale on the playlist cards; color on hover. **Each faculty member must OK their photo before these go live.**
+Official department directory headshots, background removed (rembg, u2net_human_seg, alpha matting), edges feathered, normalized to one 800x800 canvas with the same head size, bottom third faded to transparent. Shown in grayscale on the playlist cards; color on hover. **Internal demo for now. Each faculty member must OK their photo before the public launch.**
 
 | File | Person | Source |
 |---|---|---|
