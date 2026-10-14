@@ -54,19 +54,29 @@ export default async function LoginPage({
             SCS Learn
           </Link>
           <div aria-hidden className="mt-2.5 h-1 w-14 bg-primary" />
-          <p className="mt-6 font-serif text-4xl font-semibold leading-tight">Carnegie Mellon courseware, free to start.</p>
+          <p className="mt-6 font-serif text-4xl font-semibold leading-tight">Start learning computer science and AI from Carnegie Mellon for free.</p>
           <p className="mt-4 text-base leading-relaxed text-white/80">
-            Watch the lectures and get instant feedback from our autograders. AI tutor goes live in November.
+            Complete courseware with lecture videos and instant feedback from our autograders. Our AI tutor goes live soon.
           </p>
         </div>
       </section>
 
       <section className="flex flex-col">
-        {/* Slim brand bar (mobile/tablet only - the photo panel covers it on desktop). */}
-        <header className="flex items-center gap-3 border-b border-gray-200 px-5 py-3 lg:hidden">
-          <Link href="/" aria-label="SCS Learn home" className="flex items-center gap-2.5">
-            <Image src="/brand/scs-learn-icon-red.png" alt="" width={36} height={36} className="h-9 w-9 rounded-md" priority />
-            <span className="text-[15px] font-bold tracking-tight">SCS Learn</span>
+        {/* The SCS mark sits on the form side, top right on desktop, so nothing covers
+            the photo. On phones the photo panel is hidden, so the bar also names the
+            site. SCS Learn stays set apart from the mark (no lockup), and the red
+            square icon stays out of web headers per the brand book. */}
+        <header className="flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-3 lg:justify-end lg:border-b-0 lg:px-10 lg:pt-8 xl:px-14">
+          <Image
+            src="/scs-2026-primary-red-white.svg"
+            alt="Carnegie Mellon University Kenneth C. Griffin School of Computer Science"
+            width={685}
+            height={192}
+            priority
+            className="h-10 w-auto lg:h-14"
+          />
+          <Link href="/" className="text-[15px] font-bold tracking-tight lg:hidden">
+            SCS Learn
           </Link>
         </header>
 
@@ -81,7 +91,7 @@ export default async function LoginPage({
               signupsPaused={(await getAuthSettings()).signupsPaused}
             />
             <p className="mt-8 text-center text-xs leading-relaxed text-gray-500">
-              Teaching with SCS Learn? Sign in with the email your courseware is registered under.
+              Instructors: sign in with your courseware email.
             </p>
           </div>
         </div>
