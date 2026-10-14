@@ -25,3 +25,9 @@ CMU's tartan wave pattern, as used on CMU Online's site (2026-10-14). Resized fr
 |---|---|---|---|
 | cmu-tartan-wave-red.jpg | Offerings: Earn a CMU credential | https://www.cmu.edu/sites/default/files/cmu-online-site-files/images/cmu-tartan-wave-red-crop-01.png | https://www.cmu.edu/online/ |
 | cmu-tartan-wave-black.jpg | Offerings: Train your organization | https://www.cmu.edu/sites/default/files/cmu-online-site-files/images/cmu-tartan-wave-black-crop-02.png | https://www.cmu.edu/online/ |
+
+## Classroom still (added 2026-10-14; replaced the CMU News photo the same day)
+
+| File | Used for | Original | Saved | Alt text on source page | Image URL | Found on |
+|---|---|---|---|---|---|---|
+| classroom-teaching.jpg | What's coming: lecture player still | 2560x1537 | 1600x897 (16:9 crop of Phillip only; students below the frame are cropped out, they were precollege minors) | Phillip Compeau teaching (precollege program) | Phillip's own photo: Drive "Personal Website/.../old_site_assets/2024/08/Phillip-Compeau-teaching-precollege-scaled.jpeg" | Phillip Compeau (2026-10-14) |
