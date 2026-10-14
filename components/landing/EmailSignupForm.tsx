@@ -20,7 +20,7 @@ type EmailSignupFormProps = {
 // Dark by default (the hero); tone="light" for white sections.
 export default function EmailSignupForm({
   buttonLabel,
-  placeholder = "herb.simon@cmu.edu",
+  placeholder = "herb.simon@example.com",
   className = "",
   source = "landing",
   tone = "dark",
@@ -48,6 +48,7 @@ export default function EmailSignupForm({
         <input type="hidden" name="source" value={source} />
         <input
           type="email"
+          autoComplete="email"
           name="email"
           required
           maxLength={254}

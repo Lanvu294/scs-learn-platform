@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Carousel from "./ui/Carousel";
 import { sectionPadding } from "./ui/typography";
 import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL, SCS_LEARN_YOUTUBE_URL } from "./links";
@@ -51,16 +51,13 @@ const PLAYLISTS: CoursewarePlaylist[] = [
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 // Placeholder for the Welcome to SCS Learn video: a 16:9 frame on CMU's black
-// tartan wave that says it's coming. Swap the whole frame for the YouTube embed when it's live.
+// tartan wave that says it's coming. No play icon until there's a video to play. Swap the whole frame for the YouTube embed when it's live.
 function WelcomeVideoComingSoon() {
   return (
     <div className="relative isolate flex aspect-video w-full flex-col items-center justify-center gap-4 overflow-hidden bg-black px-6 text-center text-white sm:gap-6">
       <Image src="/landing/textures/cmu-tartan-wave-black.jpg" alt="" fill sizes="(min-width: 1280px) 1200px, 100vw" quality={75} className="-z-20 object-cover" />
       {/* Darken the middle so the title reads; the pattern shows toward the edges. */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.35)_75%)]" />
-      <span aria-hidden className="flex size-14 items-center justify-center rounded-full border-2 border-white/40 sm:size-20">
-        <Play className="ml-1 size-6 fill-white/40 text-white/40 sm:size-8" />
-      </span>
       <p className="font-brand text-2xl font-semibold leading-tight sm:text-4xl lg:text-5xl">Welcome to SCS Learn</p>
       <div aria-hidden className="h-1 w-14 bg-primary" />
       <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/70 sm:text-sm">Video coming soon</p>
@@ -75,7 +72,10 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
     <a
       href={playlist.playlistUrl ?? SCS_LEARN_YOUTUBE_URL}
       {...external}
-      aria-label={`${playlist.code} ${playlist.title}, ${playlist.byline}: open the playlist on YouTube (new tab)`}
+      // Say where the link really goes: the playlist once it exists, the channel until then.
+      aria-label={`${playlist.code} ${playlist.title}, ${playlist.byline}: ${
+        playlist.playlistUrl ? "open the playlist on YouTube" : "open the SCS Learn channel on YouTube"
+      } (new tab)`}
       className="group/card relative block aspect-video w-full overflow-hidden bg-black text-white"
     >
       <Image

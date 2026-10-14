@@ -17,7 +17,7 @@ type Offering = {
 const OFFERINGS: Offering[] = [
   {
     title: "Explore SCS research",
-    description: "The faculty who teach this courseware lead labs in AI, robotics, systems, and more.",
+    description: "Our faculty lead labs in AI, robotics, systems, and more.",
     cta: "See the research",
     href: "https://www.cs.cmu.edu/research/index",
     image: "/landing/photos/robotic-arm-lab.jpg",
