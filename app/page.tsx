@@ -1,5 +1,6 @@
 import NavBar from "@/components/landing/NavBar";
 import HeroSection from "@/components/landing/HeroSection";
+// import CoursewareSection from "@/components/landing/CoursewareSection";
 // import ProblemSection from "@/components/landing/ProblemSection";
 import ValuePropsSection from "@/components/landing/ValuePropsSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
@@ -14,6 +15,7 @@ export default function Home() {
     <main>
       <NavBar />
       <HeroSection />
+      {/* <CoursewareSection /> */}
       {/* <ProblemSection /> */}
       <ValuePropsSection />
       <HowItWorksSection />
