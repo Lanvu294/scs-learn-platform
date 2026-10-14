@@ -52,7 +52,7 @@ const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 // Placeholder for the Welcome to SCS Learn video: a plain dark 16:9 frame that
 // says it's coming. Swap the whole frame for the YouTube embed when it's live.
-function TrailerComingSoon() {
+function WelcomeVideoComingSoon() {
   return (
     <div className="relative flex aspect-video w-full flex-col items-center justify-center gap-4 bg-black px-6 text-center text-white sm:gap-6">
       <span aria-hidden className="flex size-14 items-center justify-center rounded-full border-2 border-white/40 sm:size-20">
@@ -106,7 +106,7 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
   );
 }
 
-// Matches the carousel's column so the header, trailer, and cards line up.
+// Matches the carousel's column so the header, welcome video, and cards line up.
 const COLUMN = "mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16";
 
 // Headline (wider, left) and description + subscribe button (right, bottom-aligned
@@ -142,7 +142,7 @@ export default function YouTubeSection() {
         </div>
 
         <div className="mt-12">
-          <TrailerComingSoon />
+          <WelcomeVideoComingSoon />
         </div>
       </div>
 

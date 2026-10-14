@@ -21,15 +21,6 @@ function NavChevron() {
   return <ChevronDown size={14} strokeWidth={2.5} aria-hidden className="shrink-0" />;
 }
 
-function SearchIcon() {
-  return (
-    <svg viewBox="0 0 32 32" className="h-8 w-8" fill="none" aria-hidden>
-      <circle cx="12.5" cy="12.5" r="7" stroke="currentColor" strokeWidth="2.4" />
-      <path d="M18 18.5 L28.5 29" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 function ExternalIcon() {
   return (
     <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" aria-hidden>
@@ -90,9 +81,6 @@ export default function NavBar() {
           ))}
         </nav>
         <div className="ml-auto flex h-12 items-stretch xl:ml-0">
-          <a href="#courses" aria-label="Search courseware" className="grid w-12 place-items-center bg-primary text-white">
-            <SearchIcon />
-          </a>
           <button
             type="button"
             className="grid w-12 place-items-center xl:hidden"
