@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import CourseCarousel, { type CarouselCourse } from "./CourseCarousel";
 import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
 import { SCS_LEARN_YOUTUBE_URL } from "./links";
 import YouTubeIcon from "./ui/YouTubeIcon";
+import { heading2 } from "./ui/typography";
 
 const COURSES: CarouselCourse[] = [
   {
@@ -60,47 +60,39 @@ const COURSES: CarouselCourse[] = [
 export default function HeroSection() {
   return (
     <>
-      {/* Split hero: copy on a black panel, the learner photo filling the right
-          half. The photo's background is bright, so text never sits on it. */}
-      <section className="grid bg-black text-white lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
-        <div className="relative order-1 aspect-[3/2] lg:order-2 lg:aspect-auto">
-          <Image
-            src="/landing/photos/learner-headphones-medium.jpg"
-            alt="A student in headphones, focused on her laptop"
-            fill
-            priority
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover object-[88%_50%]"
-          />
-        </div>
-
-        <div className="order-2 flex items-center px-4 py-10 sm:px-6 md:px-12 lg:order-1 lg:px-16 lg:py-14">
-          <div className="max-w-xl">
-            <p className="text-5xl font-bold tracking-tight lg:text-6xl">SCS Learn</p>
-            <div aria-hidden className="mt-3 mb-4 h-1 w-14 bg-primary" />
-            <h1 className="font-brand text-3xl font-semibold leading-[1.15] md:text-4xl xl:text-[2.6rem]">Computer science from Carnegie Mellon. Free, online, at your own pace.</h1>
-            <p className="mt-4 text-pretty text-lg leading-relaxed text-white/85">
-              Courseware from Carnegie Mellon&apos;s world-leading School of Computer Science, where computing meets
-              AI, biology, robotics, design, and more.
-            </p>
-            <p className="mt-6 text-sm font-semibold text-white">Coming soon. Sign up to be first in.</p>
-            <EmailSignupForm buttonLabel="Sign up early" source="hero" className="mt-2" />
-            <p className="mt-3 text-sm text-white/75">
-              Already have an account?{" "}
-              <Link href="/login" className="font-semibold text-white">
-                <span className="link-swipe">Sign in</span> &rarr;
-              </Link>
-            </p>
-            <a
-              href={SCS_LEARN_YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 text-sm text-white/70 hover:text-white"
-            >
-              <YouTubeIcon className="h-4 w-4" />
-              <span className="link-swipe">In the meantime, watch our lectures on YouTube</span>
-            </a>
-          </div>
+      <section className="relative min-h-[480px] overflow-hidden text-white lg:min-h-[532px]">
+        {/* Cover the hero and keep her face, which sits in the upper right of
+            the photo, as the focus. */}
+        <Image
+          src="/landing/photos/learner-headphones-medium.jpg"
+          alt="A student in headphones, focused on her laptop"
+          fill
+          priority
+          quality={90}
+          sizes="100vw"
+          className="object-cover object-[78%_30%]"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.22)_100%)]"
+        />
+        <div className="relative mx-auto flex min-h-[480px] w-full max-w-[1440px] flex-col justify-end px-6 pt-28 pb-12 sm:px-12 lg:min-h-[532px] lg:px-24 lg:pt-36">
+          <p className="text-5xl font-bold tracking-tight text-white lg:text-6xl">SCS Learn</p>
+          <div aria-hidden className="mt-2.5 h-1 w-14 bg-primary" />
+          <h1 className="mt-5 max-w-[800px] font-brand text-[2rem] font-semibold leading-[1.1] text-white sm:text-[2.5rem] lg:text-[3rem]">
+            Computer science from Carnegie Mellon. Free, online, at your own pace.
+          </h1>
+          <p className="mt-12 text-sm font-semibold text-white">Coming soon. Sign up to be first in.</p>
+          <EmailSignupForm buttonLabel="Join the waitlist" source="hero" className="mt-2" />
+          <a
+            href={SCS_LEARN_YOUTUBE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2.5 text-lg font-semibold text-white hover:text-white/80"
+          >
+            <YouTubeIcon className="h-6 w-6" />
+            <span className="link-swipe">In the meantime, watch our lectures on YouTube.</span>
+          </a>
         </div>
       </section>
 
@@ -109,7 +101,12 @@ export default function HeroSection() {
       <section id="courses" className="scroll-mt-32 bg-white text-black pt-14 pb-16 md:pt-20 md:pb-20">
         <CourseCarousel
           courses={COURSES}
-          heading={<h2 className="max-w-2xl font-brand text-2xl font-semibold leading-[1.2] md:text-3xl">Courseware from real CMU courses, built by the faculty who teach them</h2>}
+          heading={
+            <div className="min-w-0 max-w-3xl">
+              <p className="text-sm font-bold uppercase text-primary">Courses</p>
+              <h2 className={`${heading2} mt-3`}>Courseware from real CMU courses, built by the faculty who teach them</h2>
+            </div>
+          }
         />
       </section>
     </>

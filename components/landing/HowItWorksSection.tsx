@@ -130,7 +130,8 @@ export default function HowItWorksSection() {
   return (
     <section id="how-it-works" className={`scroll-mt-32 bg-gray-light text-black ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
-        <h2 className={heading2}>Here&apos;s how it works</h2>
+        <p className="text-sm font-bold uppercase text-primary">Get started</p>
+        <h2 className={`${heading2} mt-3`}>How it works</h2>
         <p className="mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-iron-gray">
           Three steps from signing in to working through a real Carnegie Mellon course.
         </p>

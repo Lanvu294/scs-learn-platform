@@ -14,16 +14,28 @@ export type CarouselCourse = {
 const NAV_BUTTON =
   "flex size-11 items-center justify-center border border-black/20 text-black transition-colors hover:border-primary hover:bg-primary hover:text-white disabled:pointer-events-none disabled:opacity-30";
 
+const AUTOPLAY_MS = 4000;
+
+function setWidthOf(track: HTMLElement) {
+  const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+  return (track.scrollWidth + gap) / 2;
+}
+
 export default function CourseCarousel({ courses, heading }: { courses: CarouselCourse[]; heading: ReactNode }) {
   const trackRef = useRef<HTMLUListElement>(null);
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(true);
+  const paused = useRef(false);
+  const [canScroll, setCanScroll] = useState(true);
 
   const updateButtons = useCallback(() => {
     const track = trackRef.current;
     if (!track) return;
-    setCanPrev(track.scrollLeft > 1);
-    setCanNext(track.scrollLeft + track.clientWidth < track.scrollWidth - 1);
+    // The list is rendered twice so it can loop. Once the scroll passes the
+    // first copy, jump back by one set so the motion never runs out of cards.
+    const setWidth = setWidthOf(track);
+    if (setWidth > track.clientWidth && track.scrollLeft >= setWidth) {
+      track.scrollLeft -= setWidth;
+    }
+    setCanScroll(setWidth > track.clientWidth + 1);
   }, []);
 
   useEffect(() => {
@@ -44,19 +56,50 @@ export default function CourseCarousel({ courses, heading }: { courses: Carousel
     const card = track?.firstElementChild as HTMLElement | null;
     if (!track || !card) return;
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    const setWidth = setWidthOf(track);
+    if (direction < 0 && track.scrollLeft <= 1 && setWidth > track.clientWidth) {
+      track.scrollLeft += setWidth;
+    }
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     track.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: reduceMotion ? "auto" : "smooth" });
   };
 
+  useEffect(() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motion.matches) return;
+
+    const id = window.setInterval(() => {
+      if (paused.current || document.hidden) return;
+      scrollByCard(1);
+    }, AUTOPLAY_MS);
+
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
+    <div
+      className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16"
+      onMouseEnter={() => {
+        paused.current = true;
+      }}
+      onMouseLeave={() => {
+        paused.current = false;
+      }}
+      onFocusCapture={() => {
+        paused.current = true;
+      }}
+      onBlurCapture={(event) => {
+        const next = event.relatedTarget;
+        if (!(next instanceof Node) || !event.currentTarget.contains(next)) paused.current = false;
+      }}
+    >
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         {heading}
         <div className="flex shrink-0 gap-2">
-          <button type="button" onClick={() => scrollByCard(-1)} disabled={!canPrev} aria-label="Previous courses" className={NAV_BUTTON}>
+          <button type="button" onClick={() => scrollByCard(-1)} disabled={!canScroll} aria-label="Previous courses" className={NAV_BUTTON}>
             <ChevronLeft className="size-5" aria-hidden />
           </button>
-          <button type="button" onClick={() => scrollByCard(1)} disabled={!canNext} aria-label="Next courses" className={NAV_BUTTON}>
+          <button type="button" onClick={() => scrollByCard(1)} disabled={!canScroll} aria-label="Next courses" className={NAV_BUTTON}>
             <ChevronRight className="size-5" aria-hidden />
           </button>
         </div>
@@ -67,9 +110,10 @@ export default function CourseCarousel({ courses, heading }: { courses: Carousel
         aria-label="Course catalog"
         className="flex h-[26rem] snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] sm:h-[28rem] [&::-webkit-scrollbar]:hidden"
       >
-        {courses.map((course) => (
+        {[...courses, ...courses].map((course, index) => (
           <li
-            key={course.code}
+            key={`${course.code}-${index}`}
+            aria-hidden={index >= courses.length || undefined}
             className="group relative h-full shrink-0 basis-[85%] snap-start sm:basis-[calc((100%-1rem)/2)] lg:basis-[calc((100%-2rem)/3)]"
           >
             <div className="absolute inset-0 overflow-hidden bg-black">
