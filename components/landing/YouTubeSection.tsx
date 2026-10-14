@@ -91,7 +91,7 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
     portraits.push(
       <div
         key={instructor.name}
-        className={`relative aspect-square h-full shrink-0 ${i > 0 ? "-ml-[27%]" : ""}`}
+        className={`relative aspect-square h-full shrink-0 ${i > 0 ? "-ml-[50%] sm:-ml-[27%]" : ""}`}
         style={{ zIndex: playlist.instructors.length - i }}
       >
         <Image
@@ -113,7 +113,8 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
       aria-label={`${playlist.code} ${playlist.title}, ${names}: ${
         playlist.playlistUrl ? "open the playlist on YouTube" : "open the SCS Learn channel on YouTube"
       } (new tab)`}
-      className="group/card relative isolate block aspect-video w-full overflow-hidden bg-black text-white outline-none"
+      // Taller on phones (portraits on top, text across the bottom); 16:9 from sm up.
+      className="group/card relative isolate block aspect-[4/5] w-full overflow-hidden bg-black text-white outline-none sm:aspect-video"
     >
       <Image src="/landing/textures/cmu-tartan-wave-black.jpg" alt="" fill sizes="(min-width: 768px) 50vw, 85vw" quality={75} className="-z-20 object-cover" />
       <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0.4)_55%,rgba(0,0,0,0.1)_100%)]" />
@@ -122,31 +123,34 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
           bottom edge, right side. With two people, the pair fades out under the text. */}
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 flex h-[92%] items-end justify-end [mask-image:linear-gradient(to_right,transparent_18%,black_46%)]"
+        className="absolute inset-x-0 top-[12%] flex h-[62%] items-end justify-end sm:top-auto sm:bottom-0 sm:h-[92%] sm:[mask-image:linear-gradient(to_right,transparent_18%,black_46%)]"
       >
         {portraits}
       </div>
 
-      <p className="absolute top-0 left-0 bg-primary px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] sm:text-sm">
+      <p className="absolute top-0 left-0 z-10 bg-primary px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] sm:text-sm">
         Premieres in November
       </p>
 
-      <div className="absolute bottom-0 left-0 w-[54%] pb-5 pl-5 sm:pb-6 sm:pl-7">
+      {/* Phones: a dark fade under the text, which spans the card's width. */}
+      <div aria-hidden className="absolute inset-x-0 bottom-0 z-[5] h-[50%] bg-gradient-to-t from-black via-black/85 to-transparent sm:hidden" />
+      {/* Above the portraits, which carry their own z-index for the overlap. */}
+      <div className="absolute bottom-0 left-0 z-10 w-full px-5 pb-5 sm:w-[54%] sm:pr-0 sm:pb-6 sm:pl-7">
         <p className="text-xs font-semibold text-white/80 sm:text-sm">{playlist.code}</p>
         <div aria-hidden className="mt-2 h-1 w-10 bg-primary" />
-        <h3 className="mt-2 font-brand text-xl font-semibold leading-tight text-balance sm:text-2xl lg:text-[1.75rem]">{playlist.title}</h3>
+        <h3 className="mt-2 font-brand text-[1.375rem] font-semibold leading-tight text-balance sm:text-2xl lg:text-[1.75rem]">{playlist.title}</h3>
         <p className="mt-1 text-sm text-white/80">{names}</p>
       </div>
 
       <span
         aria-hidden
-        className="absolute top-3 right-3 flex size-10 items-center justify-center rounded-full border-2 border-white/60 bg-black/30 transition-colors group-hover/card:border-white group-hover/card:bg-white group-hover/card:text-black sm:top-4 sm:right-4 sm:size-12"
+        className="absolute top-3 right-3 z-10 flex size-10 items-center justify-center rounded-full border-2 border-white/60 bg-black/30 transition-colors group-hover/card:border-white group-hover/card:bg-white group-hover/card:text-black sm:top-4 sm:right-4 sm:size-12"
       >
         <ArrowUpRight className="size-5" />
       </span>
 
       {/* Keyboard focus ring, drawn on top (an outline would be clipped by the carousel). */}
-      <span aria-hidden className="pointer-events-none absolute inset-0 opacity-0 ring-4 ring-primary ring-inset group-focus-visible/card:opacity-100" />
+      <span aria-hidden className="pointer-events-none absolute inset-0 z-20 opacity-0 ring-4 ring-primary ring-inset group-focus-visible/card:opacity-100" />
     </a>
   );
 }
