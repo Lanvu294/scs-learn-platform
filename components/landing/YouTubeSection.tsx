@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Play } from "lucide-react";
 import Carousel from "./ui/Carousel";
 import { heading2, sectionPadding } from "./ui/typography";
-import { SCS_LEARN_YOUTUBE_URL } from "./links";
+import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL } from "./links";
 import { YouTubeColorIcon } from "./ui/YouTubeIcon";
 
 type ComingSoonVideo = {
@@ -95,10 +95,10 @@ export default function YouTubeSection() {
           <div className="min-w-0 max-w-3xl">
             <h2 className={heading2}>Courses at the forefront of computer science, free to watch.</h2>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-iron-gray">
-              At Carnegie Mellon, computing extends to design, AI, biology, and beyond, each with a department of its own that leads its field. Watch their classroom lectures on YouTube, whenever you want.
+              At Carnegie Mellon, computing extends to design, AI, biology, and beyond, from seven departments that all lead their fields. Watch their classroom lectures on YouTube, whenever you want.
             </p>
             <a
-              href={SCS_LEARN_YOUTUBE_URL}
+              href={SCS_LEARN_YOUTUBE_SUBSCRIBE_URL}
               {...external}
               className="group/yt mt-6 inline-flex items-center gap-3 bg-black py-2.5 pr-5 pl-3.5 text-white transition-colors hover:bg-[#272727]"
             >
