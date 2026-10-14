@@ -3,6 +3,7 @@ import { Play } from "lucide-react";
 import Carousel from "./ui/Carousel";
 import { heading2, sectionPadding } from "./ui/typography";
 import { SCS_LEARN_YOUTUBE_URL } from "./links";
+import { YouTubeColorIcon } from "./ui/YouTubeIcon";
 
 type ComingSoonVideo = {
   key: string;
@@ -73,7 +74,7 @@ function ComingSoonFrame({ video }: { video: ComingSoonVideo }) {
   );
 }
 
-// Red eyebrow, serif heading, a short description, then a carousel of
+// Serif heading, a short description, a YouTube subscribe button, then a carousel of
 // coming-soon frames until the lectures exist.
 export default function YouTubeSection() {
   const slides = [];
@@ -92,17 +93,20 @@ export default function YouTubeSection() {
         slideClassName="basis-[85%] md:basis-[calc((100%-1rem)/2)]"
         heading={
           <div className="min-w-0 max-w-3xl">
-            <p className="text-sm font-bold uppercase text-primary">SCS Learn on YouTube</p>
-            <h2 className={`${heading2} mt-3`}>Every lecture, free to start.</h2>
+            <h2 className={heading2}>Courses at the forefront of computer science, free to watch.</h2>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-iron-gray">
-              Real classroom lectures from the Kenneth C. Griffin School of Computer Science, completely free to get started and watch on your own time.
+              At Carnegie Mellon, computing extends to design, AI, biology, and beyond, each with a department of its own that leads its field. Watch their classroom lectures on YouTube, whenever you want.
             </p>
             <a
               href={SCS_LEARN_YOUTUBE_URL}
               {...external}
-              className="mt-6 inline-block border border-black px-5 py-2.5 text-sm font-semibold btn-fill-black hover:text-white"
+              className="group/yt mt-6 inline-flex items-center gap-3 bg-black py-2.5 pr-5 pl-3.5 text-white transition-colors hover:bg-[#272727]"
             >
-              Visit our YouTube channel
+              <YouTubeColorIcon className="h-7 w-7 shrink-0" />
+              <span className="flex flex-col leading-tight">
+                <span className="text-sm font-semibold">Subscribe on YouTube</span>
+                <span className="text-xs text-white/70">@SCSLearn</span>
+              </span>
             </a>
           </div>
         }

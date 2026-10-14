@@ -80,12 +80,11 @@ export default function HeroSection() {
           <p className="text-5xl font-bold tracking-tight text-white lg:text-6xl">SCS Learn</p>
           <div aria-hidden className="mt-2.5 h-1 w-14 bg-primary" />
           <h1 className="mt-5 max-w-[800px] font-brand text-[2rem] font-semibold leading-[1.1] text-white sm:text-[2.5rem] lg:text-[3rem]">
-            Computer science from Carnegie Mellon. Free to start, online, at your own pace.
+            Computer science from Carnegie Mellon. Free, online, at your pace.
           </h1>
-          <p id="waitlist" className="mt-12 scroll-mt-32 text-sm font-semibold text-white">
-            Sign up to be first in.
-          </p>
-          <EmailSignupForm buttonLabel="Join the waitlist" source="hero" className="mt-2" />
+          <div id="waitlist" className="mt-12 scroll-mt-32">
+            <EmailSignupForm buttonLabel="Join the waitlist" source="hero" />
+          </div>
           <a
             href={SCS_LEARN_YOUTUBE_URL}
             target="_blank"
