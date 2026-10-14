@@ -42,7 +42,7 @@ export default function HeroSection() {
             className="mt-6 inline-flex items-center gap-2.5 text-lg font-semibold text-white hover:text-white/80"
           >
             <YouTubeIcon className="h-6 w-6" />
-            <span className="link-swipe">Subscribe to our lectures on YouTube.</span>
+            <span className="link-swipe">Subscribe to SCS Learn on YouTube.</span>
           </a>
         </div>
       </section>
