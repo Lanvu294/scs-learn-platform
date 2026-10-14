@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowUpRight, Play } from "lucide-react";
 import Carousel from "./ui/Carousel";
-import { heading2, sectionPadding } from "./ui/typography";
+import { sectionPadding } from "./ui/typography";
 import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL, SCS_LEARN_YOUTUBE_URL } from "./links";
 import { YouTubeColorIcon } from "./ui/YouTubeIcon";
 
@@ -124,27 +124,27 @@ export default function YouTubeSection() {
   return (
     <section id="courses" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
       <div className={COLUMN}>
-        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-12">
-          <h2 className={`${heading2} lg:col-span-7`}>Courses at the forefront of computer science, free to watch.</h2>
-          <div className="lg:col-span-5">
+        {/* ~55/45, both columns starting on the same line. */}
+        <div className="grid gap-5 lg:grid-cols-11 lg:items-start lg:gap-10">
+          <h2 className="font-brand text-3xl font-semibold leading-[1.15] text-balance md:text-4xl lg:col-span-6 lg:text-[2.5rem]">
+            Carnegie Mellon&apos;s CS classroom, doors open to all.
+          </h2>
+          <div className="lg:col-span-5 lg:pt-1.5">
             <p className="text-base leading-relaxed text-iron-gray">
-              At Carnegie Mellon, computing extends to design, AI, biology, and beyond, with seven departments that all lead their fields. Watch their classroom lectures on YouTube, whenever you want.
+              Watch our faculty teach across AI, robotics, systems, biology, and more, from seven departments that lead their fields.
             </p>
             <a
               href={SCS_LEARN_YOUTUBE_SUBSCRIBE_URL}
               {...external}
-              className="group/yt mt-6 inline-flex items-center gap-3 bg-black py-2.5 pr-5 pl-3.5 text-white transition-colors hover:bg-[#272727]"
+              className="mt-5 inline-flex items-center gap-2.5 bg-black py-2.5 pr-5 pl-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#272727]"
             >
-              <YouTubeColorIcon className="h-7 w-7 shrink-0" />
-              <span className="flex flex-col leading-tight">
-                <span className="text-sm font-semibold">Subscribe on YouTube</span>
-                <span className="text-xs text-white/70">@SCSLearn</span>
-              </span>
+              <YouTubeColorIcon className="h-6 w-6 shrink-0" />
+              Subscribe on YouTube
             </a>
           </div>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-10 lg:mt-12">
           <WelcomeVideoComingSoon />
         </div>
       </div>
