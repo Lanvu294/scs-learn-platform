@@ -16,3 +16,12 @@ Pulled from Carnegie Mellon's own websites on 2026-10-05, using the largest orig
 | campus-walk.jpg | Offerings: study on campus | 1920x1080 | 1920x1080 | Students walk and bike through the green space between academic buildings on Carnegie Mellon University's campus on a sunny day | https://www.cmu.edu/sites/default/files/2025-05/about-cmu-campus-green-space.jpg | https://www.cmu.edu/academics/ |
 | learner-headphones.jpg | Hero (2026-10-13) | 2048x1365 | 2048x1365 | CMU Selects, Student Lifestyle collection (official university photo portal; downloaded 2026-10-13 by Phillip Compeau, intended use "Website, CMS or Drupal") | MC_221107E_TCS_Hall_ED_011.jpg | https://cmu.widencollective.com/portals/u1rloihn/UCM-StudentLifestyle |
 | learner-headphones-medium.jpg | Hero (2026-10-13) | 2048x1365 | 2048x1365 | CMU Selects, Student Lifestyle collection (same session as learner-headphones.jpg) | MC_221107E_TCS_Hall_ED_008.jpg | https://cmu.widencollective.com/portals/u1rloihn/UCM-StudentLifestyle |
+
+## Textures (public/landing/textures)
+
+CMU's tartan wave pattern, as used on CMU Online's site (2026-10-14). Resized from 6000x6000 PNG to 1600px JPEG.
+
+| File | Used for | Image URL | Found on |
+|---|---|---|---|
+| cmu-tartan-wave-red.jpg | Offerings: Earn a CMU credential | https://www.cmu.edu/sites/default/files/cmu-online-site-files/images/cmu-tartan-wave-red-crop-01.png | https://www.cmu.edu/online/ |
+| cmu-tartan-wave-black.jpg | Offerings: Train your organization | https://www.cmu.edu/sites/default/files/cmu-online-site-files/images/cmu-tartan-wave-black-crop-02.png | https://www.cmu.edu/online/ |

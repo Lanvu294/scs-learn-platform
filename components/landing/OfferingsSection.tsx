@@ -8,6 +8,8 @@ type Offering = {
   cta: string;
   href: string;
   image?: string;
+  // CMU's tartan wave pattern (from cmu.edu/online) behind a solid-color card.
+  texture?: string;
   color?: string;
   wide?: boolean;
 };
@@ -26,6 +28,7 @@ const OFFERINGS: Offering[] = [
     description: "Go deeper with graded work and an official credential through CMU Online.",
     cta: "Explore CMU Online",
     href: "https://www.cmu.edu/online/",
+    texture: "/landing/textures/cmu-tartan-wave-red.jpg",
     color: "bg-primary",
   },
   {
@@ -33,6 +36,7 @@ const OFFERINGS: Offering[] = [
     description: "Bring Carnegie Mellon computer science to your team with SCS Executive Education.",
     cta: "Learn more",
     href: "https://exec.cs.cmu.edu/",
+    texture: "/landing/textures/cmu-tartan-wave-black.jpg",
     color: "bg-black",
   },
   {
@@ -52,7 +56,7 @@ export default function OfferingsSection() {
         <h2 className={`${heading2} mb-10`}>Ready for more?</h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {OFFERINGS.map(({ title, description, cta, href, image, color, wide }) => {
+          {OFFERINGS.map(({ title, description, cta, href, image, texture, color, wide }) => {
             const className = `group relative isolate flex min-h-[18rem] flex-col justify-end overflow-hidden p-8 text-white md:min-h-[20rem] md:p-10 ${
               wide ? "md:col-span-2" : ""
             } ${image ? "bg-black" : color}`;
@@ -69,6 +73,18 @@ export default function OfferingsSection() {
                       className="-z-20 object-cover"
                     />
                     <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/55 to-black/30" />
+                  </>
+                )}
+                {texture && (
+                  <>
+                    <Image src={texture} alt="" fill sizes="(min-width: 48rem) 33vw, 100vw" quality={75} className="-z-20 object-cover" />
+                    {/* Settle the pattern under the text, in the card's own color. */}
+                    <div
+                      aria-hidden
+                      className={`absolute inset-0 -z-10 bg-gradient-to-t ${
+                        color === "bg-primary" ? "from-primary via-primary/60 to-transparent" : "from-black via-black/70 to-transparent"
+                      }`}
+                    />
                   </>
                 )}
                 <h3 className="max-w-md text-balance font-brand text-[1.875rem] font-semibold leading-[1.15] xl:text-[2.25rem]">
