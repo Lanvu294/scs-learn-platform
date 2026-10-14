@@ -33,7 +33,7 @@ export default function HeroSection() {
             We&apos;re starting with free classroom lectures on YouTube. Courseware comes next.
           </p>
           <div id="updates" className="mt-10 scroll-mt-32">
-            <EmailSignupForm buttonLabel="Get courseware updates" source="hero" />
+            <EmailSignupForm buttonLabel="Keep me posted" source="hero" />
           </div>
           <a
             href={SCS_LEARN_YOUTUBE_SUBSCRIBE_URL}
