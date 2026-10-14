@@ -68,8 +68,9 @@ export default function OfferingsSection() {
                       src={image}
                       alt=""
                       fill
-                      sizes="(min-width: 48rem) 66vw, 100vw"
-                      quality={90}
+                      // The wide cards top out at 760px; 75 is plenty under the dark wash.
+                      sizes="(min-width: 80rem) 760px, (min-width: 48rem) 66vw, 100vw"
+                      quality={75}
                       className="-z-20 object-cover"
                     />
                     <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/55 to-black/30" />
