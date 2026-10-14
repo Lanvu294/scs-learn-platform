@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export type CarouselSlide = {
@@ -39,7 +39,6 @@ export default function Carousel({
   const offsetRef = useRef(0);
   const distanceRef = useRef(0);
   const jumpRef = useRef(0);
-  const advanceRef = useRef<(direction: 1 | -1) => void>(() => {});
   const [distance, setDistance] = useState(0);
   const [offset, setOffset] = useState(0);
   const [animate, setAnimate] = useState(true);
@@ -61,7 +60,7 @@ export default function Carousel({
     return () => observer.disconnect();
   }, [slides.length]);
 
-  const queueJump = (stepped: number) => {
+  const queueJump = useCallback((stepped: number) => {
     const token = ++jumpRef.current;
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -71,9 +70,9 @@ export default function Carousel({
         setOffset(stepped);
       });
     });
-  };
+  }, []);
 
-  advanceRef.current = (direction: 1 | -1) => {
+  const advance = useCallback((direction: 1 | -1) => {
     const count = slides.length;
     if (count < 2 || distanceRef.current <= 0) return;
     jumpRef.current += 1;
@@ -103,7 +102,7 @@ export default function Carousel({
     const next = current + direction;
     offsetRef.current = next;
     setOffset(next);
-  };
+  }, [slides.length, queueJump]);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -111,21 +110,21 @@ export default function Carousel({
 
     const id = window.setInterval(() => {
       if (document.hidden) return;
-      advanceRef.current(1);
+      advance(1);
     }, autoplayMs);
 
     return () => window.clearInterval(id);
-  }, [autoplayMs]);
+  }, [advance, autoplayMs]);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         {heading}
         <div className="flex shrink-0 gap-2">
-          <button type="button" onClick={() => advanceRef.current(-1)} disabled={slides.length < 2} aria-label={`Previous ${itemName}`} className={NAV_BUTTON}>
+          <button type="button" onClick={() => advance(-1)} disabled={slides.length < 2} aria-label={`Previous ${itemName}`} className={NAV_BUTTON}>
             <ChevronLeft className="size-5" aria-hidden />
           </button>
-          <button type="button" onClick={() => advanceRef.current(1)} disabled={slides.length < 2} aria-label={`Next ${itemName}`} className={NAV_BUTTON}>
+          <button type="button" onClick={() => advance(1)} disabled={slides.length < 2} aria-label={`Next ${itemName}`} className={NAV_BUTTON}>
             <ChevronRight className="size-5" aria-hidden />
           </button>
         </div>
