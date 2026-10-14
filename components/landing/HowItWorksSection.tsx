@@ -20,7 +20,7 @@ type Stage = {
 // Illustrations share one frame: same size, same neutral background. They show
 // the learning experience, not a real interface, and name no courses.
 function Frame({ children }: { children: ReactNode }) {
-  return <div className="relative flex aspect-[5/4] w-full items-center justify-center overflow-hidden bg-gray-light p-5 sm:p-6">{children}</div>;
+  return <div className="relative flex min-h-[19rem] w-full items-center justify-center bg-gray-light p-5 sm:p-6">{children}</div>;
 }
 
 function LectureVisual() {
@@ -52,7 +52,15 @@ function CoursewareVisual() {
   return (
     <Frame>
       <div className="w-full max-w-sm bg-white p-4 text-left shadow-[0_24px_48px_-24px_rgba(0,0,0,0.35)]">
-        <p className="text-[11px] font-semibold text-iron-gray">Lesson 7</p>
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[11px] font-semibold text-iron-gray">Lesson 7</p>
+          <span className="flex shrink-0 items-center gap-1.5 text-[11px] font-semibold">
+            <span className="flex size-5 items-center justify-center rounded-full bg-primary text-white">
+              <Award size={11} strokeWidth={2.25} />
+            </span>
+            Badge earned
+          </span>
+        </div>
         <p className="mt-1 text-sm font-bold leading-snug">Shortest paths with Dijkstra&apos;s algorithm</p>
         <div aria-hidden className="mt-3 flex flex-col gap-1.5">
           <div className="h-1.5 w-full bg-gray-light" />
@@ -68,12 +76,6 @@ function CoursewareVisual() {
             All 12 tests passed
           </p>
         </div>
-      </div>
-      <div className="absolute top-4 right-4 flex items-center gap-2 bg-white py-1.5 pr-3 pl-1.5 text-[11px] font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.35)] sm:top-5 sm:right-5">
-        <span className="flex size-6 items-center justify-center rounded-full bg-primary text-white">
-          <Award size={13} strokeWidth={2.25} />
-        </span>
-        Badge earned
       </div>
     </Frame>
   );
@@ -130,7 +132,8 @@ export default function HowItWorksSection() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
         <h2 className={`${heading2} max-w-3xl`}>What&apos;s coming to SCS Learn</h2>
 
-        <ol className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8 lg:mt-16">
+        {/* Three columns from 1100px; below that each step is a row (picture beside text), stacking on phones. */}
+        <ol className="mt-12 grid grid-cols-1 gap-14 lg:mt-16 min-[1100px]:grid-cols-3 min-[1100px]:gap-8">
           {STAGES.map(({ title, when, description, visual, conceptPreview, action }, i) => (
             <li key={title} className="flex flex-col">
               {/* Step marker; on wide screens a rule runs on to the next step. */}
@@ -139,18 +142,27 @@ export default function HowItWorksSection() {
                   {i + 1}
                 </span>
                 <span className="text-sm font-semibold text-iron-gray">{when}</span>
-                {i < STAGES.length - 1 ? <span aria-hidden className="ml-2 hidden h-px flex-1 bg-gray-300 md:block" /> : null}
+                {i < STAGES.length - 1 ? <span aria-hidden className="ml-2 hidden h-px flex-1 bg-gray-300 min-[1100px]:block" /> : null}
               </div>
 
-              <div className="mt-5">{visual}</div>
-              {/* Same height on every step so the titles stay level. */}
-              <p aria-hidden={!conceptPreview || undefined} className={`mt-2 text-xs text-gray-medium ${conceptPreview ? "" : "invisible"}`}>
-                Concept preview
-              </p>
+              <div className="mt-5 grid gap-6 md:max-[1099px]:grid-cols-2 md:max-[1099px]:items-center md:max-[1099px]:gap-10 min-[1100px]:gap-0">
+                <div>
+                  {visual}
+                  {/* Same height on every step so the titles stay level. */}
+                  <p
+                    aria-hidden={!conceptPreview || undefined}
+                    className={`mt-2 text-xs text-iron-gray ${conceptPreview ? "" : "invisible"}`}
+                  >
+                    Concept preview
+                  </p>
+                </div>
 
-              <h3 className="mt-6 font-brand text-[1.5rem] font-semibold leading-[1.2] md:text-[1.625rem]">{title}</h3>
-              <p className="mt-3 text-pretty text-base leading-relaxed text-iron-gray">{description}</p>
-              {action ? <div className="mt-6">{action}</div> : null}
+                <div>
+                  <h3 className="font-brand text-[1.5rem] font-semibold leading-[1.2] md:text-[1.625rem] min-[1100px]:mt-6">{title}</h3>
+                  <p className="mt-3 text-pretty text-base leading-relaxed text-iron-gray">{description}</p>
+                  {action ? <div className="mt-6">{action}</div> : null}
+                </div>
+              </div>
             </li>
           ))}
         </ol>
