@@ -5,11 +5,16 @@ import { sectionPadding } from "./ui/typography";
 import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL, SCS_LEARN_YOUTUBE_URL } from "./links";
 import { YouTubeColorIcon } from "./ui/YouTubeIcon";
 
+type Instructor = {
+  name: string;
+  // Background-removed portrait (public/landing/faculty), from the department directory.
+  photo: string;
+};
+
 type CoursewarePlaylist = {
   code: string;
   title: string;
-  byline: string;
-  image: string;
+  instructors: Instructor[];
   // The course's YouTube playlist. Until it exists, the card opens the channel.
   playlistUrl: string | null;
 };
@@ -21,32 +26,40 @@ const PLAYLISTS: CoursewarePlaylist[] = [
   {
     code: "17-437",
     title: "Web Application Development",
-    byline: "Terry Lee",
-    image: "/landing/photos/gates-center-study.jpg",
+    instructors: [{ name: "Terry Lee", photo: "/landing/faculty/lee.png" }],
     playlistUrl: null,
   },
   {
     code: "10-701",
     title: "Introduction to Machine Learning",
-    byline: "Geoff Gordon and Pradeep Ravikumar",
-    image: "/landing/photos/ml-visualization.jpg",
+    instructors: [
+      { name: "Geoff Gordon", photo: "/landing/faculty/gordon.png" },
+      { name: "Pradeep Ravikumar", photo: "/landing/faculty/ravikumar.png" },
+    ],
     playlistUrl: null,
   },
   {
     code: "17-214",
     title: "Principles of Software Construction",
-    byline: "Hammad Ahmad",
-    image: "/landing/photos/students-coding.jpg",
+    instructors: [{ name: "Hammad Ahmad", photo: "/landing/faculty/ahmad.png" }],
     playlistUrl: null,
   },
   {
     code: "10-725",
     title: "Optimization for Machine Learning",
-    byline: "Barnabás Póczos",
-    image: "/landing/photos/hardware-lab.jpg",
+    instructors: [{ name: "Barnabás Póczos", photo: "/landing/faculty/poczos.png" }],
     playlistUrl: null,
   },
 ];
+
+function byline(instructors: Instructor[]): string {
+  const names: string[] = [];
+  for (const instructor of instructors) {
+    names.push(instructor.name);
+  }
+  if (names.length < 3) return names.join(" and ");
+  return `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}`;
+}
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
@@ -67,46 +80,72 @@ function WelcomeVideoComingSoon() {
 
 // A 16:9 card that opens the course's playlist in a new tab: campus photo under a
 // dark wash, a red "Premieres in November" tag, the course, and its faculty.
+// A series poster: black-and-white portraits of the faculty on CMU's black tartan,
+// course title on the left. Portraits warm into color on hover. Two instructors
+// stand side by side, the second slightly behind the first.
 function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
+  const names = byline(playlist.instructors);
+  const portraits = [];
+  for (let i = 0; i < playlist.instructors.length; i++) {
+    const instructor = playlist.instructors[i];
+    portraits.push(
+      <div
+        key={instructor.name}
+        className={`relative aspect-square h-full shrink-0 ${i > 0 ? "-ml-[27%]" : ""}`}
+        style={{ zIndex: playlist.instructors.length - i }}
+      >
+        <Image
+          src={instructor.photo}
+          alt=""
+          fill
+          sizes="(min-width: 768px) 26vw, 45vw"
+          className="object-contain object-bottom grayscale transition-[filter] duration-500 group-hover/card:grayscale-0 motion-reduce:transition-none"
+        />
+      </div>,
+    );
+  }
+
   return (
     <a
       href={playlist.playlistUrl ?? SCS_LEARN_YOUTUBE_URL}
       {...external}
       // Say where the link really goes: the playlist once it exists, the channel until then.
-      aria-label={`${playlist.code} ${playlist.title}, ${playlist.byline}: ${
+      aria-label={`${playlist.code} ${playlist.title}, ${names}: ${
         playlist.playlistUrl ? "open the playlist on YouTube" : "open the SCS Learn channel on YouTube"
       } (new tab)`}
-      className="group/card relative block aspect-video w-full overflow-hidden bg-black text-white outline-none"
+      className="group/card relative isolate block aspect-video w-full overflow-hidden bg-black text-white outline-none"
     >
-      <Image
-        src={playlist.image}
-        alt=""
-        fill
-        sizes="(min-width: 768px) 50vw, 85vw"
-        quality={90}
-        className="object-cover transition-transform duration-500 ease-out group-hover/card:scale-[1.03] motion-reduce:transition-none"
-      />
-      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0.45)_55%,rgba(0,0,0,0.25)_100%)]" />
+      <Image src="/landing/textures/cmu-tartan-wave-black.jpg" alt="" fill sizes="(min-width: 768px) 50vw, 85vw" quality={75} className="-z-20 object-cover" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0.4)_55%,rgba(0,0,0,0.1)_100%)]" />
+
+      {/* Portraits share one head size (normalized in the PNGs) and stand on the
+          bottom edge, right side. With two people, the pair fades out under the text. */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 flex h-[92%] items-end justify-end [mask-image:linear-gradient(to_right,transparent_18%,black_46%)]"
+      >
+        {portraits}
+      </div>
 
       <p className="absolute top-0 left-0 bg-primary px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] sm:text-sm">
         Premieres in November
       </p>
 
-      <div className="absolute inset-x-0 bottom-0 pr-20 pb-5 pl-5 sm:pr-24 sm:pb-6 sm:pl-7">
+      <div className="absolute bottom-0 left-0 w-[54%] pb-5 pl-5 sm:pb-6 sm:pl-7">
         <p className="text-xs font-semibold text-white/80 sm:text-sm">{playlist.code}</p>
         <div aria-hidden className="mt-2 h-1 w-10 bg-primary" />
         <h3 className="mt-2 font-brand text-xl font-semibold leading-tight text-balance sm:text-2xl lg:text-[1.75rem]">{playlist.title}</h3>
-        <p className="mt-1 text-sm text-white/80">{playlist.byline}</p>
+        <p className="mt-1 text-sm text-white/80">{names}</p>
       </div>
 
       <span
         aria-hidden
-        className="absolute right-5 bottom-5 flex size-11 items-center justify-center rounded-full border-2 border-white/60 transition-colors group-hover/card:border-white group-hover/card:bg-white group-hover/card:text-black sm:right-7 sm:bottom-6 sm:size-14"
+        className="absolute top-3 right-3 flex size-10 items-center justify-center rounded-full border-2 border-white/60 bg-black/30 transition-colors group-hover/card:border-white group-hover/card:bg-white group-hover/card:text-black sm:top-4 sm:right-4 sm:size-12"
       >
-        <ArrowUpRight className="size-5 sm:size-6" />
+        <ArrowUpRight className="size-5" />
       </span>
 
-      {/* Keyboard focus ring, drawn on top of the photo (an outline would be clipped by the carousel). */}
+      {/* Keyboard focus ring, drawn on top (an outline would be clipped by the carousel). */}
       <span aria-hidden className="pointer-events-none absolute inset-0 opacity-0 ring-4 ring-primary ring-inset group-focus-visible/card:opacity-100" />
     </a>
   );
