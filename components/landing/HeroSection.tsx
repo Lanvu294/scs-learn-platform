@@ -30,7 +30,7 @@ export default function HeroSection() {
             Computer science from Carnegie Mellon. Free, online, at your pace.
           </h1>
           <p className="mt-5 max-w-[640px] text-lg leading-relaxed text-white/90">
-            We&apos;re starting with free classroom lectures on YouTube. Courseware comes next.
+            Free lectures now, courseware coming soon.
           </p>
           <div id="updates" className="mt-10 scroll-mt-32">
             <EmailSignupForm buttonLabel="Keep me posted" source="hero" />
