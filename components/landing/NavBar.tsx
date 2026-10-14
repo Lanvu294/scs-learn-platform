@@ -90,7 +90,7 @@ export default function NavBar() {
           ))}
         </nav>
         <div className="ml-auto flex h-12 items-stretch xl:ml-0">
-          <a href="#courses" aria-label="Search courses" className="grid w-12 place-items-center bg-primary text-white">
+          <a href="#courses" aria-label="Search courseware" className="grid w-12 place-items-center bg-primary text-white">
             <SearchIcon />
           </a>
           <button

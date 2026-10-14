@@ -270,7 +270,7 @@ export async function createCourse(input: CreateCourseInput): Promise<{ code: st
     .select("id")
     .eq("code", code)
     .maybeSingle();
-  if (existing) throw new Error("A course with this code already exists.");
+  if (existing) throw new Error("Courseware with this code already exists.");
 
   const { data: created, error } = await supabase
     .from("courses")
@@ -312,7 +312,7 @@ export async function deleteCourse(courseCode: string) {
     .select("id");
   if (error) throw new Error(error.message);
   if (!deleted || deleted.length === 0) {
-    throw new Error(`Only the course owner can delete ${courseCode}. Ask an admin to remove you from it instead.`);
+    throw new Error(`Only the courseware owner can delete ${courseCode}. Ask an admin to remove you from it instead.`);
   }
 
   revalidatePath("/instructor");

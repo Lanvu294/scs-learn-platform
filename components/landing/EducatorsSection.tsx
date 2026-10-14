@@ -10,12 +10,12 @@ const EDUCATORS = [
     title: "Teaching Professor, Computational Biology",
   },
   {
-    name: "Instructor name",
-    title: "Course title, Department",
+    name: "Instructor name. Going live in November.",
+    title: "Courseware title, Department. Going live in November.",
   },
   {
-    name: "Instructor name",
-    title: "Course title, Department",
+    name: "Instructor name. Going live in November.",
+    title: "Courseware title, Department. Going live in November.",
   },
 ];
 
@@ -23,9 +23,9 @@ export default function EducatorsSection() {
   return (
     <section className={`bg-gray-light text-black ${sectionPadding}`}>
       <Container>
-        <h2 className={`${heading2} mb-4`}>Taught by world leading Carnegie Mellon educators.</h2>
+        <h2 className={`${heading2} mb-4`}>Taught by Carnegie Mellon faculty.</h2>
         <p className="text-iron-gray max-w-2xl mb-16">
-          Every course is taught by the professors who built it.
+          The courseware is taught by the professors who built it.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -36,7 +36,7 @@ export default function EducatorsSection() {
               </div>
               <h3 className="font-semibold">{name}</h3>
               <p className="text-sm text-iron-gray">{title}</p>
-              <TextLink href="#">Register for the course</TextLink>
+              <TextLink href="#">Register for the courseware</TextLink>
             </Card>
           ))}
         </div>

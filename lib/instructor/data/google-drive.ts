@@ -258,7 +258,7 @@ export async function runDriveImport(
     .select("title, department")
     .eq("code", courseCode)
     .single();
-  if (courseError || !course) throw new Error("Unknown course code");
+  if (courseError || !course) throw new Error("Unknown courseware code");
 
   await flushAtomStore();
 

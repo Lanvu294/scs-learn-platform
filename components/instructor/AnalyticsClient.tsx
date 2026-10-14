@@ -39,13 +39,13 @@ export default function AnalyticsClient({ course }: { course: InstructorCourse }
           <h1 className="mt-4 font-serif text-2xl font-semibold">No analytics yet</h1>
           <p className="mt-2 text-sm text-gray-600">
             Detailed analytics for {course.code} will appear here. Live learner progress and quiz averages are on the
-            course dashboard.
+            courseware dashboard.
           </p>
           <Link
             href={`/instructor/${course.code}`}
             className="mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white btn-fill-primary-dark"
           >
-            Go to course dashboard
+            Go to courseware dashboard
           </Link>
         </div>
       </div>
@@ -63,12 +63,12 @@ export default function AnalyticsClient({ course }: { course: InstructorCourse }
         </p>
         <h1 className="text-3xl font-serif font-semibold mb-1">{course.title}</h1>
         <p className="text-gray-500 mb-8">
-          Sample data for demo purposes — not connected to real student activity yet.
+          Sample data for now. Live student activity goes live in November.
         </p>
 
         {analytics.totalStudents === 0 ? (
           <div className="border border-dashed border-gray-300 bg-white p-10 text-center text-gray-400">
-            No students enrolled yet. Analytics will appear once this course opens.
+            No students enrolled yet. Analytics will appear once this courseware opens.
           </div>
         ) : (
           <>

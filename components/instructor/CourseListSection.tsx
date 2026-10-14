@@ -102,12 +102,12 @@ function CreateCourseModal({
           const message =
             importErr instanceof Error ? importErr.message : "Drive import failed.";
           window.alert(
-            `Course "${result.code}" was created, but the Drive import failed: ${message}. You can retry from the course editor.`
+            `Courseware "${result.code}" was created, but the Drive import failed: ${message}. You can retry from the courseware editor.`
           );
           onCreated(result.code);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to create course.");
+        setError(err instanceof Error ? err.message : "Failed to create courseware.");
         setStatus("confirm");
       }
     });
@@ -126,7 +126,7 @@ function CreateCourseModal({
         className="bg-white text-black rounded-md shadow-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto"
       >
         <h2 id="create-course-title" className="text-lg font-bold mb-4">
-          Create a new course
+          Create new courseware
         </h2>
 
         {status === "importing" ? (
@@ -137,17 +137,17 @@ function CreateCourseModal({
         ) : status === "creating" ? (
           <div className="flex flex-col items-center gap-2 text-sm text-gray-500 py-10">
             <Loader2 size={20} className="animate-spin" />
-            Creating course...
+            Creating courseware...
           </div>
         ) : status === "confirm" && preview ? (
           <>
             <p className="text-sm text-gray-600 mb-4">
-              Course code and title are read from the Drive folder name.
+              Courseware code and title are read from the Drive folder name.
             </p>
             <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm mb-4">
               <dt className="font-bold text-gray-500">Folder</dt>
               <dd>{preview.folderName}</dd>
-              <dt className="font-bold text-gray-500">Course code</dt>
+              <dt className="font-bold text-gray-500">Courseware code</dt>
               <dd className="font-mono">{preview.code}</dd>
               <dt className="font-bold text-gray-500">Title</dt>
               <dd>{preview.title}</dd>
@@ -181,7 +181,7 @@ function CreateCourseModal({
         ) : (
           <>
             <p className="text-sm text-gray-500 mb-4">
-              Paste a link to your course&apos;s Google Drive folder. The course code and title are
+              Paste a link to your courseware&apos;s Google Drive folder. The courseware code and title are
               taken from the folder name (for example, &ldquo;02-251 Introduction to
               Bioinformatics&rdquo;).
             </p>
@@ -336,14 +336,14 @@ export default function CourseListSection({ courses: initialCourses }: { courses
   return (
     <>
       <div className="flex items-center justify-between gap-4 mb-4">
-        <h2 className="font-serif text-xl font-semibold">Your courses</h2>
+        <h2 className="font-serif text-xl font-semibold">Your courseware</h2>
         <button
           type="button"
           onClick={() => setShowModal(true)}
           className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white btn-fill-primary-dark shrink-0"
         >
           <Plus size={16} />
-          New course
+          New courseware
         </button>
       </div>
 
@@ -354,9 +354,9 @@ export default function CourseListSection({ courses: initialCourses }: { courses
           className="w-full border-2 border-dashed border-gray-300 rounded-xl p-10 text-center hover:border-gray-400 btn-fill-white"
         >
           <Plus size={24} className="mx-auto mb-2 text-gray-400" />
-          <p className="text-sm font-bold mb-1">Create your first course</p>
+          <p className="text-sm font-bold mb-1">Create your first courseware</p>
           <p className="text-xs text-gray-500">
-            Paste a Google Drive folder link — the course code and title come from the folder name.
+            Paste a Google Drive folder link. The courseware code and title come from the folder name.
           </p>
         </button>
       ) : (

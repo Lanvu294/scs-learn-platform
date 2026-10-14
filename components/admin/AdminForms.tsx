@@ -67,7 +67,7 @@ export function AddCourseInstructorForm({
   options: { id: string; name: string; email: string | null }[];
 }) {
   const { formRef, state, formAction, pending } = useResettingAction(addCourseInstructor);
-  if (options.length === 0) return <p className="text-xs text-gray-400">Every instructor already teaches this course.</p>;
+  if (options.length === 0) return <p className="text-xs text-gray-400">Every instructor already teaches this courseware.</p>;
   return (
     <form ref={formRef} action={formAction} className="space-y-1.5">
       <input type="hidden" name="courseId" value={courseId} />

@@ -36,7 +36,7 @@ async function getCourseId(courseCode: string): Promise<string> {
     .select("id")
     .eq("code", courseCode)
     .single();
-  if (error || !data) throw new Error("Unknown course code");
+  if (error || !data) throw new Error("Unknown courseware code");
   return data.id;
 }
 
@@ -265,7 +265,7 @@ export async function syncCogniterraAssignments(
     .select("id, title, department")
     .eq("code", courseCode)
     .single();
-  if (courseError || !course) throw new Error("Unknown course code");
+  if (courseError || !course) throw new Error("Unknown courseware code");
 
   const { data: config, error: configError } = await supabase
     .from("cogniterra_course_config")
@@ -331,7 +331,7 @@ export async function syncCogniterraAssignments(
     );
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Could not place Cogniterra assignments into the course.";
+      error instanceof Error ? error.message : "Could not place Cogniterra assignments into the courseware.";
     console.error("syncCogniterraAssignments: placement failed:", message);
     return { placed: 0, warning: message };
   }

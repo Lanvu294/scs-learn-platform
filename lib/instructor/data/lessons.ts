@@ -90,7 +90,7 @@ export async function addUnit(courseCode: string, title: string): Promise<Unit> 
     .select("id")
     .eq("code", courseCode)
     .single();
-  if (courseError || !course) throw new Error(courseError?.message ?? "Unknown course code");
+  if (courseError || !course) throw new Error(courseError?.message ?? "Unknown courseware code");
 
   const { data: existingUnits, error: unitsError } = await supabase
     .from("units")
@@ -129,7 +129,7 @@ export async function addUnitFromImport(
     .select("id")
     .eq("code", courseCode)
     .single();
-  if (courseError || !course) throw new Error(courseError?.message ?? "Unknown course code");
+  if (courseError || !course) throw new Error(courseError?.message ?? "Unknown courseware code");
 
   const { data: existingUnits, error: unitsError } = await supabase
     .from("units")
@@ -548,7 +548,7 @@ export async function publishAllLessons(courseCode: string) {
     .select("id")
     .eq("code", courseCode)
     .single();
-  if (courseError || !course) throw new Error(courseError?.message ?? "Unknown course code");
+  if (courseError || !course) throw new Error(courseError?.message ?? "Unknown courseware code");
 
   const { data: units, error: unitsError } = await supabase
     .from("units")

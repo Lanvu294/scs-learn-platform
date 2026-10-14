@@ -51,7 +51,7 @@ export async function postAnnouncement(input: { courseCode: string; message: str
     .select("id")
     .eq("code", input.courseCode)
     .single();
-  if (courseError || !course) throw new Error("Unknown course code");
+  if (courseError || !course) throw new Error("Unknown courseware code");
 
   const { error } = await supabase.from("announcements").insert({
     course_id: course.id,

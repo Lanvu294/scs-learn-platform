@@ -106,7 +106,7 @@ export default function AppHeaderBar({
                 </div>
                 <MenuLink href="/account" icon={<UserRound size={15} />} label="Account" />
                 {isTeaching ? (
-                  <MenuLink href="/instructor" icon={<GraduationCap size={15} />} label="My courses" />
+                  <MenuLink href="/instructor" icon={<GraduationCap size={15} />} label="My courseware" />
                 ) : (
                   <MenuLink href="/student" icon={<BookOpen size={15} />} label="My learning" />
                 )}

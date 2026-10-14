@@ -39,6 +39,6 @@ export function parseCourseFolderName(folderName: string): { code: string; title
   }
 
   throw new Error(
-    `Couldn't find a course code in the folder name "${trimmed}". Name your Drive folder like "02-251 Introduction to Bioinformatics".`
+    `Couldn't find a courseware code in the folder name "${trimmed}". Name your Drive folder like "02-251 Introduction to Bioinformatics".`
   );
 }

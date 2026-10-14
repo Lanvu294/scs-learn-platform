@@ -4,20 +4,18 @@ const FEATURES = [
   {
     icon: Bot,
     title: "AI tutor",
-    description:
-      "A tutor trained on your course, ready whenever you are. It reviews your work and helps you get unstuck.",
+    description: "Going live in November. A tutor that will review your work and help you get unstuck.",
   },
   {
     icon: DollarSign,
-    title: "Completely free",
-    description:
-      "No application, no payment, and no prerequisites. Just sign in with your email to get started.",
+    title: "Free to start",
+    description: "Sign up with your email to be first in.",
   },
   {
     icon: Award,
-    title: "Certificates",
+    title: "Badges",
     description:
-      "Earn a certificate to show what you've learned. Add it to your resume or share it on LinkedIn.",
+      "Earn a badge to show what you've learned. Add it to your resume or share it on LinkedIn.",
   },
 ];
 

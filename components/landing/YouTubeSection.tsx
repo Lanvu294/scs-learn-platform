@@ -2,7 +2,11 @@ import Container from "./ui/Container";
 import { heading2, sectionPadding } from "./ui/typography";
 import { SCS_LEARN_YOUTUBE_URL } from "./links";
 
-const COURSE_VIDEOS = ["Course XXX", "Course YYY", "Course ZZZ"];
+const COURSE_VIDEOS = [
+  "Courseware XXX. Going live in November.",
+  "Courseware YYY. Going live in November.",
+  "Courseware ZZZ. Going live in November.",
+];
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
@@ -23,11 +27,10 @@ export default function YouTubeSection() {
     <section className={`bg-white text-black ${sectionPadding}`}>
       <Container>
         <p className="text-sm font-bold uppercase text-primary">SCS Learn on YouTube</p>
-        <h2 className={`${heading2} mt-3`}>Every lecture, free to watch</h2>
+        <h2 className={`${heading2} mt-3`}>Every lecture, free to start.</h2>
         <div className="mt-6 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-2xl text-base leading-relaxed text-iron-gray">
-            Classroom lectures from the Kenneth C. Griffin School of Computer Science, free for anyone to watch. Sign in
-            for the notes, coursework, and AI tutor.
+            Real classroom lectures from the Kenneth C. Griffin School of Computer Science, completely free to get started and watch on your own time.
           </p>
           <a
             href={SCS_LEARN_YOUTUBE_URL}
@@ -38,7 +41,7 @@ export default function YouTubeSection() {
           </a>
         </div>
 
-        <VideoPlaceholder label="SCS Learn Intro Video from Phillip" className="mt-12 text-xl sm:text-2xl" />
+        <VideoPlaceholder label="SCS Learn intro from Phillip. Going live in November." className="mt-12 text-xl sm:text-2xl" />
 
         <ul className="mt-12 grid grid-cols-1 gap-10 xl:grid-cols-3 xl:gap-8">
           {COURSE_VIDEOS.map((label) => (

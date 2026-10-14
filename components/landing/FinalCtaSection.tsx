@@ -18,7 +18,7 @@ export default function FinalCtaSection() {
           Be first in when it opens.
         </h2>
         <p className="mt-5 max-w-2xl text-pretty text-lg leading-[1.55] text-white/75 md:text-xl">
-          Add your name to the waitlist and we&apos;ll email you the moment your course opens for
+          Add your name to the waitlist and we&apos;ll email you when courseware opens for
           enrollment.
         </p>
         <EmailSignupForm buttonLabel="Get early access" className="mt-8" />

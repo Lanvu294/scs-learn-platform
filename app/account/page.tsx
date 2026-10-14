@@ -48,7 +48,7 @@ export default async function AccountPage() {
                 <User size={16} className="text-gray-400" />
                 <span className="flex-1">
                   <span className="font-bold">Student</span>
-                  <span className="block text-xs text-gray-500">Your courses and progress</span>
+                  <span className="block text-xs text-gray-500">Your courseware and progress</span>
                 </span>
                 <ArrowRight size={15} />
               </Link>
@@ -59,14 +59,14 @@ export default async function AccountPage() {
                   <GraduationCap size={16} className="text-gray-400" />
                   <span className="flex-1">
                     <span className="font-bold">Instructor</span>
-                    <span className="block text-xs text-gray-500">Courses you teach</span>
+                    <span className="block text-xs text-gray-500">Courseware you teach</span>
                   </span>
                   <ArrowRight size={15} />
                 </Link>
               </li>
             ) : (
               <li className="py-3 text-xs text-gray-500">
-                Teaching a course? Instructor access is granted by email.{" "}
+                Teaching courseware? Instructor access is granted by email.{" "}
                 <Link href="/instructor-access" className="underline underline-offset-2 hover:text-black">
                   How to get it
                 </Link>

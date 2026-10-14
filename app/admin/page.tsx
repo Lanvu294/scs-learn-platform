@@ -20,7 +20,7 @@ export default async function AdminPage() {
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-10">
           <p className={`${eyebrow} mb-2`}>Admin</p>
           <h1 className={pageTitle}>Manage SCS Learn</h1>
-          <p className="mt-2 text-gray-600">Grant instructor access, staff courses, and manage admins.</p>
+          <p className="mt-2 text-gray-600">Grant instructor access, staff courseware, and manage admins.</p>
         </div>
       </section>
 
@@ -28,7 +28,7 @@ export default async function AdminPage() {
         {!migrated && (
           <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
             Run <code>supabase/migrations/add-admins-and-course-instructors.sql</code> in the Supabase SQL editor to
-            enable instructor emails and course staffing.
+            enable instructor emails and courseware staffing.
           </p>
         )}
 
@@ -62,14 +62,14 @@ export default async function AdminPage() {
                   {i.linked ? "Signed in" : "Invited"}
                 </span>
                 <span className="w-20 text-right text-xs text-gray-500 tabular-nums">
-                  {i.courseCount} {i.courseCount === 1 ? "course" : "courses"}
+                  {i.courseCount} {i.courseCount === 1 ? "courseware title" : "courseware titles"}
                 </span>
                 {(i.email || i.linked) && (
                   <form action={removeInstructor}>
                     <input type="hidden" name="instructorId" value={i.id} />
                     <button
                       type="submit"
-                      title="Remove instructor access (courses they own are kept)"
+                      title="Remove instructor access (courseware they own is kept)"
                       className="rounded-md px-2 py-1 text-xs font-semibold text-gray-500 btn-fill-red-50 hover:text-red-700"
                     >
                       Remove
@@ -86,10 +86,10 @@ export default async function AdminPage() {
         <section>
           <h2 className="mb-1 flex items-center gap-2 font-serif text-xl font-semibold">
             <UserRound size={18} className="text-gray-400" />
-            Course staff
+            Courseware staff
           </h2>
           <p className="mb-4 text-sm text-gray-600">
-            Everyone listed can teach and edit the course. Only the owner can delete it.
+            Everyone listed can teach and edit the courseware. Only the owner can delete it.
           </p>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {courses.map((course) => {

@@ -246,7 +246,7 @@ export default function ContentSidebar({
         window.alert("No new Cogniterra assignments to place — everything's already wired up.");
       } else {
         window.alert(
-          `Placed ${placed} Cogniterra assignment${placed === 1 ? "" : "s"} into the course by topic.`
+          `Placed ${placed} Cogniterra assignment${placed === 1 ? "" : "s"} into the courseware by topic.`
         );
         window.location.reload();
       }
@@ -267,7 +267,7 @@ export default function ContentSidebar({
           className="inline-flex items-center gap-1.5 self-start pl-1.5 text-xs font-semibold text-gray-500 hover:text-black"
         >
           <ArrowLeft size={14} />
-          Course dashboard
+          Courseware dashboard
         </Link>
         <div className="mt-3 w-full min-w-0 pl-1.5 flex items-start justify-between gap-2">
           <div className="min-w-0">
@@ -280,8 +280,8 @@ export default function ContentSidebar({
           </div>
           <button
             type="button"
-            aria-label="Delete course"
-            title="Delete course"
+            aria-label="Delete courseware"
+            title="Delete courseware"
             className="shrink-0 text-gray-300 hover:text-red-500 mt-0.5"
             onClick={onDeleteCourse}
           >
@@ -521,7 +521,7 @@ export default function ContentSidebar({
               lessonIds.length === 1 ? "" : "s"
             } from Google Drive. Review titles and types before publishing.${
               skippedAlreadyImportedCount > 0
-                ? `\n\nSkipped ${skippedAlreadyImportedCount} file${skippedAlreadyImportedCount === 1 ? "" : "s"} already imported into this course.`
+                ? `\n\nSkipped ${skippedAlreadyImportedCount} file${skippedAlreadyImportedCount === 1 ? "" : "s"} already imported into this courseware.`
                 : ""
             }${
               failedUnitTitles.length > 0

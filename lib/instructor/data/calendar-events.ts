@@ -69,13 +69,13 @@ export async function addCalendarEvent(input: {
 
   let courseId: string | null = null;
   if (input.scope === "course") {
-    if (!input.courseCode) throw new Error("courseCode is required for a course-scoped event");
+    if (!input.courseCode) throw new Error("A courseware code is required for this event.");
     const { data: course, error } = await supabase
       .from("courses")
       .select("id")
       .eq("code", input.courseCode)
       .single();
-    if (error || !course) throw new Error("Unknown course code");
+    if (error || !course) throw new Error("Unknown courseware code");
     courseId = course.id;
   }
 

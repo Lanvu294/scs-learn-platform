@@ -841,14 +841,14 @@ async function attachYoutubePlaylistVideos(
   });
 
   if (skipImportAi()) {
-    return "DRIVE_IMPORT_SKIP_AI is set - playlist videos were not placed into the course.";
+    return "DRIVE_IMPORT_SKIP_AI is set - playlist videos were not placed into the courseware.";
   }
 
   let result;
   try {
     result = await placeYoutubeVideos(course, videos, existingUnits);
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Could not place playlist videos into the course.";
+    const message = error instanceof Error ? error.message : "Could not place playlist videos into the courseware.";
     console.error("attachYoutubePlaylistVideos: placement failed:", message);
     return message;
   }
@@ -958,7 +958,7 @@ async function attachYoutubePlaylistVideos(
     lastInsertionIndexByAnchor.set(anchorKey, insertIndex);
   }
 
-  const placementNote = result.placements.length === 0 ? "None of the videos could be placed into the course." : null;
+  const placementNote = result.placements.length === 0 ? "None of the videos could be placed into the courseware." : null;
   return [truncatedNote, placementNote].filter(Boolean).join(" ") || null;
 }
 
@@ -1035,11 +1035,11 @@ export async function runDriveImportOrganize(
     .select("id")
     .eq("code", courseCode)
     .single();
-  if (lockCourseError || !lockCourse) throw new Error("Unknown course code");
+  if (lockCourseError || !lockCourse) throw new Error("Unknown courseware code");
 
   if (!(await acquireImportLock(lockCourse.id))) {
     throw new Error(
-      "An import is already running for this course - wait for it to finish before starting another. (If it's been stuck for more than 30 minutes, try again - the lock clears itself.)"
+      "An import is already running for this courseware. Wait for it to finish before starting another. If it has been stuck for more than 30 minutes, try again. The lock clears itself."
     );
   }
 
@@ -1078,7 +1078,7 @@ async function runDriveImportOrganizeLocked(
     .select("id, code, title, department")
     .eq("code", courseCode)
     .single();
-  if (courseError || !course) throw new Error("Unknown course code");
+  if (courseError || !course) throw new Error("Unknown courseware code");
 
   if (
     options?.cogniterra?.cogniterraCourseId &&

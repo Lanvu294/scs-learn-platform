@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -14,54 +14,80 @@ export type CarouselCourse = {
 const NAV_BUTTON =
   "flex size-11 items-center justify-center border border-black/20 text-black transition-colors hover:border-primary hover:bg-primary hover:text-white disabled:pointer-events-none disabled:opacity-30";
 
-const AUTOPLAY_MS = 4000;
-
-function setWidthOf(track: HTMLElement) {
-  const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-  return (track.scrollWidth + gap) / 2;
-}
+// Hold on each course, then ease onto the next one. The hold is the gap
+// between the start of one slide and the next.
+const AUTOPLAY_MS = 2400;
+const SLIDE_MS = 700;
 
 export default function CourseCarousel({ courses, heading }: { courses: CarouselCourse[]; heading: ReactNode }) {
   const trackRef = useRef<HTMLUListElement>(null);
-  const paused = useRef(false);
-  const [canScroll, setCanScroll] = useState(true);
-
-  const updateButtons = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    // The list is rendered twice so it can loop. Once the scroll passes the
-    // first copy, jump back by one set so the motion never runs out of cards.
-    const setWidth = setWidthOf(track);
-    if (setWidth > track.clientWidth && track.scrollLeft >= setWidth) {
-      track.scrollLeft -= setWidth;
-    }
-    setCanScroll(setWidth > track.clientWidth + 1);
-  }, []);
+  const offsetRef = useRef(0);
+  const distanceRef = useRef(0);
+  const jumpRef = useRef(0);
+  const advanceRef = useRef<(direction: 1 | -1) => void>(() => {});
+  const [distance, setDistance] = useState(0);
+  const [offset, setOffset] = useState(0);
+  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    updateButtons();
-    track.addEventListener("scroll", updateButtons, { passive: true });
-    const observer = new ResizeObserver(updateButtons);
-    observer.observe(track);
-    return () => {
-      track.removeEventListener("scroll", updateButtons);
-      observer.disconnect();
+    const measure = () => {
+      const card = track.firstElementChild as HTMLElement | null;
+      if (!card) return;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      const next = card.offsetWidth + gap;
+      distanceRef.current = next;
+      setDistance((prev) => (Math.abs(prev - next) < 0.5 ? prev : next));
     };
-  }, [updateButtons]);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, [courses.length]);
 
-  const scrollByCard = (direction: 1 | -1) => {
-    const track = trackRef.current;
-    const card = track?.firstElementChild as HTMLElement | null;
-    if (!track || !card) return;
-    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-    const setWidth = setWidthOf(track);
-    if (direction < 0 && track.scrollLeft <= 1 && setWidth > track.clientWidth) {
-      track.scrollLeft += setWidth;
+  const queueJump = (stepped: number) => {
+    const token = ++jumpRef.current;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (jumpRef.current !== token) return;
+        setAnimate(true);
+        offsetRef.current = stepped;
+        setOffset(stepped);
+      });
+    });
+  };
+
+  advanceRef.current = (direction: 1 | -1) => {
+    const count = courses.length;
+    if (count < 2 || distanceRef.current <= 0) return;
+    jumpRef.current += 1;
+    const current = offsetRef.current;
+
+    // The list is rendered twice. Once the first copy has slid fully out of
+    // view, jump back to the matching card in the first copy (no animation),
+    // then ease one course forward. The two copies line up, so the jump is invisible.
+    if (current >= count) {
+      const base = current % count;
+      setAnimate(false);
+      offsetRef.current = base;
+      setOffset(base);
+      queueJump(base + direction);
+      return;
     }
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: reduceMotion ? "auto" : "smooth" });
+
+    if (direction < 0 && current === 0) {
+      setAnimate(false);
+      offsetRef.current = count;
+      setOffset(count);
+      queueJump(count - 1);
+      return;
+    }
+
+    setAnimate(true);
+    const next = current + direction;
+    offsetRef.current = next;
+    setOffset(next);
   };
 
   useEffect(() => {
@@ -69,52 +95,42 @@ export default function CourseCarousel({ courses, heading }: { courses: Carousel
     if (motion.matches) return;
 
     const id = window.setInterval(() => {
-      if (paused.current || document.hidden) return;
-      scrollByCard(1);
+      if (document.hidden) return;
+      advanceRef.current(1);
     }, AUTOPLAY_MS);
 
     return () => window.clearInterval(id);
   }, []);
 
   return (
-    <div
-      className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16"
-      onMouseEnter={() => {
-        paused.current = true;
-      }}
-      onMouseLeave={() => {
-        paused.current = false;
-      }}
-      onFocusCapture={() => {
-        paused.current = true;
-      }}
-      onBlurCapture={(event) => {
-        const next = event.relatedTarget;
-        if (!(next instanceof Node) || !event.currentTarget.contains(next)) paused.current = false;
-      }}
-    >
+    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         {heading}
         <div className="flex shrink-0 gap-2">
-          <button type="button" onClick={() => scrollByCard(-1)} disabled={!canScroll} aria-label="Previous courses" className={NAV_BUTTON}>
+          <button type="button" onClick={() => advanceRef.current(-1)} disabled={courses.length < 2} aria-label="Previous courseware" className={NAV_BUTTON}>
             <ChevronLeft className="size-5" aria-hidden />
           </button>
-          <button type="button" onClick={() => scrollByCard(1)} disabled={!canScroll} aria-label="Next courses" className={NAV_BUTTON}>
+          <button type="button" onClick={() => advanceRef.current(1)} disabled={courses.length < 2} aria-label="Next courseware" className={NAV_BUTTON}>
             <ChevronRight className="size-5" aria-hidden />
           </button>
         </div>
       </div>
 
+      <div className="overflow-hidden">
       <ul
         ref={trackRef}
-        aria-label="Course catalog"
-        className="flex h-[26rem] snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] sm:h-[28rem] [&::-webkit-scrollbar]:hidden"
+        aria-label="Courseware catalog"
+        className="flex h-[26rem] gap-4 sm:h-[28rem] motion-reduce:transition-none"
+        style={{
+          transform: distance ? `translate3d(${-offset * distance}px, 0, 0)` : undefined,
+          transition: animate ? `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)` : "none",
+        }}
       >
         {[...courses, ...courses].map((course, index) => (
           <li
             key={`${course.code}-${index}`}
             aria-hidden={index >= courses.length || undefined}
-            className="group relative h-full shrink-0 basis-[85%] snap-start sm:basis-[calc((100%-1rem)/2)] lg:basis-[calc((100%-2rem)/3)]"
+            className="group relative h-full shrink-0 basis-[85%] sm:basis-[calc((100%-1rem)/2)] lg:basis-[calc((100%-2rem)/3)]"
           >
             <div className="absolute inset-0 overflow-hidden bg-black">
               <Image
@@ -141,6 +157,7 @@ export default function CourseCarousel({ courses, heading }: { courses: Carousel
           </li>
         ))}
       </ul>
+      </div>
     </div>
   );
 }

@@ -28,7 +28,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "SCS Learn",
-  description: "Take a real Carnegie Mellon course — free and on your schedule.",
+  description: "Take Carnegie Mellon courseware. Free to start, on your schedule.",
 };
 
 export default function RootLayout({

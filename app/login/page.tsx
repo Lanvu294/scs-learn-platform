@@ -60,7 +60,7 @@ export default async function LoginPage({
         <div className="max-w-md">
           <p className="font-serif text-4xl font-semibold leading-tight">Carnegie Mellon courseware, free to start.</p>
           <p className="mt-4 text-base leading-relaxed text-white/80">
-            Watch the lectures and get instant feedback from our autograders. AI tutor coming soon.
+            Watch the lectures and get instant feedback from our autograders. AI tutor goes live in November.
           </p>
         </div>
       </section>
@@ -85,7 +85,7 @@ export default async function LoginPage({
               signupsPaused={(await getAuthSettings()).signupsPaused}
             />
             <p className="mt-8 text-center text-xs leading-relaxed text-gray-500">
-              Teaching with SCS Learn? Sign in with the email your course is registered under.
+              Teaching with SCS Learn? Sign in with the email your courseware is registered under.
             </p>
           </div>
         </div>

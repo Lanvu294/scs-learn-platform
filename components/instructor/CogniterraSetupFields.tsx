@@ -20,16 +20,16 @@ export default function CogniterraSetupFields({
       <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Cogniterra</p>
       <p className="text-xs text-gray-500">
         Required when the folder includes coding assignments graded on Cogniterra. Leave blank if
-        this course has no Cogniterra activities.
+        this courseware has no Cogniterra activities.
       </p>
       {existingCourseId && (
         <p className="text-xs text-green-700">
-          This course is already linked to Cogniterra course {existingCourseId}. Re-enter the shared
+          This courseware is already linked to Cogniterra ID {existingCourseId}. Re-enter the shared
           secret only if you are updating credentials.
         </p>
       )}
       <label className="block text-xs text-gray-600">
-        Cogniterra course ID
+        Cogniterra ID
         <input
           type="text"
           value={cogniterraCourseId}

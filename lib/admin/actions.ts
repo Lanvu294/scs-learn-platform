@@ -66,11 +66,11 @@ export async function addCourseInstructor(_prev: AdminActionState, formData: For
   if (!courseId || !instructorId) return { status: "error", message: "Pick an instructor." };
   const { error } = await db().from("course_instructors").insert({ course_id: courseId, instructor_id: instructorId });
   if (error) {
-    if (error.code === "23505") return { status: "error", message: "They already teach this course." };
+    if (error.code === "23505") return { status: "error", message: "They already teach this courseware." };
     if (["42P01", "PGRST205"].includes(error.code)) return { status: "error", message: "Run supabase/migrations/add-admins-and-course-instructors.sql first." };
     return { status: "error", message: error.message };
   }
-  return done("Instructor added to the course.");
+  return done("Instructor added to the courseware.");
 }
 
 /** Take an instructor off a course's staff. The owner can't be removed (they'd keep access through ownership anyway). */
@@ -80,7 +80,7 @@ export async function removeCourseInstructor(formData: FormData): Promise<void> 
   const instructorId = String(formData.get("instructorId") ?? "");
   const admin = db();
   const { data: course } = await admin.from("courses").select("instructor_id").eq("id", courseId).maybeSingle();
-  if (course?.instructor_id === instructorId) throw new Error("The course owner can't be removed from their own course.");
+  if (course?.instructor_id === instructorId) throw new Error("The courseware owner can't be removed from their own courseware.");
   const { error } = await admin
     .from("course_instructors")
     .delete()

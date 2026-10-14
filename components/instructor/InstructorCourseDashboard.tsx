@@ -45,7 +45,7 @@ export default function InstructorCourseDashboard({
 
   return (
     <main className="min-h-screen bg-gray-50 text-black">
-      <AppHeader mode="teaching" backHref="/instructor" backLabel="All courses" />
+      <AppHeader mode="teaching" backHref="/instructor" backLabel="All courseware" />
 
       <CourseBanner code={course.code} showCode={false} className="h-32 md:h-40" />
 

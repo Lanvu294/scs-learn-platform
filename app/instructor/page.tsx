@@ -22,7 +22,7 @@ export default async function InstructorDashboardPage() {
           <p className={`${eyebrow} mb-2`}>Teaching</p>
           <h1 className={pageTitle}>Welcome back, {instructor.name.split(" ")[0]}.</h1>
           <p className="mt-2 text-gray-600">
-            You&apos;re teaching {courses.length} {courses.length === 1 ? "course" : "courses"} this term.
+            You&apos;re teaching {courses.length} {courses.length === 1 ? "courseware title" : "courseware titles"} this term.
           </p>
         </div>
       </section>

@@ -32,8 +32,8 @@ export default async function StudentDashboardPage() {
           <h1 className={pageTitle}>Welcome back, {firstName}.</h1>
           <p className="mt-2 text-gray-600">
             {courses.length === 0
-              ? "You're not in any courses yet."
-              : `You're enrolled in ${courses.length} ${courses.length === 1 ? "course" : "courses"}.`}
+              ? "You're not in any courseware yet."
+              : `You're enrolled in ${courses.length} ${courses.length === 1 ? "courseware title" : "courseware titles"}.`}
           </p>
         </div>
       </section>
@@ -59,7 +59,7 @@ export default async function StudentDashboardPage() {
                     className={`${btnPrimary} mt-5`}
                   >
                     <Play size={14} />
-                    {spotlight.percentComplete > 0 ? "Resume" : "Start course"}
+                    {spotlight.percentComplete > 0 ? "Resume" : "Start courseware"}
                   </Link>
                 </div>
                 <div className="flex items-center gap-3 sm:flex-col sm:gap-1.5">
@@ -74,13 +74,13 @@ export default async function StudentDashboardPage() {
         )}
 
         <section>
-          <h2 className={`${sectionTitle} mb-4`}>All courses</h2>
+          <h2 className={`${sectionTitle} mb-4`}>All courseware</h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {courses.map((course) => (
               <StudentCourseCard key={course.code} course={course} />
             ))}
           </div>
-          {courses.length === 0 && <p className="text-sm text-gray-500">No courses available yet.</p>}
+          {courses.length === 0 && <p className="text-sm text-gray-500">No courseware available yet.</p>}
         </section>
       </div>
     </main>

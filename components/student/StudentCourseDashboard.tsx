@@ -143,8 +143,8 @@ export default function StudentCourseDashboard({
                 {resumeLesson
                   ? completedCount > 0
                     ? `Resume: ${resumeLesson.code} ${resumeLesson.title}`
-                    : "Start course"
-                  : "Review course"}
+                    : "Start courseware"
+                  : "Review courseware"}
               </span>
             </Link>
           )}
@@ -152,7 +152,7 @@ export default function StudentCourseDashboard({
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <h2 className="font-serif text-xl font-semibold">Course content</h2>
+            <h2 className="font-serif text-xl font-semibold">Courseware</h2>
             {course.units.map((unit) => {
               const done = unit.lessons.filter((l) => l.completedAt != null).length;
               const unitPercent = Math.round((done / unit.lessons.length) * 100);
@@ -213,7 +213,7 @@ export default function StudentCourseDashboard({
           <div className="flex flex-col gap-6">
             <Panel icon={<Trophy size={15} className="text-gray-400" />} title="Grades">
               {grades.length === 0 ? (
-                <p className="text-sm text-gray-400">No graded work in this course yet.</p>
+                <p className="text-sm text-gray-400">No graded work in this courseware yet.</p>
               ) : (
                 <ul className="flex flex-col gap-2.5 max-h-96 overflow-y-auto pr-1">
                   {grades.map((grade) => (

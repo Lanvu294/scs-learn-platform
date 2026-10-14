@@ -60,7 +60,7 @@ export default async function InstructorAccessPage() {
 
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-gray-100 pt-4 text-sm">
           <Link href="/student" className="font-bold underline underline-offset-4">
-            Go to my courses
+            Go to my courseware
           </Link>
           <form action={signOut}>
             <button type="submit" className="text-gray-600 underline underline-offset-4 hover:text-black">

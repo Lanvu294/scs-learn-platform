@@ -15,7 +15,7 @@ type Offering = {
 const OFFERINGS: Offering[] = [
   {
     title: "Explore SCS research",
-    description: "The faculty who teach these courses lead labs in AI, robotics, systems, and more.",
+    description: "The faculty who teach this courseware lead labs in AI, robotics, systems, and more.",
     cta: "See the research",
     href: "https://www.cs.cmu.edu/research/index",
     image: "/landing/photos/robotic-arm-lab.jpg",
@@ -23,7 +23,7 @@ const OFFERINGS: Offering[] = [
   },
   {
     title: "Earn a CMU credential",
-    description: "Go deeper with graded coursework and an official certificate through CMU Online.",
+    description: "Go deeper with graded work and an official credential through CMU Online.",
     cta: "Explore CMU Online",
     href: "https://www.cmu.edu/online/",
     color: "bg-primary",

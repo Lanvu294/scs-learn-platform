@@ -107,7 +107,7 @@ export default function StudentCourseClient({
           />
         ) : (
           <div className="h-full bg-white flex items-center justify-center text-sm text-gray-400">
-            This course has no published lessons yet.
+            This courseware has no published lessons yet.
           </div>
         )}
       </div>

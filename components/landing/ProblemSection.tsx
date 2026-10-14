@@ -5,7 +5,7 @@ import { heading2, sectionPadding } from "./ui/typography";
 const ISSUES = [
   { text: "A degree that you may not have", emphasis: "time", suffix: "for" },
   { text: "A bootcamp you cannot justify the", emphasis: "price", suffix: "of" },
-  { text: "Free material to work through", emphasis: "on your own", suffix: "" },
+  { text: "Material to work through", emphasis: "on your own", suffix: "" },
 ];
 
 export default function ProblemSection() {
@@ -27,7 +27,7 @@ export default function ProblemSection() {
           ))}
         </div>
 
-        <p className={heading2}>It doesn&apos;t have to be that way.</p>
+        <p className={heading2}>Courseware from Carnegie Mellon, free to start.</p>
       </Container>
     </section>
   );

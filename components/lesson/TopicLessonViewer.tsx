@@ -183,7 +183,7 @@ export default function TopicLessonViewer({
           <h1 className="topic-lesson-title">{lessonTitle}</h1>
         </div>
         <p className="px-8 py-6 text-sm text-gray-400">
-          No content loaded for this lesson. Re-import the course folder.
+          No content loaded for this lesson. Re-import the courseware folder.
         </p>
       </article>
     );

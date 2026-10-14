@@ -17,7 +17,7 @@ export default async function CourseAnalyticsPage({
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <AppHeader mode="teaching" backHref={`/instructor/${courseCode}`} backLabel="Course dashboard" />
+      <AppHeader mode="teaching" backHref={`/instructor/${courseCode}`} backLabel="Courseware dashboard" />
       <AnalyticsClient course={course} />
     </main>
   );

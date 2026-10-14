@@ -1,18 +1,7 @@
-"use client";
-
-import { useState, type CSSProperties } from "react";
-import { Check, CirclePlay, Code2, FileText, ListChecks, Mail, type LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
+import { Check, CirclePlay, Mail, type LucideIcon } from "lucide-react";
 import CmuLink from "./ui/CmuLink";
-import { heading2, sectionPadding } from "./ui/typography";
-
-const GRID_STYLE: CSSProperties = {
-  backgroundImage:
-    "linear-gradient(to right, rgba(255,255,255,0.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.14) 1px, transparent 1px)",
-  backgroundSize: "2.5rem 2.5rem",
-  backgroundPosition: "center",
-  maskImage: "radial-gradient(ellipse at center, black 25%, transparent 75%)",
-  WebkitMaskImage: "radial-gradient(ellipse at center, black 25%, transparent 75%)",
-};
+import { eyebrow as eyebrowStyle, heading2, sectionPadding } from "./ui/typography";
 
 function FilledCheck({ className = "" }: { className?: string }) {
   return (
@@ -25,191 +14,148 @@ function FilledCheck({ className = "" }: { className?: string }) {
 type Feature = { icon: LucideIcon; title: string; text: string };
 
 type Step = {
-  tab: string;
+  eyebrow: string;
   title: string;
   description: string;
-  /** Plain check-mark list... */
   points?: string[];
-  /** ...or an icon + title + one-liner feature list (the "what's included" step). */
   features?: Feature[];
   cta: string;
   href: string;
   panel: string;
-  visual: React.ReactNode;
+  visual: ReactNode;
 };
 
-// What a course actually comes with on SCS Learn - each maps to something the
-// platform delivers: YouTube lectures, lesson notes / slide decks, autograded
-// Cogniterra + Autolab assignments, and in-app quizzes (incl. AI-graded free response).
 const COURSE_RESOURCES: (Feature & { count: string })[] = [
-  { icon: CirclePlay, title: "Watch the full lectures", text: "Every lecture from the course, recorded and free to rewatch.", count: "Lectures" },
-  { icon: FileText, title: "Read the notes and slides", text: "The same lecture notes and slide decks CMU students use.", count: "Notes & slides" },
-  { icon: Code2, title: "Do real coursework", text: "Programming assignments, autograded the moment you submit.", count: "Assignments" },
-  { icon: ListChecks, title: "Check yourself with quizzes", text: "Instant feedback, including written answers graded by AI.", count: "Quizzes" },
+  { icon: CirclePlay, title: "Watch the full lectures", text: "Every lecture in the courseware, recorded so you can watch it again.", count: "Lectures" },
 ];
 
 const STEPS: Step[] = [
   {
-    tab: "Sign in",
-    title: "Sign in for free",
-    description: "No application, no payment, no prerequisites. Just your email, and you're in.",
-    points: ["Completely free", "No application or prerequisites", "Takes less than a minute"],
-    cta: "Start learning",
-    href: "/student",
+    eyebrow: "Sign up",
+    title: "Sign up to be first in",
+    description: "Add your email and we'll let you know when you can sign in.",
+    points: ["Join the waitlist with your email", "We'll tell you when sign-in opens"],
+    cta: "Join the waitlist",
+    href: "#waitlist",
     panel: "bg-primary",
     visual: (
-      <div className="w-56  bg-white p-4 text-left shadow-[0_8px_24px_-12px_rgba(0,0,0,0.18)]">
+      <>
         <div className="flex items-center gap-2.5 bg-gray-light px-3 py-2 text-sm text-iron-gray">
           <Mail size={16} />
           you@email.com
         </div>
         <div className="mt-3 flex items-center gap-2 text-sm font-semibold">
           <FilledCheck className="h-[18px] w-[18px]" />
-          Signed in
+          On the waitlist
         </div>
-      </div>
+      </>
     ),
   },
   {
-    tab: "What's included",
-    title: "Everything the course gives its own students",
-    description:
-      "Not a trimmed-down MOOC. You work through the real course, at your own pace, with the same materials Carnegie Mellon students get.",
+    eyebrow: "What's included",
+    title: "Lectures you can watch today",
+    description: "Full classroom lectures are free to start.",
     features: COURSE_RESOURCES,
-    cta: "See the courses",
+    cta: "Watch on YouTube",
     href: "#courses",
     panel: "bg-black",
     visual: (
-      <div className="w-56 bg-white text-left shadow-[0_8px_24px_-12px_rgba(0,0,0,0.18)]">
-        <div className="border-b border-gray-light px-3.5 py-3">
+      <>
+        <div className="border-b border-gray-light pb-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-primary">06-204</p>
-          <p className="text-sm font-semibold leading-tight">Course contents</p>
+          <p className="text-sm font-semibold leading-tight">Courseware</p>
         </div>
-        <ul className="flex flex-col py-1.5">
+        <ul className="mt-3 flex flex-col gap-2.5">
           {COURSE_RESOURCES.map(({ icon: Icon, count }) => (
-            <li key={count} className="flex items-center gap-2.5 px-3.5 py-1.5 text-xs font-medium">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center bg-primary text-white">
-                <Icon size={12} strokeWidth={2.5} />
+            <li key={count} className="flex items-center gap-2.5 text-[15px] font-medium">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-primary text-white">
+                <Icon size={14} strokeWidth={2.5} />
               </span>
               {count}
-              <Check size={13} strokeWidth={3} className="ml-auto text-primary" />
+              <Check size={16} strokeWidth={3} className="ml-auto text-primary" />
             </li>
           ))}
         </ul>
-      </div>
+      </>
     ),
   },
   {
-    tab: "AI tutor",
-    title: "Learn with an AI tutor",
-    description:
-      "Trained on the course materials, it reviews your work, explains what went wrong, and what to try next.",
-    points: [
-      "Trained on the actual course materials",
-      "Explains mistakes, not just answers",
-      "Available whenever you're stuck",
-    ],
-    cta: "Meet the AI tutor",
-    href: "/student",
-    panel: "bg-[#222]",
+    eyebrow: "AI tutor",
+    title: "An AI tutor goes live in November",
+    description: "It will help you work through the lectures.",
+    points: ["Going live in November", "Will help when you're stuck"],
+    cta: "Join the waitlist",
+    href: "#waitlist",
+    panel: "bg-gray-light",
     visual: (
-      <div className="flex w-56 flex-col gap-2 text-left text-sm">
-        <span className="self-end  bg-white px-3.5 py-2">Why is my loop stuck?</span>
-        <span className="self-start  bg-primary px-3.5 py-2 text-white">
-          Check your stop condition on line 4.
-        </span>
+      <div className="flex flex-col gap-2 text-left text-sm">
+        <p className="text-xs font-bold uppercase tracking-wide text-primary">Going live in November</p>
+        <span className="self-end bg-gray-light px-3.5 py-2">Why is my loop stuck?</span>
+        <span className="self-start bg-primary px-3.5 py-2 text-white">Check your stop condition on line 4.</span>
       </div>
     ),
   },
 ];
 
 export default function HowItWorksSection() {
-  const [active, setActive] = useState(0);
-  const step = STEPS[active];
-
   return (
-    <section id="how-it-works" className={`scroll-mt-32 bg-gray-light text-black ${sectionPadding}`}>
+    <section id="how-it-works" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
-        <p className="text-sm font-bold uppercase text-primary">Get started</p>
-        <h2 className={`${heading2} mt-3`}>How it works</h2>
-        <p className="mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-iron-gray">
-          Three steps from signing in to working through a real Carnegie Mellon course.
-        </p>
+        <p className="text-sm font-bold uppercase text-primary">How it works</p>
+        <h2 className={`${heading2} mt-3 max-w-3xl`}>
+          From the waitlist to lectures you can watch now.
+        </h2>
 
-        <div
-          role="tablist"
-          aria-label="How it works steps"
-          className="mt-10 flex max-w-full gap-6 overflow-x-auto border-b border-steel-gray [scrollbar-width:none] sm:gap-10"
-        >
-          {STEPS.map(({ tab }, i) => (
-            <button
-              key={tab}
-              type="button"
-              role="tab"
-              id={`how-tab-${i}`}
-              aria-selected={i === active}
-              aria-controls="how-panel"
-              onClick={() => setActive(i)}
-              className={`-mb-px whitespace-nowrap border-b-4 pb-3 pt-1 text-base font-semibold transition-colors ${
-                i === active ? "border-primary text-black" : "border-transparent text-iron-gray hover:text-black"
-              }`}
-            >
-              <span className="tabular-nums">{i + 1}.</span> {tab}
-            </button>
-          ))}
-        </div>
+        <div className="mt-12 flex flex-col gap-14 lg:mt-16 lg:gap-20">
+          {STEPS.map(({ eyebrow, title, description, points, features, cta, href, panel, visual }, i) => (
+            <div key={eyebrow} className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
+              <div className="md:col-span-5">
+                <p className={eyebrowStyle}>{eyebrow}</p>
+                <p className="mt-3 text-balance font-brand text-[1.75rem] font-semibold leading-[1.2] md:text-[2rem]">
+                  {title}
+                </p>
+                <p className="mt-4 text-pretty text-lg leading-relaxed text-iron-gray">{description}</p>
+                {features ? (
+                  <ul className="mt-6 flex flex-col gap-4">
+                    {features.map(({ icon: Icon, title: featureTitle, text }) => (
+                      <li key={featureTitle} className="flex gap-3">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-white">
+                          <Icon size={18} strokeWidth={2} />
+                        </span>
+                        <div>
+                          <p className="text-base font-semibold leading-snug">{featureTitle}</p>
+                          <p className="mt-1 text-sm leading-relaxed text-iron-gray">{text}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <ul className="mt-6 flex flex-col gap-3">
+                    {points?.map((point) => (
+                      <li key={point} className="flex items-start gap-3 text-base font-medium leading-snug">
+                        <FilledCheck className="mt-px h-5 w-5" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <CmuLink href={href} className="mt-8">
+                  {cta}
+                </CmuLink>
+              </div>
 
-        <div
-          id="how-panel"
-          role="tabpanel"
-          aria-labelledby={`how-tab-${active}`}
-          className="mt-8 grid grid-cols-1 overflow-hidden bg-white md:grid-cols-2"
-        >
-          <div
-            aria-hidden
-            className={`relative isolate flex min-h-[20rem] items-center justify-center overflow-hidden transition-colors duration-500 md:min-h-[26rem] ${step.panel}`}
-          >
-            <div className="absolute inset-0 -z-10" style={GRID_STYLE} />
-            <div key={active} className="scale-110 sm:scale-125 lg:scale-[1.4]">
-              <div className="animate-fade-in-up">
-                {step.visual}
+              <div
+                aria-hidden
+                className={`group/panel relative flex items-center justify-center px-6 py-10 sm:px-10 md:col-span-7 md:min-h-[25rem] ${panel} ${
+                  i % 2 === 1 ? "md:order-first" : ""
+                }`}
+              >
+                <div className="w-full max-w-sm border border-gray-200 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.35)] transition-[transform,box-shadow] duration-300 ease-out group-hover/panel:-translate-y-1.5 group-hover/panel:shadow-[0_32px_56px_-24px_rgba(0,0,0,0.45)] motion-reduce:transition-none motion-reduce:group-hover/panel:translate-y-0">
+                  {visual}
+                </div>
               </div>
             </div>
-          </div>
-
-          <div key={active} className="flex animate-fade-in flex-col justify-center px-8 py-12 [animation-duration:400ms] sm:px-12 lg:px-16">
-            <h3 className="font-brand text-[1.75rem] font-semibold leading-[1.2] md:text-[2rem]">
-              {step.title}
-            </h3>
-            <p className="mt-4 max-w-md text-pretty text-lg leading-[1.55] text-iron-gray">{step.description}</p>
-            {step.features ? (
-              <ul className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {step.features.map(({ icon: Icon, title, text }) => (
-                  <li key={title} className="flex gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-white">
-                      <Icon size={18} strokeWidth={2} />
-                    </span>
-                    <div>
-                      <p className="text-base font-semibold leading-snug">{title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-iron-gray">{text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <ul className="mt-7 flex flex-col gap-3">
-                {step.points?.map((point) => (
-                  <li key={point} className="flex items-start gap-3 text-base font-medium leading-snug md:text-[17px]">
-                    <FilledCheck className="mt-px h-5 w-5" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <CmuLink href={step.href} className="mt-9 self-start">
-              {step.cta}
-            </CmuLink>
-          </div>
+          ))}
         </div>
       </div>
     </section>

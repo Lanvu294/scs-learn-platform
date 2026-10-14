@@ -113,7 +113,7 @@ export default function GoogleDriveImportModal({
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "Import failed partway through. Check the course editor for what came through."
+          : "Import failed partway through. Check the courseware editor for what came through."
       );
       setStatus("error");
     }
@@ -143,7 +143,7 @@ export default function GoogleDriveImportModal({
         {(status === "input" || status === "scanning") && (
           <div className="py-4">
             <p className="text-sm text-gray-500 mb-4">
-              Paste a link to the Drive folder for this course. All files are collected regardless of
+              Paste a link to the Drive folder for this courseware. All files are collected regardless of
               folder layout — AI reads each file and builds units, content lessons, and quizzes
               automatically.
             </p>
@@ -218,8 +218,8 @@ export default function GoogleDriveImportModal({
             {cogniterraOAuthConnected === false && (
               <div className="bg-blue-50 border border-blue-100 rounded-md px-3 py-2 mb-3 flex items-center justify-between gap-3">
                 <p className="text-xs text-blue-700">
-                  Connect your Cogniterra account so a private course&apos;s assignments can be listed
-                  and matched automatically, instead of only linking the whole course.
+                  Connect your Cogniterra account so a private courseware&apos;s assignments can be listed
+                  and matched automatically.
                 </p>
                 <a
                   href={`/api/cogniterra/oauth/start?return_to=${encodeURIComponent(`/instructor/${courseCode}/edit`)}`}
@@ -296,7 +296,7 @@ export default function GoogleDriveImportModal({
         {status === "importing" && (
           <div className="flex flex-col items-center gap-2 text-sm text-gray-500 py-10">
             <Loader2 size={20} className="animate-spin" />
-            Rendering slides, structuring the course, and matching Cogniterra assignments...
+            Rendering slides, structuring the courseware, and matching Cogniterra assignments...
           </div>
         )}
 

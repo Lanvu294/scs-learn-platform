@@ -80,9 +80,11 @@ export default function HeroSection() {
           <p className="text-5xl font-bold tracking-tight text-white lg:text-6xl">SCS Learn</p>
           <div aria-hidden className="mt-2.5 h-1 w-14 bg-primary" />
           <h1 className="mt-5 max-w-[800px] font-brand text-[2rem] font-semibold leading-[1.1] text-white sm:text-[2.5rem] lg:text-[3rem]">
-            Computer science from Carnegie Mellon. Free, online, at your own pace.
+            Computer science from Carnegie Mellon. Free to start, online, at your own pace.
           </h1>
-          <p className="mt-12 text-sm font-semibold text-white">Coming soon. Sign up to be first in.</p>
+          <p id="waitlist" className="mt-12 scroll-mt-32 text-sm font-semibold text-white">
+            Sign up to be first in.
+          </p>
           <EmailSignupForm buttonLabel="Join the waitlist" source="hero" className="mt-2" />
           <a
             href={SCS_LEARN_YOUTUBE_URL}
@@ -103,8 +105,8 @@ export default function HeroSection() {
           courses={COURSES}
           heading={
             <div className="min-w-0 max-w-3xl">
-              <p className="text-sm font-bold uppercase text-primary">Courses</p>
-              <h2 className={`${heading2} mt-3`}>Courseware from real CMU courses, built by the faculty who teach them</h2>
+              <p className="text-sm font-bold uppercase text-primary">Courseware</p>
+              <h2 className={`${heading2} mt-3`}>Courseware from Carnegie Mellon, built by the faculty who teach it.</h2>
             </div>
           }
         />

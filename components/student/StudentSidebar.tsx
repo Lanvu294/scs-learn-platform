@@ -41,7 +41,7 @@ export default function StudentSidebar({
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-black"
         >
           <ArrowLeft size={14} />
-          Course home
+          Courseware home
         </Link>
         <p className="mt-3 text-xs font-bold text-primary">{courseCode}</p>
         <p className="font-serif text-lg font-semibold leading-snug line-clamp-2">{courseTitle}</p>
