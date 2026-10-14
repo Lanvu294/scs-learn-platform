@@ -114,7 +114,7 @@ const COLUMN = "mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16";
 
 // Headline (wider, left) and description + subscribe button (right, bottom-aligned
 // with the headline); the welcome video placeholder full width under them; then
-// the courseware playlists in a carousel with its own arrows.
+// the lecture playlists in a carousel with its own arrows.
 export default function YouTubeSection() {
   const slides = [];
   for (const playlist of PLAYLISTS) {
@@ -152,12 +152,12 @@ export default function YouTubeSection() {
       <div className="mt-14">
         <Carousel
           slides={slides}
-          label="Courseware playlists"
+          label="Lecture playlists"
           itemName="playlist"
           autoplayMs={4000}
           trackClassName="items-start"
           slideClassName="basis-[85%] md:basis-[calc((100%-1rem)/2)]"
-          heading={<h3 className="font-sans text-xl font-bold">Courseware playlists</h3>}
+          heading={<h3 className="font-sans text-xl font-bold">Lecture playlists</h3>}
         />
       </div>
     </section>
