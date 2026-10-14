@@ -2,7 +2,7 @@ import Image from "next/image";
 import CourseCarousel, { type CarouselCourse } from "./CourseCarousel";
 import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
-import { SCS_LEARN_YOUTUBE_URL } from "./links";
+import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL } from "./links";
 import YouTubeIcon from "./ui/YouTubeIcon";
 import { heading2 } from "./ui/typography";
 
@@ -86,7 +86,7 @@ export default function HeroSection() {
             <EmailSignupForm buttonLabel="Join the waitlist" source="hero" />
           </div>
           <a
-            href={SCS_LEARN_YOUTUBE_URL}
+            href={SCS_LEARN_YOUTUBE_SUBSCRIBE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-flex items-center gap-2.5 text-lg font-semibold text-white hover:text-white/80"
