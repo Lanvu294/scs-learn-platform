@@ -2,7 +2,7 @@ import NavBar from "@/components/landing/NavBar";
 import HeroSection from "@/components/landing/HeroSection";
 // import CoursewareSection from "@/components/landing/CoursewareSection";
 // import ProblemSection from "@/components/landing/ProblemSection";
-import ValuePropsSection from "@/components/landing/ValuePropsSection";
+// import ValuePropsSection from "@/components/landing/ValuePropsSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
 // import AiTutorSection from "@/components/landing/AiTutorSection";
 // import EducatorsSection from "@/components/landing/EducatorsSection";
@@ -17,7 +17,7 @@ export default function Home() {
       <HeroSection />
       {/* <CoursewareSection /> */}
       {/* <ProblemSection /> */}
-      <ValuePropsSection />
+      {/* <ValuePropsSection /> */}
       <HowItWorksSection />
       {/* <AiTutorSection /> */}
       {/* <EducatorsSection /> */}

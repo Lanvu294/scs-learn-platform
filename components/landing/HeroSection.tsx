@@ -29,8 +29,11 @@ export default function HeroSection() {
           <h1 className="mt-5 max-w-[800px] font-brand text-[2rem] font-semibold leading-[1.1] text-white sm:text-[2.5rem] lg:text-[3rem]">
             Computer science from Carnegie Mellon. Free, online, at your pace.
           </h1>
-          <div id="waitlist" className="mt-12 scroll-mt-32">
-            <EmailSignupForm buttonLabel="Join the waitlist" source="hero" />
+          <p className="mt-5 max-w-[640px] text-lg leading-relaxed text-white/90">
+            We&apos;re starting with free classroom lectures on YouTube. Courseware comes next.
+          </p>
+          <div id="updates" className="mt-10 scroll-mt-32">
+            <EmailSignupForm buttonLabel="Get courseware updates" source="hero" />
           </div>
           <a
             href={SCS_LEARN_YOUTUBE_SUBSCRIBE_URL}
@@ -39,7 +42,7 @@ export default function HeroSection() {
             className="mt-6 inline-flex items-center gap-2.5 text-lg font-semibold text-white hover:text-white/80"
           >
             <YouTubeIcon className="h-6 w-6" />
-            <span className="link-swipe">In the meantime, watch our lectures on YouTube.</span>
+            <span className="link-swipe">Subscribe to our lectures on YouTube.</span>
           </a>
         </div>
       </section>

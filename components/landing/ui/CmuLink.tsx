@@ -10,15 +10,21 @@ export default function CmuLink({
   href,
   children,
   tone = "light",
+  external = false,
   className = "",
 }: {
   href: string;
   children: React.ReactNode;
   tone?: "light" | "dark";
+  external?: boolean;
   className?: string;
 }) {
   return (
-    <Link href={href} className={`group inline-flex items-stretch text-sm font-semibold ${className}`}>
+    <Link
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`group inline-flex items-stretch text-sm font-semibold ${className}`}
+    >
       <span className="flex w-11 shrink-0 items-center justify-center bg-primary text-white">
         <ArrowUpRight size={22} strokeWidth={1.75} />
       </span>

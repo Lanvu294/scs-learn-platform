@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
-import { Check, CirclePlay, Mail, type LucideIcon } from "lucide-react";
+import { Award, Bot, Check, Mail, type LucideIcon } from "lucide-react";
 import CmuLink from "./ui/CmuLink";
+import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL } from "./links";
+import YouTubeIcon from "./ui/YouTubeIcon";
 import { eyebrow as eyebrowStyle, heading2, sectionPadding } from "./ui/typography";
 
 function FilledCheck({ className = "" }: { className?: string }) {
@@ -19,24 +21,48 @@ type Step = {
   description: string;
   points?: string[];
   features?: Feature[];
-  cta: string;
-  href: string;
+  // A step with nothing to act on yet (the tutor) has no button.
+  cta?: { label: string; href: string; external?: boolean };
   panel: string;
   visual: ReactNode;
 };
 
-const COURSE_RESOURCES: (Feature & { count: string })[] = [
-  { icon: CirclePlay, title: "Watch the full lectures", text: "Every lecture in the courseware, recorded so you can watch it again.", count: "Lectures" },
+const LATER: Feature[] = [
+  { icon: Bot, title: "AI tutoring", text: "Planned for courseware, alongside it or after. Timing to be announced." },
+  { icon: Award, title: "Badges", text: "Show what you've learned on your resume or LinkedIn." },
 ];
 
+// The agreed progression: lectures now, courseware next, more support after.
+// No dates except the YouTube premiere.
 const STEPS: Step[] = [
   {
-    eyebrow: "Sign up",
-    title: "Sign up to be first in",
-    description: "Add your email and we'll let you know when you can sign in.",
-    points: ["Join the waitlist with your email", "We'll tell you when sign-in opens"],
-    cta: "Join the waitlist",
-    href: "#waitlist",
+    eyebrow: "Now",
+    title: "Start with lectures",
+    description: "Free classroom lectures from Carnegie Mellon faculty, premiering on YouTube in November.",
+    points: ["Full lectures, free to watch", "Subscribe so you see them when they premiere"],
+    cta: { label: "Subscribe on YouTube", href: SCS_LEARN_YOUTUBE_SUBSCRIBE_URL, external: true },
+    panel: "bg-black",
+    visual: (
+      <>
+        <div className="flex items-center gap-2.5 border-b border-gray-light pb-3">
+          <YouTubeIcon className="h-6 w-6 text-[#FF0033]" />
+          <div>
+            <p className="text-sm font-semibold leading-tight">SCS Learn</p>
+            <p className="text-xs text-iron-gray">@SCSLearn</p>
+          </div>
+        </div>
+        <p className="mt-3 text-[10px] font-bold uppercase tracking-wide text-primary">17-437</p>
+        <p className="text-sm font-semibold leading-tight">Web Application Development</p>
+        <p className="mt-2 text-xs text-iron-gray">Premieres in November</p>
+      </>
+    ),
+  },
+  {
+    eyebrow: "Next",
+    title: "Get ready for courseware",
+    description: "Structured, self-paced courseware will follow. We'll announce offerings and availability by email.",
+    points: ["New courseware as we announce it", "When and how you can start"],
+    cta: { label: "Get courseware updates", href: "#updates" },
     panel: "bg-primary",
     visual: (
       <>
@@ -46,50 +72,20 @@ const STEPS: Step[] = [
         </div>
         <div className="mt-3 flex items-center gap-2 text-sm font-semibold">
           <FilledCheck className="h-[18px] w-[18px]" />
-          On the waitlist
+          Subscribed to courseware updates
         </div>
       </>
     ),
   },
   {
-    eyebrow: "What's included",
-    title: "Lectures you can watch today",
-    description: "Full classroom lectures are free to start.",
-    features: COURSE_RESOURCES,
-    cta: "Watch on YouTube",
-    href: "#courses",
-    panel: "bg-black",
-    visual: (
-      <>
-        <div className="border-b border-gray-light pb-3">
-          <p className="text-[10px] font-bold uppercase tracking-wide text-primary">06-204</p>
-          <p className="text-sm font-semibold leading-tight">Courseware</p>
-        </div>
-        <ul className="mt-3 flex flex-col gap-2.5">
-          {COURSE_RESOURCES.map(({ icon: Icon, count }) => (
-            <li key={count} className="flex items-center gap-2.5 text-[15px] font-medium">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-primary text-white">
-                <Icon size={14} strokeWidth={2.5} />
-              </span>
-              {count}
-              <Check size={16} strokeWidth={3} className="ml-auto text-primary" />
-            </li>
-          ))}
-        </ul>
-      </>
-    ),
-  },
-  {
-    eyebrow: "AI tutor",
-    title: "An AI tutor goes live in November",
-    description: "It will help you work through the lectures.",
-    points: ["Going live in November", "Will help when you're stuck"],
-    cta: "Join the waitlist",
-    href: "#waitlist",
+    eyebrow: "Later",
+    title: "Look ahead to more support",
+    description: "Once courseware is here, we plan to add help while you work and a way to show what you've learned.",
+    features: LATER,
     panel: "bg-gray-light",
     visual: (
       <div className="flex flex-col gap-2 text-left text-sm">
-        <p className="text-xs font-bold uppercase tracking-wide text-primary">Going live in November</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-primary">Planned</p>
         <span className="self-end bg-gray-light px-3.5 py-2">Why is my loop stuck?</span>
         <span className="self-start bg-primary px-3.5 py-2 text-white">Check your stop condition on line 4.</span>
       </div>
@@ -99,15 +95,13 @@ const STEPS: Step[] = [
 
 export default function HowItWorksSection() {
   return (
-    <section id="how-it-works" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
+    <section id="whats-coming" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
-        <p className="text-sm font-bold uppercase text-primary">How it works</p>
-        <h2 className={`${heading2} mt-3 max-w-3xl`}>
-          From the waitlist to lectures you can watch now.
-        </h2>
+        <p className="text-sm font-bold uppercase text-primary">What&apos;s coming</p>
+        <h2 className={`${heading2} mt-3 max-w-3xl`}>Lectures first. Courseware next.</h2>
 
         <div className="mt-12 flex flex-col gap-14 lg:mt-16 lg:gap-20">
-          {STEPS.map(({ eyebrow, title, description, points, features, cta, href, panel, visual }, i) => (
+          {STEPS.map(({ eyebrow, title, description, points, features, cta, panel, visual }, i) => (
             <div key={eyebrow} className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
               <div className="md:col-span-5">
                 <p className={eyebrowStyle}>{eyebrow}</p>
@@ -139,9 +133,11 @@ export default function HowItWorksSection() {
                     ))}
                   </ul>
                 )}
-                <CmuLink href={href} className="mt-8">
-                  {cta}
-                </CmuLink>
+                {cta ? (
+                  <CmuLink href={cta.href} external={cta.external} className="mt-8">
+                    {cta.label}
+                  </CmuLink>
+                ) : null}
               </div>
 
               <div
