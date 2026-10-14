@@ -3,7 +3,7 @@ import { Award, Bot, Check, Mail, type LucideIcon } from "lucide-react";
 import CmuLink from "./ui/CmuLink";
 import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL } from "./links";
 import YouTubeIcon from "./ui/YouTubeIcon";
-import { eyebrow as eyebrowStyle, heading2, sectionPadding } from "./ui/typography";
+import { heading2, sectionPadding } from "./ui/typography";
 
 function FilledCheck({ className = "" }: { className?: string }) {
   return (
@@ -16,7 +16,6 @@ function FilledCheck({ className = "" }: { className?: string }) {
 type Feature = { icon: LucideIcon; title: string; text: string };
 
 type Step = {
-  eyebrow: string;
   title: string;
   description: string;
   points?: string[];
@@ -36,7 +35,6 @@ const LATER: Feature[] = [
 // No dates except the YouTube premiere.
 const STEPS: Step[] = [
   {
-    eyebrow: "Now",
     title: "Start with lectures",
     description: "Free classroom lectures from Carnegie Mellon faculty, premiering on YouTube in November.",
     points: ["Full lectures, free to watch", "Subscribe so you see them when they premiere"],
@@ -58,7 +56,6 @@ const STEPS: Step[] = [
     ),
   },
   {
-    eyebrow: "Next",
     title: "Get ready for courseware",
     description: "Structured, self-paced courseware will follow. We'll announce offerings and availability by email.",
     points: ["New courseware as we announce it", "When and how you can start"],
@@ -78,7 +75,6 @@ const STEPS: Step[] = [
     ),
   },
   {
-    eyebrow: "Later",
     title: "Look ahead to more support",
     description: "Once courseware is here, we plan to add help while you work and a way to show what you've learned.",
     features: LATER,
@@ -97,15 +93,13 @@ export default function HowItWorksSection() {
   return (
     <section id="whats-coming" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
-        <p className="text-sm font-bold uppercase text-primary">What&apos;s coming</p>
-        <h2 className={`${heading2} mt-3 max-w-3xl`}>Lectures first. Courseware next.</h2>
+        <h2 className={`${heading2} max-w-3xl`}>Lectures first. Courseware next.</h2>
 
         <div className="mt-12 flex flex-col gap-14 lg:mt-16 lg:gap-20">
-          {STEPS.map(({ eyebrow, title, description, points, features, cta, panel, visual }, i) => (
-            <div key={eyebrow} className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
+          {STEPS.map(({ title, description, points, features, cta, panel, visual }, i) => (
+            <div key={title} className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
               <div className="md:col-span-5">
-                <p className={eyebrowStyle}>{eyebrow}</p>
-                <p className="mt-3 text-balance font-brand text-[1.75rem] font-semibold leading-[1.2] md:text-[2rem]">
+                <p className="text-balance font-brand text-[1.75rem] font-semibold leading-[1.2] md:text-[2rem]">
                   {title}
                 </p>
                 <p className="mt-4 text-pretty text-lg leading-relaxed text-iron-gray">{description}</p>

@@ -49,8 +49,7 @@ export default function OfferingsSection() {
   return (
     <section className={`bg-white text-black ${sectionPadding}`}>
       <Container>
-        <p className="text-sm font-bold uppercase text-primary">Next steps</p>
-        <h2 className={`${heading2} mt-3 mb-10`}>Ready for more?</h2>
+        <h2 className={`${heading2} mb-10`}>Ready for more?</h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {OFFERINGS.map(({ title, description, cta, href, image, color, wide }) => {
