@@ -50,11 +50,14 @@ const PLAYLISTS: CoursewarePlaylist[] = [
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-// Placeholder for the Welcome to SCS Learn video: a plain dark 16:9 frame that
-// says it's coming. Swap the whole frame for the YouTube embed when it's live.
+// Placeholder for the Welcome to SCS Learn video: a 16:9 frame on CMU's black
+// tartan wave that says it's coming. Swap the whole frame for the YouTube embed when it's live.
 function WelcomeVideoComingSoon() {
   return (
-    <div className="relative flex aspect-video w-full flex-col items-center justify-center gap-4 bg-black px-6 text-center text-white sm:gap-6">
+    <div className="relative isolate flex aspect-video w-full flex-col items-center justify-center gap-4 overflow-hidden bg-black px-6 text-center text-white sm:gap-6">
+      <Image src="/landing/textures/cmu-tartan-wave-black.jpg" alt="" fill sizes="(min-width: 1280px) 1200px, 100vw" quality={75} className="-z-20 object-cover" />
+      {/* Darken the middle so the title reads; the pattern shows toward the edges. */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.35)_75%)]" />
       <span aria-hidden className="flex size-14 items-center justify-center rounded-full border-2 border-white/40 sm:size-20">
         <Play className="ml-1 size-6 fill-white/40 text-white/40 sm:size-8" />
       </span>
