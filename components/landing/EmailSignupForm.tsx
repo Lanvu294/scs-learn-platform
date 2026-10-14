@@ -20,7 +20,7 @@ type EmailSignupFormProps = {
 // Dark by default (the hero); tone="light" for white sections.
 export default function EmailSignupForm({
   buttonLabel,
-  placeholder = "Enter your email",
+  placeholder = "herb.simon@cmu.edu",
   className = "",
   source = "landing",
   tone = "dark",
