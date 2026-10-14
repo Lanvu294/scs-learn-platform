@@ -12,6 +12,8 @@ type Stage = {
   when: string;
   description: string;
   visual: ReactNode;
+  // Under illustrations of things that don't exist yet.
+  conceptPreview?: boolean;
   action?: ReactNode;
 };
 
@@ -110,12 +112,14 @@ const STAGES: Stage[] = [
     when: "Next",
     description: "Lessons built from real CMU courses. Get instant feedback and earn a badge.",
     visual: <CoursewareVisual />,
+    conceptPreview: true,
     action: <EmailSignupForm buttonLabel="Keep me posted" source="whats-coming" tone="light" stacked />,
   },
   {
     title: "AI tutoring",
-    when: "Soon",
-    description: "A friendly tutor for when you're stuck, built for the courseware. Arriving soon.",
+    when: "Coming to courseware",
+    description: "AI tutoring is coming to the courseware experience to help you work through questions and get unstuck. Launch timing will be announced.",
+    conceptPreview: true,
     visual: <TutorVisual />,
   },
 ];
@@ -127,7 +131,7 @@ export default function HowItWorksSection() {
         <h2 className={`${heading2} max-w-3xl`}>What&apos;s coming to SCS Learn</h2>
 
         <ol className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8 lg:mt-16">
-          {STAGES.map(({ title, when, description, visual, action }, i) => (
+          {STAGES.map(({ title, when, description, visual, conceptPreview, action }, i) => (
             <li key={title} className="flex flex-col">
               {/* Step marker; on wide screens a rule runs on to the next step. */}
               <div className="flex items-center gap-3">
@@ -139,6 +143,10 @@ export default function HowItWorksSection() {
               </div>
 
               <div className="mt-5">{visual}</div>
+              {/* Same height on every step so the titles stay level. */}
+              <p aria-hidden={!conceptPreview || undefined} className={`mt-2 text-xs text-gray-medium ${conceptPreview ? "" : "invisible"}`}>
+                Concept preview
+              </p>
 
               <h3 className="mt-6 font-brand text-[1.5rem] font-semibold leading-[1.2] md:text-[1.625rem]">{title}</h3>
               <p className="mt-3 text-pretty text-base leading-relaxed text-iron-gray">{description}</p>
