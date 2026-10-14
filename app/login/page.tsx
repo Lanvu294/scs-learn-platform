@@ -36,8 +36,8 @@ export default async function LoginPage({
 
   return (
     <main className="grid min-h-screen bg-white text-black lg:grid-cols-[1.1fr_1fr]">
-      {/* Brand panel (desktop): close-up of the landing-page hero learner + the 2026 SCS mark. */}
-      <section className="relative isolate hidden flex-col justify-between overflow-hidden bg-black p-10 text-white lg:flex xl:p-14">
+      {/* Brand panel (desktop): close-up of the landing-page hero learner, named SCS Learn at the bottom. */}
+      <section className="relative isolate hidden flex-col justify-end overflow-hidden bg-black p-10 text-white lg:flex xl:p-14">
         <Image
           src="/landing/photos/learner-headphones.jpg"
           alt=""
@@ -46,19 +46,15 @@ export default async function LoginPage({
           sizes="55vw"
           className="-z-20 object-cover object-[52%_40%]"
         />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/25 to-black/50" />
-        <Link href="/" aria-label="SCS Learn home" className="block self-start">
-          <Image
-            src="/scs-2026-primary-red-white.svg"
-            alt="Carnegie Mellon University Kenneth C. Griffin School of Computer Science"
-            width={685}
-            height={192}
-            priority
-            className="h-20 w-auto"
-          />
-        </Link>
+        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
         <div className="max-w-md">
-          <p className="font-serif text-4xl font-semibold leading-tight">Carnegie Mellon courseware, free to start.</p>
+          {/* Named like the landing-page hero: SCS Learn, a short red rule, then the line.
+              No logo up top: it sat over her face and broke the photo. */}
+          <Link href="/" className="text-5xl font-bold tracking-tight text-white hover:text-white/85">
+            SCS Learn
+          </Link>
+          <div aria-hidden className="mt-2.5 h-1 w-14 bg-primary" />
+          <p className="mt-6 font-serif text-4xl font-semibold leading-tight">Carnegie Mellon courseware, free to start.</p>
           <p className="mt-4 text-base leading-relaxed text-white/80">
             Watch the lectures and get instant feedback from our autograders. AI tutor goes live in November.
           </p>
