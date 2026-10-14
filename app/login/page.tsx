@@ -35,9 +35,9 @@ export default async function LoginPage({
   }
 
   return (
-    <main className="grid min-h-screen bg-white text-black lg:grid-cols-[1.1fr_1fr]">
+    <main className="grid min-h-screen bg-white text-black lg:grid-cols-2">
       {/* Brand panel (desktop): close-up of the landing-page hero learner, named SCS Learn at the bottom. */}
-      <section className="relative isolate hidden flex-col justify-end overflow-hidden bg-black p-10 text-white lg:flex xl:p-14">
+      <section className="relative isolate hidden flex-col justify-end overflow-hidden bg-black p-10 text-white lg:order-2 lg:flex xl:p-14">
         <Image
           src="/landing/photos/learner-headphones.jpg"
           alt=""
@@ -62,22 +62,21 @@ export default async function LoginPage({
       </section>
 
       <section className="flex flex-col">
-        {/* The SCS mark sits on the form side, top right on desktop, so nothing covers
-            the photo. On phones the photo panel is hidden, so the bar also names the
-            site. SCS Learn stays set apart from the mark (no lockup), and the red
-            square icon stays out of web headers per the brand book. */}
-        <header className="flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-3 lg:justify-end lg:border-b-0 lg:px-10 lg:pt-8 xl:px-14">
-          <Image
-            src="/scs-2026-primary-red-white.svg"
-            alt="Carnegie Mellon University Kenneth C. Griffin School of Computer Science"
-            width={685}
-            height={192}
-            priority
-            className="h-10 w-auto lg:h-14"
-          />
-          <Link href="/" className="text-[15px] font-bold tracking-tight lg:hidden">
-            SCS Learn
+        {/* CMU brand: the University logo (full Carnegie Mellon University wordmark)
+            goes top left on every web page. With the form on the left, it sits on
+            white at the page's top left, and nothing covers the photo. */}
+        <header className="flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-3 lg:border-b-0 lg:px-10 lg:pt-8 xl:px-14">
+          <Link href="/" aria-label="SCS Learn home" className="block">
+            <Image
+              src="/scs-2026-primary-red-white.svg"
+              alt="Carnegie Mellon University Kenneth C. Griffin School of Computer Science"
+              width={685}
+              height={192}
+              priority
+              className="h-14 w-auto lg:h-20 xl:h-24"
+            />
           </Link>
+          <span className="text-[15px] font-bold tracking-tight lg:hidden">SCS Learn</span>
         </header>
 
         <div className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
