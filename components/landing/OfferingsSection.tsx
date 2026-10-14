@@ -55,10 +55,11 @@ export default function OfferingsSection() {
       <Container>
         <h2 className={`${heading2} mb-10`}>Ready for more?</h2>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {/* One column on phones, two equal on tablets, the asymmetric grid on wide screens. */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {OFFERINGS.map(({ title, description, cta, href, image, texture, color, wide }) => {
             const className = `group relative isolate flex min-h-[18rem] flex-col justify-end overflow-hidden p-8 text-white md:min-h-[20rem] md:p-10 ${
-              wide ? "md:col-span-2" : ""
+              wide ? "xl:col-span-2" : ""
             } ${image ? "bg-black" : color}`;
             const content = (
               <>
