@@ -1,56 +1,112 @@
-import Container from "./ui/Container";
+import Image from "next/image";
+import { Play } from "lucide-react";
+import Carousel from "./ui/Carousel";
 import { heading2, sectionPadding } from "./ui/typography";
 import { SCS_LEARN_YOUTUBE_URL } from "./links";
 
-const COURSE_VIDEOS = [
-  "Courseware XXX. Going live in November.",
-  "Courseware YYY. Going live in November.",
-  "Courseware ZZZ. Going live in November.",
+type ComingSoonVideo = {
+  key: string;
+  kicker: string;
+  title: string;
+  byline: string;
+  image: string;
+};
+
+// Poster frames until the videos go live in November. When one premieres,
+// swap its frame for the YouTube embed.
+const VIDEOS: ComingSoonVideo[] = [
+  {
+    key: "intro",
+    kicker: "Introduction",
+    title: "Welcome to SCS Learn",
+    byline: "Phillip Compeau",
+    image: "/landing/photos/lecture-hall.jpg",
+  },
+  {
+    key: "06-204",
+    kicker: "06-204 · Courseware trailer",
+    title: "Great Ideas in Computational Biology",
+    byline: "Phillip Compeau",
+    image: "/landing/photos/comp-bio-poster-session.jpg",
+  },
+  {
+    key: "15-112",
+    kicker: "15-112 · Courseware trailer",
+    title: "Fundamentals of Programming and Computer Science",
+    byline: "School of Computer Science",
+    image: "/landing/photos/students-coding.jpg",
+  },
+  {
+    key: "10-301",
+    kicker: "10-301 · Courseware trailer",
+    title: "Introduction to Machine Learning",
+    byline: "Machine Learning Department",
+    image: "/landing/photos/ml-visualization.jpg",
+  },
 ];
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-function VideoPlaceholder({ label, className = "" }: { label: string; className?: string }) {
+// A 16:9 poster: campus photo under a dark wash, a red "Premieres in November"
+// tag, the title, and a muted play mark in the corner.
+function ComingSoonFrame({ video }: { video: ComingSoonVideo }) {
   return (
-    <div
-      className={`flex aspect-video w-full items-center justify-center bg-steel-gray px-6 text-center font-semibold text-iron-gray ${className}`}
-    >
-      {label}
+    <div className="relative aspect-video w-full overflow-hidden bg-black text-white">
+      <Image src={video.image} alt="" fill sizes="(min-width: 768px) 50vw, 85vw" quality={90} className="object-cover" />
+      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0.45)_55%,rgba(0,0,0,0.25)_100%)]" />
+
+      <p className="absolute top-0 left-0 bg-primary px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] sm:text-sm">
+        Premieres in November
+      </p>
+
+      <div className="absolute inset-x-0 bottom-0 pr-20 pb-5 pl-5 sm:pr-24 sm:pb-6 sm:pl-7">
+        <p className="text-xs font-semibold text-white/80 sm:text-sm">{video.kicker}</p>
+        <div aria-hidden className="mt-2 h-1 w-10 bg-primary" />
+        <h3 className="mt-2 font-brand text-xl font-semibold leading-tight text-balance sm:text-2xl lg:text-[1.75rem]">{video.title}</h3>
+        <p className="mt-1 text-sm text-white/80">{video.byline}</p>
+      </div>
+
+      <span aria-hidden className="absolute right-5 bottom-5 flex size-11 items-center justify-center rounded-full border-2 border-white/60 sm:right-7 sm:bottom-6 sm:size-14">
+        <Play className="ml-0.5 size-5 fill-white/60 text-white/60 sm:size-6" />
+      </span>
     </div>
   );
 }
 
-// Red eyebrow, serif heading, a short description, then grey video
-// placeholders until the lectures exist.
+// Red eyebrow, serif heading, a short description, then a carousel of
+// coming-soon frames until the lectures exist.
 export default function YouTubeSection() {
+  const slides = [];
+  for (const video of VIDEOS) {
+    slides.push({ key: video.key, node: <ComingSoonFrame video={video} /> });
+  }
+
   return (
     <section className={`bg-white text-black ${sectionPadding}`}>
-      <Container>
-        <p className="text-sm font-bold uppercase text-primary">SCS Learn on YouTube</p>
-        <h2 className={`${heading2} mt-3`}>Every lecture, free to start.</h2>
-        <div className="mt-6 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-2xl text-base leading-relaxed text-iron-gray">
-            Real classroom lectures from the Kenneth C. Griffin School of Computer Science, completely free to get started and watch on your own time.
-          </p>
-          <a
-            href={SCS_LEARN_YOUTUBE_URL}
-            {...external}
-            className="inline-block shrink-0 border border-black px-5 py-2.5 text-sm font-semibold btn-fill-black hover:text-white"
-          >
-            Visit our YouTube channel
-          </a>
-        </div>
-
-        <VideoPlaceholder label="SCS Learn intro from Phillip. Going live in November." className="mt-12 text-xl sm:text-2xl" />
-
-        <ul className="mt-12 grid grid-cols-1 gap-10 xl:grid-cols-3 xl:gap-8">
-          {COURSE_VIDEOS.map((label) => (
-            <li key={label} className="min-w-0">
-              <VideoPlaceholder label={label} className="text-base sm:text-lg" />
-            </li>
-          ))}
-        </ul>
-      </Container>
+      <Carousel
+        slides={slides}
+        label="Coming-soon videos"
+        itemName="video"
+        autoplayMs={4000}
+        trackClassName="items-start"
+        slideClassName="basis-[85%] md:basis-[calc((100%-1rem)/2)]"
+        heading={
+          <div className="min-w-0 max-w-3xl">
+            <p className="text-sm font-bold uppercase text-primary">SCS Learn on YouTube</p>
+            <h2 className={`${heading2} mt-3`}>Every lecture, free to start.</h2>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-iron-gray">
+              Real classroom lectures from the Kenneth C. Griffin School of Computer Science, completely free to get started and watch on your own time.
+            </p>
+            <a
+              href={SCS_LEARN_YOUTUBE_URL}
+              {...external}
+              className="mt-6 inline-block border border-black px-5 py-2.5 text-sm font-semibold btn-fill-black hover:text-white"
+            >
+              Visit our YouTube channel
+            </a>
+          </div>
+        }
+      />
     </section>
   );
 }
