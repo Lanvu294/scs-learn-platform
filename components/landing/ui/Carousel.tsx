@@ -36,6 +36,9 @@ export default function Carousel({
   autoplayMs?: number;
 }) {
   const trackRef = useRef<HTMLUListElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  // Autoplay holds while the pointer or keyboard focus is inside the carousel.
+  const pausedRef = useRef(false);
   const offsetRef = useRef(0);
   const distanceRef = useRef(0);
   const jumpRef = useRef(0);
@@ -109,15 +112,32 @@ export default function Carousel({
     if (motion.matches) return;
 
     const id = window.setInterval(() => {
-      if (document.hidden) return;
+      if (document.hidden || pausedRef.current) return;
       advance(1);
     }, autoplayMs);
 
     return () => window.clearInterval(id);
   }, [advance, autoplayMs]);
 
+  // Bring a keyboard-focused slide into view. The viewport clips overflow, so the
+  // browser may also have scrolled it to reveal the focus; undo that and slide instead.
+  const showSlide = useCallback((index: number) => {
+    if (viewportRef.current) viewportRef.current.scrollLeft = 0;
+    if (offsetRef.current === index) return;
+    jumpRef.current += 1;
+    setAnimate(true);
+    offsetRef.current = index;
+    setOffset(index);
+  }, []);
+
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
+    <div
+      className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16"
+      onMouseEnter={() => (pausedRef.current = true)}
+      onMouseLeave={() => (pausedRef.current = false)}
+      onFocus={() => (pausedRef.current = true)}
+      onBlur={() => (pausedRef.current = false)}
+    >
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         {heading}
         <div className="flex shrink-0 gap-2">
@@ -130,7 +150,7 @@ export default function Carousel({
         </div>
       </div>
 
-      <div className="overflow-hidden">
+      <div ref={viewportRef} className="overflow-hidden">
       <ul
         ref={trackRef}
         aria-label={label}
@@ -143,7 +163,11 @@ export default function Carousel({
         {[...slides, ...slides].map((slide, index) => (
           <li
             key={`${slide.key}-${index}`}
+            // The second copy exists only for the endless loop: hidden from screen
+            // readers and, via inert, from the Tab key too.
             aria-hidden={index >= slides.length || undefined}
+            inert={index >= slides.length || undefined}
+            onFocus={index < slides.length ? () => showSlide(index) : undefined}
             className={`group relative shrink-0 ${slideClassName}`}
           >
             {slide.node}

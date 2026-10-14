@@ -76,7 +76,7 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
       aria-label={`${playlist.code} ${playlist.title}, ${playlist.byline}: ${
         playlist.playlistUrl ? "open the playlist on YouTube" : "open the SCS Learn channel on YouTube"
       } (new tab)`}
-      className="group/card relative block aspect-video w-full overflow-hidden bg-black text-white"
+      className="group/card relative block aspect-video w-full overflow-hidden bg-black text-white outline-none"
     >
       <Image
         src={playlist.image}
@@ -105,6 +105,9 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
       >
         <ArrowUpRight className="size-5 sm:size-6" />
       </span>
+
+      {/* Keyboard focus ring, drawn on top of the photo (an outline would be clipped by the carousel). */}
+      <span aria-hidden className="pointer-events-none absolute inset-0 opacity-0 ring-4 ring-primary ring-inset group-focus-visible/card:opacity-100" />
     </a>
   );
 }
