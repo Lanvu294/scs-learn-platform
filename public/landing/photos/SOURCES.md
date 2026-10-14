@@ -31,3 +31,15 @@ CMU's tartan wave pattern, as used on CMU Online's site (2026-10-14). Resized fr
 | File | Used for | Original | Saved | Alt text on source page | Image URL | Found on |
 |---|---|---|---|---|---|---|
 | classroom-teaching.jpg | What's coming: lecture player still | 2560x1537 | 1600x897 (16:9 crop of Phillip only; students below the frame are cropped out, they were precollege minors) | Phillip Compeau teaching (precollege program) | Phillip's own photo: Drive "Personal Website/.../old_site_assets/2024/08/Phillip-Compeau-teaching-precollege-scaled.jpeg" | Phillip Compeau (2026-10-14) |
+
+## Faculty portraits (public/landing/faculty, added 2026-10-14)
+
+Official department directory headshots, background removed (rembg, u2net_human_seg, alpha matting), edges feathered, normalized to one 800x800 canvas with the same head size, bottom third faded to transparent. Shown in grayscale on the playlist cards; color on hover. **Internal demo for now. Each faculty member must OK their photo before the public launch.**
+
+| File | Person | Source |
+|---|---|---|
+| lee.png | Terry Lee | https://s3d.cmu.edu/people/images-people/lee-terry.JPG |
+| ahmad.png | Hammad Ahmad | https://s3d.cmu.edu/people/images-people/hammad-ahmad.png |
+| gordon.png | Geoff Gordon | https://ml.cmu.edu/images/bio/faculty/gordon_geoff_cropped-min.jpg |
+| ravikumar.png | Pradeep Ravikumar | https://ml.cmu.edu/images/bio/alumni/ravikumar-pradeep-800-min1.jpg |
+| poczos.png | Barnabás Póczos | https://ml.cmu.edu/images/mld-help-network-members/poczos-barnabas-500-min.jpg |
