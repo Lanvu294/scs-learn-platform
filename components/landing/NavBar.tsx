@@ -71,7 +71,7 @@ export default function NavBar() {
       </div>
 
       <div className="relative flex h-12 items-center">
-        <NavLogo />
+        <NavLogo menuOpen={open} />
         <nav aria-label="Primary" className="ml-auto hidden items-center gap-4 pr-8 xl:flex">
           {LINKS.map(({ label, href }) => (
             <a key={label} href={href} className="inline-flex items-center gap-1 whitespace-nowrap text-sm font-semibold">
