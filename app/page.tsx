@@ -8,6 +8,7 @@ import HowItWorksSection from "@/components/landing/HowItWorksSection";
 // import EducatorsSection from "@/components/landing/EducatorsSection";
 import OfferingsSection from "@/components/landing/OfferingsSection";
 // import FinalCtaSection from "@/components/landing/FinalCtaSection";
+import BuiltBySection from "@/components/landing/BuiltBySection";
 import Footer from "@/components/landing/Footer";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       {/* <EducatorsSection /> */}
       <OfferingsSection />
       {/* <FinalCtaSection /> */}
+      <BuiltBySection />
       <Footer />
     </main>
   );

@@ -43,3 +43,9 @@ Official department directory headshots, background removed (rembg, u2net_human_
 | gordon.png | Geoff Gordon | https://ml.cmu.edu/images/bio/faculty/gordon_geoff_cropped-min.jpg |
 | ravikumar.png | Pradeep Ravikumar | https://ml.cmu.edu/images/bio/alumni/ravikumar-pradeep-800-min1.jpg |
 | poczos.png | Barnabás Póczos | https://ml.cmu.edu/images/mld-help-network-members/poczos-barnabas-500-min.jpg |
+
+## Partner logos (public/landing/partners, added 2026-10-14)
+
+| File | Used for | Source |
+|---|---|---|
+| scottylabs-mark.svg | Credit band above the footer ("Built with love by students in ScottyLabs.") | ScottyLabs' own header logo (Scotty dog line mark), the inline SVG in the site header at https://scottylabs.org; the "ScottyLabs" wordmark next to it is set in type |
