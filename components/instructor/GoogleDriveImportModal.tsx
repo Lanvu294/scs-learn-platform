@@ -135,10 +135,11 @@ export default function GoogleDriveImportModal({
       <div
         role="dialog"
         aria-modal="true"
+        aria-labelledby="drive-import-title"
         onClick={(e) => e.stopPropagation()}
         className="bg-white text-black rounded-md shadow-xl w-full max-w-lg p-6 flex flex-col max-h-[90vh] overflow-y-auto"
       >
-        <h2 className="text-lg font-bold mb-1">Import from Google Drive</h2>
+        <h2 id="drive-import-title" className="text-lg font-bold mb-1">Import from Google Drive</h2>
 
         {(status === "input" || status === "scanning") && (
           <div className="py-4">
@@ -173,9 +174,9 @@ export default function GoogleDriveImportModal({
               </p>
             )}
             {googleConnected ? (
-              <p className="text-xs text-gray-400 mb-4">Paste a link to any folder your connected account can see.</p>
+              <p className="text-xs text-gray-500 mb-4">Paste a link to any folder your connected account can see.</p>
             ) : (
-              <p className="text-xs text-gray-400 mb-4">
+              <p className="text-xs text-gray-500 mb-4">
                 Or, without connecting: share the folder as &ldquo;Anyone with the link&rdquo;
                 {shareEmail && (
                   <>
@@ -188,6 +189,7 @@ export default function GoogleDriveImportModal({
             )}
             <input
               type="url"
+              aria-label="Google Drive folder link"
               value={folderUrl}
               onChange={(e) => setFolderUrl(e.target.value)}
               placeholder="https://drive.google.com/drive/folders/..."
@@ -207,7 +209,7 @@ export default function GoogleDriveImportModal({
                 disabled={status === "scanning"}
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm disabled:opacity-60"
               />
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-gray-500">
                 If lectures live on YouTube instead of Drive, paste a playlist link here — or, if
                 lectures are split across one playlist per unit, paste the channel link instead
                 and AI checks all of its playlists. Either way, it matches each video to the
@@ -294,15 +296,15 @@ export default function GoogleDriveImportModal({
         )}
 
         {status === "importing" && (
-          <div className="flex flex-col items-center gap-2 text-sm text-gray-500 py-10">
-            <Loader2 size={20} className="animate-spin" />
+          <div className="flex flex-col items-center gap-2 text-sm text-gray-500 py-10" role="status">
+            <Loader2 size={20} className="animate-spin" aria-hidden />
             Rendering slides, structuring the courseware, and matching Cogniterra assignments...
           </div>
         )}
 
         {status === "error" && (
           <div className="py-6">
-            <p className="text-sm text-red-500 mb-4">{errorMessage}</p>
+            <p className="text-sm text-red-600 mb-4" role="alert">{errorMessage}</p>
             <div className="flex justify-end gap-2">
               <button
                 type="button"

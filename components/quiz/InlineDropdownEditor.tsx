@@ -123,7 +123,7 @@ export default function InlineDropdownEditor({
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-gray-500">
         Use {"{{b1}}"}, {"{{b2}}"}, or ___ in the question text for each dropdown. Blank ids below
         must match the placeholders.
       </p>
@@ -145,7 +145,7 @@ export default function InlineDropdownEditor({
               <button
                 type="button"
                 onClick={() => removeBlank(blankIndex)}
-                className="ml-auto text-gray-400 hover:text-red-500 p-1.5"
+                className="ml-auto text-gray-500 hover:text-red-500 p-1.5"
                 aria-label="Remove blank"
               >
                 <Trash2 size={14} />
@@ -179,7 +179,7 @@ export default function InlineDropdownEditor({
                   type="button"
                   onClick={() => removeOption(blankIndex, optionIndex)}
                   disabled={blank.options.length <= 2}
-                  className="text-gray-400 hover:text-red-500 p-1.5 disabled:opacity-30"
+                  className="text-gray-500 hover:text-red-500 p-1.5 disabled:opacity-30"
                   aria-label="Remove option"
                 >
                   <Trash2 size={14} />

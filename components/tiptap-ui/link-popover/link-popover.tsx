@@ -135,6 +135,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
         <CardItemGroup orientation="horizontal">
           <Input
             type="url"
+            aria-label="Link URL"
             placeholder="Paste a link..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}

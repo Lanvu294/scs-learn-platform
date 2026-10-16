@@ -125,7 +125,7 @@ export default function CalendarView({
           type="button"
           aria-label="Close calendar"
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600"
+          className="text-gray-500 hover:text-gray-600"
         >
           <X size={18} />
         </button>
@@ -168,6 +168,7 @@ export default function CalendarView({
             key={option.value}
             type="button"
             onClick={() => setScopeFilter(option.value)}
+            aria-pressed={scopeFilter === option.value}
             className={`text-xs font-bold rounded-full px-3 py-1.5 border ${
               scopeFilter === option.value
                 ? "bg-black text-white border-black"
@@ -185,7 +186,7 @@ export default function CalendarView({
             {WEEKDAY_LABELS.map((label) => (
               <div
                 key={label}
-                className="text-[10px] font-bold text-gray-400 text-center py-1"
+                className="text-[10px] font-bold text-gray-500 text-center py-1"
               >
                 {label}
               </div>
@@ -202,6 +203,11 @@ export default function CalendarView({
                   key={cell.iso}
                   type="button"
                   onClick={() => setSelectedDate(cell.iso)}
+                  aria-label={`${parseISODate(cell.iso).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}${
+                    dayEvents.length ? `, ${dayEvents.length} event${dayEvents.length === 1 ? "" : "s"}` : ""
+                  }`}
+                  aria-pressed={isSelected}
+                  aria-current={isToday ? "date" : undefined}
                   className={`flex flex-col items-center gap-1 rounded py-2 text-xs transition ${
                     !cell.inCurrentMonth ? "text-gray-300" : "text-gray-700"
                   } ${isToday ? "bg-black text-white" : "hover:bg-gray-50"} ${
@@ -260,11 +266,11 @@ export default function CalendarView({
                       {TYPE_LABEL[event.type].toUpperCase()}
                     </span>
                     <p className="text-xs font-bold leading-tight">{event.title}</p>
-                    <p className="text-[11px] text-gray-400 mt-0.5">
+                    <p className="text-[11px] text-gray-500 mt-0.5">
                       {event.time ? `${event.time} · ` : ""}
                       {event.description}
                     </p>
-                    <p className="text-[10px] text-gray-400 mt-0.5">
+                    <p className="text-[10px] text-gray-500 mt-0.5">
                       {event.scope === "global" ? "Global" : event.courseCode} · Hosted by{" "}
                       {event.hostName}
                     </p>
@@ -273,17 +279,17 @@ export default function CalendarView({
                     type="button"
                     aria-label="Delete event"
                     onClick={() => removeEvent(event.id)}
-                    className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-500 self-start"
+                    className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:text-red-500 self-start"
                   >
                     <X size={13} />
                   </button>
                 </div>
               ))}
               {selectedDate && selectedEvents.length === 0 && (
-                <p className="text-xs text-gray-400">No events this day.</p>
+                <p className="text-xs text-gray-500">No events this day.</p>
               )}
               {!selectedDate && (
-                <p className="text-xs text-gray-400">Click a day to see its events.</p>
+                <p className="text-xs text-gray-500">Click a day to see its events.</p>
               )}
             </div>
           </div>
@@ -299,7 +305,7 @@ export default function CalendarView({
                   type="button"
                   aria-label="Close add-event form"
                   onClick={() => setShowAddForm(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-500 hover:text-gray-600"
                 >
                   <X size={14} />
                 </button>
@@ -308,6 +314,7 @@ export default function CalendarView({
               <input
                 required
                 value={form.title}
+                aria-label="Event title"
                 onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
                 placeholder="Event title"
                 className="w-full text-sm border border-gray-200 rounded px-2.5 py-1.5 focus:outline-none focus:border-iron-gray"
@@ -317,12 +324,14 @@ export default function CalendarView({
                 type="date"
                 required
                 value={form.date}
+                aria-label="Event date"
                 onChange={(e) => setForm((prev) => ({ ...prev, date: e.target.value }))}
                 className="w-full text-sm border border-gray-200 rounded px-2.5 py-1.5 bg-white focus:outline-none focus:border-iron-gray"
               />
 
               <select
                 value={form.type}
+                aria-label="Event type"
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, type: e.target.value as CalendarEventType }))
                 }
@@ -337,6 +346,7 @@ export default function CalendarView({
 
               <input
                 value={form.time}
+                aria-label="Event time (optional)"
                 onChange={(e) => setForm((prev) => ({ ...prev, time: e.target.value }))}
                 placeholder="Time (optional), e.g. 5:00–6:00pm ET"
                 className="w-full text-sm border border-gray-200 rounded px-2.5 py-1.5 focus:outline-none focus:border-iron-gray"
@@ -344,6 +354,7 @@ export default function CalendarView({
 
               <textarea
                 value={form.description}
+                aria-label="Event description (optional)"
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, description: e.target.value }))
                 }
@@ -354,6 +365,7 @@ export default function CalendarView({
 
               <select
                 value={form.scope}
+                aria-label="Audience"
                 onChange={(e) => setForm((prev) => ({ ...prev, scope: e.target.value }))}
                 className="w-full text-sm border border-gray-200 rounded px-2.5 py-1.5 bg-white"
               >

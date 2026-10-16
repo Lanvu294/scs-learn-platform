@@ -37,10 +37,11 @@ function AddUnitModal({
       <div
         role="dialog"
         aria-modal="true"
+        aria-labelledby="add-unit-title"
         onClick={(e) => e.stopPropagation()}
         className="bg-white text-black rounded-md shadow-xl w-full max-w-sm p-6"
       >
-        <h2 className="text-lg font-bold mb-3">Name this unit</h2>
+        <h2 id="add-unit-title" className="text-lg font-bold mb-3">Name this unit</h2>
         <input
           autoFocus
           value={title}
@@ -50,6 +51,7 @@ function AddUnitModal({
             if (e.key === "Escape") onClose();
           }}
           placeholder="Untitled unit"
+          aria-label="Unit name"
           className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 mb-4 outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
         />
         <div className="flex justify-end gap-2">
@@ -272,7 +274,7 @@ export default function ContentSidebar({
         <div className="mt-3 w-full min-w-0 pl-1.5 flex items-start justify-between gap-2">
           <div className="min-w-0">
             <p className="font-serif text-lg font-semibold truncate">{courseTitle}</p>
-            <p className="text-sm text-gray-400 mt-0.5">
+            <p className="text-sm text-gray-500 mt-0.5">
               {courseCode}
               <span className="mx-1.5 text-gray-300">·</span>
               {lessonCount} lessons
@@ -282,7 +284,7 @@ export default function ContentSidebar({
             type="button"
             aria-label="Delete courseware"
             title="Delete courseware"
-            className="shrink-0 text-gray-300 hover:text-red-500 mt-0.5"
+            className="shrink-0 text-gray-500 hover:text-red-500 mt-0.5"
             onClick={onDeleteCourse}
           >
             <Trash2 size={16} />
@@ -312,9 +314,19 @@ export default function ContentSidebar({
                   isUnitDragOver ? "border-primary" : "border-transparent"
                 } ${draggingUnitId === unit.id ? "opacity-40" : ""}`}
               >
-                <span className="shrink-0 text-gray-400" aria-hidden="true">
-                  {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                </span>
+                {/* The row itself is a mouse target; this button is the keyboard and screen-reader toggle. */}
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-label={`${unit.code}: ${unit.title}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleUnit(unit.id);
+                  }}
+                  className="shrink-0 text-gray-500"
+                >
+                  {isOpen ? <ChevronDown size={14} aria-hidden /> : <ChevronRight size={14} aria-hidden />}
+                </button>
                 <div className="flex-1 min-w-0 text-left">
                   {editingUnitId === unit.id ? (
                     <input
@@ -327,6 +339,7 @@ export default function ContentSidebar({
                         if (e.key === "Enter") commitEditingUnit();
                         if (e.key === "Escape") cancelEditingUnit();
                       }}
+                      aria-label="Unit title"
                       className="w-full text-sm font-bold leading-tight bg-white border border-primary rounded px-1 -mx-1 outline-none"
                     />
                   ) : (
@@ -344,6 +357,7 @@ export default function ContentSidebar({
                             if (e.key === "Enter") commitEditingUnitNumber();
                             if (e.key === "Escape") cancelEditingUnitNumber();
                           }}
+                          aria-label="Unit number"
                           className="w-12 text-sm font-bold bg-white border border-primary rounded px-1 outline-none"
                         />
                       ) : (
@@ -374,8 +388,8 @@ export default function ContentSidebar({
                 </div>
                 <button
                   type="button"
-                  aria-label="Add lesson"
-                  className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 hover:text-gray-500"
+                  aria-label={`Add lesson to ${unit.code}`}
+                  className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:text-gray-500"
                   onClick={(e) => {
                     e.stopPropagation();
                     setExpanded((prev) => ({ ...prev, [unit.id]: true }));
@@ -386,8 +400,8 @@ export default function ContentSidebar({
                 </button>
                 <button
                   type="button"
-                  aria-label="Delete unit"
-                  className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-500"
+                  aria-label={`Delete ${unit.code}`}
+                  className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:text-red-500"
                   onClick={(e) => {
                     e.stopPropagation();
                     onDeleteUnit(unit.id);
@@ -426,27 +440,33 @@ export default function ContentSidebar({
                         } ${draggingLessonId === lesson.id ? "opacity-40" : ""}`}
                         onClick={() => onSelectLesson(lesson.id)}
                       >
-                        <p
+                        <button
+                          type="button"
+                          aria-current={isSelected ? "true" : undefined}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSelectLesson(lesson.id);
+                          }}
                           className={`text-sm flex-1 min-w-0 truncate text-left ${
                             isSelected ? "text-primary font-semibold" : "text-gray-700"
                           }`}
                         >
                           {lesson.title}
-                        </p>
+                        </button>
                         {lesson.type === "quiz" && (
-                          <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-gray-400">
+                          <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-gray-500">
                             Quiz
                           </span>
                         )}
                         {lesson.type === "external" && (
-                          <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-gray-400">
+                          <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-gray-500">
                             External
                           </span>
                         )}
                         <button
                           type="button"
-                          aria-label="Delete lesson"
-                          className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-500"
+                          aria-label={`Delete lesson ${lesson.title}`}
+                          className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:text-red-500"
                           onClick={(e) => {
                             e.stopPropagation();
                             onDeleteLesson(unit.id, lesson.id);

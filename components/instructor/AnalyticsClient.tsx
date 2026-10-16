@@ -67,7 +67,7 @@ export default function AnalyticsClient({ course }: { course: InstructorCourse }
         </p>
 
         {analytics.totalStudents === 0 ? (
-          <div className="border border-dashed border-gray-300 bg-white p-10 text-center text-gray-400">
+          <div className="border border-dashed border-gray-300 bg-white p-10 text-center text-gray-500">
             No students enrolled yet. Analytics will appear once this courseware opens.
           </div>
         ) : (
@@ -127,7 +127,7 @@ export default function AnalyticsClient({ course }: { course: InstructorCourse }
                         className="w-full bg-iron-gray/80 hover:bg-iron-gray transition-colors"
                         style={{ height: `${(bucket.count / maxQuizCount) * 100}%` }}
                       />
-                      <span className="text-[11px] text-gray-400 mt-2">{bucket.range}</span>
+                      <span className="text-[11px] text-gray-500 mt-2">{bucket.range}</span>
                     </div>
                   ))}
                 </div>
@@ -137,7 +137,7 @@ export default function AnalyticsClient({ course }: { course: InstructorCourse }
             <div className="rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm">
               <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                 <h2 className="text-sm font-bold">Students</h2>
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-500">
                   Showing {analytics.students.length} of {analytics.totalStudents}
                 </span>
               </div>

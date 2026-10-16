@@ -571,7 +571,7 @@ export default function CourseEditorClient({
             />
           </div>
         ) : (
-          <div className="h-full flex items-center justify-center text-sm text-gray-400">
+          <div className="h-full flex items-center justify-center text-sm text-gray-500">
             Add a section and a lesson to start writing.
           </div>
         )}

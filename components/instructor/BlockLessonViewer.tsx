@@ -29,7 +29,7 @@ export default function BlockLessonViewer({
 
   if (blocks.length === 0) {
     return (
-      <div className="min-h-full flex items-center justify-center text-sm text-gray-400">
+      <div className="min-h-full flex items-center justify-center text-sm text-gray-500">
         This lesson has no content yet.
       </div>
     );

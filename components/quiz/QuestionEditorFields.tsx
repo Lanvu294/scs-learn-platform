@@ -178,7 +178,7 @@ function AnswerKeyField({
           placeholder={placeholder}
         />
       )}
-      {hint && <p className="text-sm text-gray-400">{hint}</p>}
+      {hint && <p className="text-sm text-gray-500">{hint}</p>}
     </div>
   );
 }
@@ -211,6 +211,7 @@ function StringChoicesEditor({
             <input
               type="checkbox"
               checked={selectedMulti.has(choice) && choice.trim() !== ""}
+              aria-label={`Mark option ${choiceIndex + 1} correct`}
               disabled={!choice.trim()}
               onChange={() => {
                 const next = new Set(selectedMulti);
@@ -224,6 +225,7 @@ function StringChoicesEditor({
               type="radio"
               name={`answer-${questionId}`}
               checked={answerKey === choice && choice.trim() !== ""}
+              aria-label={`Mark option ${choiceIndex + 1} correct`}
               disabled={!choice.trim()}
               onChange={() => onAnswerKeyChange(choice)}
             />
@@ -231,6 +233,7 @@ function StringChoicesEditor({
           <input
             type="text"
             value={choice}
+            aria-label={`Option ${choiceIndex + 1}`}
             disabled={questionType === "true_false"}
             onChange={(e) => {
               const next = [...choices];
@@ -259,7 +262,7 @@ function StringChoicesEditor({
                   onAnswerKeyChange("");
                 }
               }}
-              className="text-gray-400 hover:text-red-500 p-1.5"
+              className="text-gray-500 hover:text-red-500 p-1.5"
               aria-label="Remove option"
             >
               <Trash2 size={14} />
@@ -461,6 +464,7 @@ export function QuestionTypeSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value as QuestionType)}
+      aria-label="Question type"
       className="text-sm border border-gray-200 px-3 py-2 bg-white max-w-xs"
     >
       <optgroup label="Common">
@@ -536,17 +540,18 @@ export function QuestionEditorFields({
         </label>
         <textarea
           value={state.promptText}
+          aria-label="Question text"
           onChange={(e) => onChange({ promptText: e.target.value })}
           rows={4}
           className="w-full text-base border border-gray-200 px-4 py-3 outline-none focus:border-iron-gray"
           placeholder={promptPlaceholder(questionType)}
         />
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-500">
           Supports Markdown — fenced ``` code blocks and | tables render for students.
         </p>
         {state.promptText.trim() && (
           <div className="border border-gray-100 bg-gray-50 px-3 py-2">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Preview</p>
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Preview</p>
             <RichText>{state.promptText}</RichText>
           </div>
         )}
@@ -650,7 +655,7 @@ export function QuestionEditorFields({
           />
           {answerKey.trim() && (
             <div className="border border-gray-100 bg-gray-50 px-3 py-2">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Preview</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Preview</p>
               <RichText>{answerKey}</RichText>
             </div>
           )}

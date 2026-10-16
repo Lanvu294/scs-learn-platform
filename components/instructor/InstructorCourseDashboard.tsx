@@ -10,9 +10,9 @@ import type { CourseActivity } from "@/lib/instructor/data/course-dashboard";
 import type { Announcement, CalendarEvent, InstructorCourse, LessonItem } from "@/lib/instructor/mock-data";
 
 function LessonIcon({ type }: { type: LessonItem["type"] }) {
-  if (type === "quiz") return <CircleHelp size={14} className="text-gray-400 shrink-0" />;
-  if (type === "external") return <ExternalLink size={14} className="text-gray-400 shrink-0" />;
-  return <FileText size={14} className="text-gray-400 shrink-0" />;
+  if (type === "quiz") return <CircleHelp size={14} className="text-gray-500 shrink-0" />;
+  if (type === "external") return <ExternalLink size={14} className="text-gray-500 shrink-0" />;
+  return <FileText size={14} className="text-gray-500 shrink-0" />;
 }
 
 function StatTile({ label, value, hint }: { label: string; value: string; hint?: string }) {
@@ -20,7 +20,7 @@ function StatTile({ label, value, hint }: { label: string; value: string; hint?:
     <div className={`${card} p-5`}>
       <p className="text-xs font-bold text-gray-500 tracking-wide mb-2">{label}</p>
       <p className="text-3xl font-serif font-semibold tabular-nums">{value}</p>
-      {hint && <p className="text-xs text-gray-400 mt-1">{hint}</p>}
+      {hint && <p className="text-xs text-gray-500 mt-1">{hint}</p>}
     </div>
   );
 }
@@ -55,7 +55,7 @@ export default function InstructorCourseDashboard({
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
               <p className="text-sm font-bold text-primary tracking-wide">{course.code}</p>
               {(course.department || course.track) && (
-                <p className="text-xs text-gray-400">{[course.department, course.track].filter(Boolean).join(" · ")}</p>
+                <p className="text-xs text-gray-500">{[course.department, course.track].filter(Boolean).join(" · ")}</p>
               )}
             </div>
             <h1 className="text-3xl font-serif font-semibold">{course.title}</h1>
@@ -99,11 +99,11 @@ export default function InstructorCourseDashboard({
           <div className="lg:col-span-2 flex flex-col gap-6">
             <section className={`${card} overflow-hidden`}>
               <h2 className="flex items-center gap-2 font-serif text-lg font-semibold px-5 py-4 border-b border-gray-100">
-                <Users size={15} className="text-gray-400" />
+                <Users size={15} className="text-gray-500" />
                 Learners
               </h2>
               {learnerCount === 0 ? (
-                <p className="px-5 py-4 text-sm text-gray-400">
+                <p className="px-5 py-4 text-sm text-gray-500">
                   No learner activity yet. Learners show up here once they complete a lesson, submit a quiz, or open a
                   Cogniterra activity.
                 </p>
@@ -123,7 +123,7 @@ export default function InstructorCourseDashboard({
                         <tr key={learner.id} className="border-t border-gray-100">
                           <td className="px-5 py-2.5">
                             <p className="font-bold truncate max-w-[14rem]">{learner.name}</p>
-                            {learner.email && <p className="text-xs text-gray-400 truncate max-w-[14rem]">{learner.email}</p>}
+                            {learner.email && <p className="text-xs text-gray-500 truncate max-w-[14rem]">{learner.email}</p>}
                           </td>
                           <td className="px-3 py-2.5 min-w-[9rem]">
                             <div className="flex items-center gap-2">
@@ -159,7 +159,7 @@ export default function InstructorCourseDashboard({
             <section className={`${card} overflow-hidden`}>
               <h2 className="font-serif text-lg font-semibold px-5 py-4 border-b border-gray-100">Content</h2>
               {course.units.length === 0 ? (
-                <p className="px-5 py-4 text-sm text-gray-400">
+                <p className="px-5 py-4 text-sm text-gray-500">
                   No units yet.{" "}
                   <Link href={`/instructor/${course.code}/edit`} className="underline hover:text-black">
                     Add content in the editor
@@ -175,11 +175,11 @@ export default function InstructorCourseDashboard({
                       <span className="flex-1 min-w-0 truncate text-[11px] font-bold text-gray-500 uppercase tracking-wide">
                         {unit.code} · {unit.title}
                       </span>
-                      <span className="text-xs text-gray-400 shrink-0 tabular-nums">
+                      <span className="text-xs text-gray-500 shrink-0 tabular-nums">
                         {unit.lessons.length} {unit.lessons.length === 1 ? "lesson" : "lessons"}
                         {unitPublished < unit.lessons.length && ` · ${unit.lessons.length - unitPublished} draft`}
                       </span>
-                      <ChevronDown size={15} className="text-gray-400 shrink-0 transition-transform group-open:rotate-180" />
+                      <ChevronDown size={15} className="text-gray-500 shrink-0 transition-transform group-open:rotate-180" />
                     </summary>
                     <ul className="pb-2">
                       {unit.lessons.map((lesson) => {
@@ -209,7 +209,7 @@ export default function InstructorCourseDashboard({
                           </li>
                         );
                       })}
-                      {unit.lessons.length === 0 && <li className="px-5 py-1.5 text-sm text-gray-400">No lessons yet.</li>}
+                      {unit.lessons.length === 0 && <li className="px-5 py-1.5 text-sm text-gray-500">No lessons yet.</li>}
                     </ul>
                   </details>
                   );

@@ -30,6 +30,7 @@ export default function CalendarModal({
       <div
         role="dialog"
         aria-modal="true"
+        aria-label="Calendar"
         onClick={(e) => e.stopPropagation()}
         className="bg-white text-black rounded-md shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6"
       >

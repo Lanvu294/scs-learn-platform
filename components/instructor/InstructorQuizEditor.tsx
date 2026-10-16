@@ -118,12 +118,14 @@ function QuestionEditorCard({
           {isPending && <Loader2 size={16} className="animate-spin" />}
           Save question
         </button>
-        {savedFlash && <span className="text-sm text-green-700">Saved</span>}
+        <span role="status" className="text-sm text-green-700">
+          {savedFlash ? "Saved" : ""}
+        </span>
         {question.needsReview && !savedFlash && (
           <span className="text-sm text-amber-700">Needs review</span>
         )}
       </div>
-      {error && <p className="text-base text-red-600">{error}</p>}
+      {error && <p className="text-base text-red-600" role="alert">{error}</p>}
     </div>
   );
 }
@@ -201,7 +203,7 @@ export default function InstructorQuizEditor({
             Add question
           </button>
         )}
-        {addError && <p className="text-base text-red-600">{addError}</p>}
+        {addError && <p className="text-base text-red-600" role="alert">{addError}</p>}
 
         {questions.length === 0 ? (
           <p className="text-base text-gray-500">

@@ -154,7 +154,7 @@ function CreateCourseModal({
               <dt className="font-bold text-gray-500">Files found</dt>
               <dd>{preview.fileCount}</dd>
             </dl>
-            {error && <p className="text-sm text-red-600 mb-3">{error}</p>}
+            {error && <p className="text-sm text-red-600 mb-3" role="alert">{error}</p>}
             <div className="flex justify-end gap-2">
               <button
                 type="button"
@@ -212,7 +212,7 @@ function CreateCourseModal({
                   disabled={status === "scanning"}
                   className="text-sm border border-gray-200 rounded px-3 py-2 outline-none focus:border-iron-gray disabled:opacity-60"
                 />
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-500">
                   If lectures live on YouTube instead of Drive, paste a playlist link here — or, if
                   lectures are split across one playlist per unit, paste the channel link instead
                   and AI checks all of its playlists. Either way, it matches each video to the
@@ -259,7 +259,7 @@ function CreateCourseModal({
               </p>
             )}
             {googleConnected === false && (
-              <p className="text-xs text-gray-400 mb-4">
+              <p className="text-xs text-gray-500 mb-4">
                 Without connecting, share the folder as &ldquo;Anyone with the link&rdquo;
                 {shareEmail && (
                   <>
@@ -271,7 +271,7 @@ function CreateCourseModal({
               </p>
             )}
 
-            {error && <p className="text-sm text-red-600 mb-3">{error}</p>}
+            {error && <p className="text-sm text-red-600 mb-3" role="alert">{error}</p>}
 
             <div className="flex justify-end gap-2">
               <button
@@ -353,7 +353,7 @@ export default function CourseListSection({ courses: initialCourses }: { courses
           onClick={() => setShowModal(true)}
           className="w-full border-2 border-dashed border-gray-300 rounded-xl p-10 text-center hover:border-gray-400 btn-fill-white"
         >
-          <Plus size={24} className="mx-auto mb-2 text-gray-400" />
+          <Plus size={24} className="mx-auto mb-2 text-gray-500" />
           <p className="text-sm font-bold mb-1">Create your first courseware</p>
           <p className="text-xs text-gray-500">
             Paste a Google Drive folder link. The courseware code and title come from the folder name.

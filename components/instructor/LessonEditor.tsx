@@ -22,7 +22,8 @@ export default function LessonEditor({
           value={title}
           onChange={(e) => onTitleChange(e.target.value)}
           placeholder="Lesson title"
-          className="w-full text-3xl font-serif font-semibold outline-none placeholder:text-gray-300 truncate"
+          aria-label="Lesson title"
+          className="w-full text-3xl font-serif font-semibold outline-none placeholder:text-gray-300 truncate focus-visible:ring-2 focus-visible:ring-primary/30 rounded"
         />
       </div>
 
