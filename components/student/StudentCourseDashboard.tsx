@@ -24,9 +24,9 @@ function lessonHref(courseCode: string, lessonId: string) {
 }
 
 function LessonIcon({ type }: { type: StudentLesson["type"] }) {
-  if (type === "quiz") return <CircleHelp size={14} className="text-gray-400 shrink-0" />;
-  if (type === "external") return <ExternalLink size={14} className="text-gray-400 shrink-0" />;
-  return <FileText size={14} className="text-gray-400 shrink-0" />;
+  if (type === "quiz") return <CircleHelp size={14} className="text-gray-500 shrink-0" />;
+  if (type === "external") return <ExternalLink size={14} className="text-gray-500 shrink-0" />;
+  return <FileText size={14} className="text-gray-500 shrink-0" />;
 }
 
 function formatPoints(value: number) {
@@ -122,7 +122,7 @@ export default function StudentCourseDashboard({
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
               <p className="text-xs font-bold text-primary tracking-wide">{course.code}</p>
               {(course.department || course.track) && (
-                <p className="text-xs text-gray-400">{[course.department, course.track].filter(Boolean).join(" · ")}</p>
+                <p className="text-xs text-gray-500">{[course.department, course.track].filter(Boolean).join(" · ")}</p>
               )}
             </div>
             <h1 className="text-3xl font-serif font-semibold leading-tight">{course.title}</h1>
@@ -177,7 +177,7 @@ export default function StudentCourseDashboard({
                         <span className="text-xs font-bold text-gray-500">
                           {done}/{unit.lessons.length}
                         </span>
-                        <ChevronDown size={15} className="text-gray-400 transition-transform group-open:rotate-180" />
+                        <ChevronDown size={15} className="text-gray-500 transition-transform group-open:rotate-180" />
                       </span>
                     </div>
                     <ProgressBar percent={unitPercent} label={`${unit.title}: ${unitPercent}% complete`} />
@@ -206,14 +206,14 @@ export default function StudentCourseDashboard({
               );
             })}
             {course.units.length === 0 && (
-              <p className="text-sm text-gray-400">No published lessons yet.</p>
+              <p className="text-sm text-gray-500">No published lessons yet.</p>
             )}
           </div>
 
           <div className="flex flex-col gap-6">
-            <Panel icon={<Trophy size={15} className="text-gray-400" />} title="Grades">
+            <Panel icon={<Trophy size={15} className="text-gray-500" />} title="Grades">
               {grades.length === 0 ? (
-                <p className="text-sm text-gray-400">No graded work in this courseware yet.</p>
+                <p className="text-sm text-gray-500">No graded work in this courseware yet.</p>
               ) : (
                 <ul className="flex flex-col gap-2.5 max-h-96 overflow-y-auto pr-1">
                   {grades.map((grade) => (
@@ -222,7 +222,7 @@ export default function StudentCourseDashboard({
                         {grade.label}
                       </Link>
                       <span
-                        className={`shrink-0 tabular-nums font-bold ${grade.score ? "text-black" : "text-gray-300"}`}
+                        className={`shrink-0 tabular-nums font-bold ${grade.score ? "text-black" : "text-gray-500"}`}
                       >
                         {grade.score ?? "—"}
                       </span>
@@ -232,14 +232,14 @@ export default function StudentCourseDashboard({
               )}
             </Panel>
 
-            <Panel icon={<Megaphone size={15} className="text-gray-400" />} title="Announcements">
+            <Panel icon={<Megaphone size={15} className="text-gray-500" />} title="Announcements">
               {announcements.length === 0 ? (
-                <p className="text-sm text-gray-400">No announcements yet.</p>
+                <p className="text-sm text-gray-500">No announcements yet.</p>
               ) : (
                 <ul className="flex flex-col gap-4">
                   {announcements.map((a) => (
                     <li key={a.id}>
-                      <p className="text-xs text-gray-400 mb-1">
+                      <p className="text-xs text-gray-500 mb-1">
                         <span className="font-bold text-gray-600">{a.authorName}</span> · {a.timestamp}
                       </p>
                       <p className="text-sm text-gray-700 whitespace-pre-line">{a.message}</p>
@@ -249,15 +249,15 @@ export default function StudentCourseDashboard({
               )}
             </Panel>
 
-            <Panel icon={<CalendarDays size={15} className="text-gray-400" />} title="Upcoming">
+            <Panel icon={<CalendarDays size={15} className="text-gray-500" />} title="Upcoming">
               {events.length === 0 ? (
-                <p className="text-sm text-gray-400">Nothing scheduled.</p>
+                <p className="text-sm text-gray-500">Nothing scheduled.</p>
               ) : (
                 <ul className="flex flex-col gap-3">
                   {events.map((event) => (
                     <li key={event.id} className="flex gap-3">
                       <div className="w-11 shrink-0 text-center border border-gray-200 py-1">
-                        <p className="text-[10px] font-bold text-gray-400 uppercase">
+                        <p className="text-[10px] font-bold text-gray-500 uppercase">
                           {parseISODate(event.date).toLocaleDateString("en-US", { month: "short" })}
                         </p>
                         <p className="text-base font-bold leading-tight">{parseISODate(event.date).getDate()}</p>

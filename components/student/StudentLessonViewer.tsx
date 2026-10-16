@@ -8,6 +8,7 @@ import { markLessonComplete, unmarkLessonComplete } from "@/lib/student/data/les
 import QuizBlock from "@/components/student/QuizBlock";
 import AutogradedAssignmentCard from "@/components/student/AutogradedAssignmentCard";
 import ExternalActivity from "@/components/lti/ExternalActivity";
+import { handleTabListKeyDown } from "@/lib/a11y/tabs";
 
 type ExternalTab = "assignment" | "writeup";
 
@@ -169,13 +170,21 @@ export default function StudentLessonViewer({
         <div className="topic-lesson-header shrink-0">
           <h1 className="topic-lesson-title">{lesson.title}</h1>
           {showTabBar && (
-            <div className="lesson-tab-bar" role="tablist" aria-label="External assignment sections">
+            <div
+              className="lesson-tab-bar"
+              role="tablist"
+              aria-label="External assignment sections"
+              onKeyDown={handleTabListKeyDown}
+            >
               {externalTabs.map((tab) => (
                 <button
                   key={tab}
                   type="button"
                   role="tab"
+                  id={`external-tab-${tab}`}
+                  aria-controls={`external-tabpanel-${tab}`}
                   aria-selected={activeTab === tab}
+                  tabIndex={activeTab === tab ? 0 : -1}
                   className={`lesson-tab${activeTab === tab ? " is-active" : ""}`}
                   onClick={() => setExternalTab(tab)}
                 >
@@ -188,7 +197,12 @@ export default function StudentLessonViewer({
 
         <div className="flex-1 min-h-0 flex flex-col">
           {activeTab === "assignment" && (
-            <div className="flex-1 min-h-0 flex flex-col gap-4 px-8 py-4 overflow-hidden">
+            <div
+              className="flex-1 min-h-0 flex flex-col gap-4 px-8 py-4 overflow-hidden"
+              role={showTabBar ? "tabpanel" : undefined}
+              id="external-tabpanel-assignment"
+              aria-labelledby={showTabBar ? "external-tab-assignment" : undefined}
+            >
               {lesson.lti && (
                 <ExternalActivity
                   lessonId={lesson.id}
@@ -208,7 +222,7 @@ export default function StudentLessonViewer({
                 </div>
               )}
               {!lesson.lti && !lesson.autolab && (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-500">
                   This external assignment is not linked to an activity yet.
                 </p>
               )}
@@ -219,7 +233,8 @@ export default function StudentLessonViewer({
             <div
               className="flex-1 min-h-0 overflow-y-auto lesson-tab-panel"
               role="tabpanel"
-              aria-label="Writeup"
+              id="external-tabpanel-writeup"
+              aria-labelledby="external-tab-writeup"
             >
               <div
                 className="course-notes-content lesson-content-editor"
@@ -239,7 +254,7 @@ export default function StudentLessonViewer({
       <div className="flex-1 min-h-0 overflow-y-auto">
         {lesson.contentSource === "blocks" ? (
           lesson.blocks.length === 0 ? (
-            <p className="px-8 py-6 text-sm text-gray-400">This lesson has no content yet.</p>
+            <p className="px-8 py-6 text-sm text-gray-500">This lesson has no content yet.</p>
           ) : isAssessment ? (
             <>
               <div className="px-8 pt-6 pb-2">
@@ -260,6 +275,8 @@ export default function StudentLessonViewer({
           )
         ) : (
           <div className="lesson-tab-panel">
+            {/* Older HTML lessons carry no title of their own; give the page its h1. */}
+            <h1 className="sr-only">{lesson.title}</h1>
             <div
               className="course-notes-content lesson-content-editor"
               dangerouslySetInnerHTML={{ __html: lesson.contentHtml }}

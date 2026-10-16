@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 
 export type CarouselSlide = {
   key: string;
@@ -15,6 +15,22 @@ const NAV_BUTTON =
 // between the start of one slide and the next.
 const DEFAULT_AUTOPLAY_MS = 2400;
 const SLIDE_MS = 700;
+
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(callback: () => void): () => void {
+  const query = window.matchMedia(REDUCED_MOTION);
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+}
+
+function getReducedMotion(): boolean {
+  return window.matchMedia(REDUCED_MOTION).matches;
+}
+
+function getReducedMotionOnServer(): boolean {
+  return false;
+}
 
 // An endless, autoplaying row of slides with previous/next buttons beside the
 // heading. Slides arrive already rendered, so server components can build them.
@@ -45,6 +61,12 @@ export default function Carousel({
   const [distance, setDistance] = useState(0);
   const [offset, setOffset] = useState(0);
   const [animate, setAnimate] = useState(true);
+  // A visible pause control: hover and focus pauses alone don't satisfy WCAG 2.2.2
+  // for touch and screen-magnifier users.
+  const [stopped, setStopped] = useState(false);
+  const stoppedRef = useRef(false);
+  // No autoplay (and so no pause button) for people who ask for reduced motion.
+  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, getReducedMotionOnServer);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -112,7 +134,7 @@ export default function Carousel({
     if (motion.matches) return;
 
     const id = window.setInterval(() => {
-      if (document.hidden || pausedRef.current) return;
+      if (document.hidden || pausedRef.current || stoppedRef.current) return;
       advance(1);
     }, autoplayMs);
 
@@ -141,6 +163,19 @@ export default function Carousel({
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         {heading}
         <div className="flex shrink-0 gap-2">
+          {!reducedMotion && slides.length > 1 ? (
+            <button
+              type="button"
+              onClick={() => {
+                stoppedRef.current = !stoppedRef.current;
+                setStopped(stoppedRef.current);
+              }}
+              aria-label={stopped ? `Play ${itemName} carousel` : `Pause ${itemName} carousel`}
+              className={NAV_BUTTON}
+            >
+              {stopped ? <Play className="size-5" aria-hidden /> : <Pause className="size-5" aria-hidden />}
+            </button>
+          ) : null}
           <button type="button" onClick={() => advance(-1)} disabled={slides.length < 2} aria-label={`Previous ${itemName}`} className={NAV_BUTTON}>
             <ChevronLeft className="size-5" aria-hidden />
           </button>

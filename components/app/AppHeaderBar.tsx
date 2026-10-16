@@ -27,13 +27,18 @@ export default function AppHeaderBar({
 }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
     const onPointer = (e: PointerEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) setOpen(false);
     };
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      buttonRef.current?.focus();
+    };
     document.addEventListener("pointerdown", onPointer);
     document.addEventListener("keydown", onKey);
     return () => {
@@ -53,7 +58,7 @@ export default function AppHeaderBar({
       <div className="flex h-14 items-center gap-4 px-4 sm:px-6">
         <Link href={home} className="flex shrink-0 items-center gap-2.5">
           <Image src="/brand/scs-learn-icon-red.png" alt="" width={32} height={32} className="h-8 w-8 rounded-md" />
-          <span className="hidden text-[15px] font-bold tracking-tight sm:inline">SCS Learn</span>
+          <span className="sr-only text-[15px] font-bold tracking-tight sm:not-sr-only">SCS Learn</span>
         </Link>
 
         {mode === "admin" && (
@@ -83,21 +88,23 @@ export default function AppHeaderBar({
 
           <div ref={menuRef} className="relative">
             <button
+              ref={buttonRef}
               type="button"
               onClick={() => setOpen((v) => !v)}
-              aria-haspopup="menu"
+              aria-controls="account-menu"
               aria-expanded={open}
               className="flex items-center gap-1.5 rounded-full p-0.5 pr-1.5 btn-fill-gray-100"
             >
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
                 {initials}
               </span>
-              <ChevronDown size={14} className="text-gray-500" />
+              <span className="sr-only">Account menu</span>
+              <ChevronDown size={14} className="text-gray-500" aria-hidden />
             </button>
 
             {open && (
               <div
-                role="menu"
+                id="account-menu"
                 className="absolute right-0 mt-2 w-64 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-lg"
               >
                 <div className="border-b border-gray-100 px-4 py-3">
@@ -125,10 +132,9 @@ export default function AppHeaderBar({
                 <form action={signOut} className="border-t border-gray-100 mt-1 pt-1">
                   <button
                     type="submit"
-                    role="menuitem"
                     className="flex w-full items-center gap-2.5 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
                   >
-                    <LogOut size={15} className="text-gray-400" />
+                    <LogOut size={15} className="text-gray-500" />
                     Sign out
                   </button>
                 </form>
@@ -143,8 +149,8 @@ export default function AppHeaderBar({
 
 function MenuLink({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
   return (
-    <Link href={href} role="menuitem" className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-      <span className="text-gray-400">{icon}</span>
+    <Link href={href} className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+      <span className="text-gray-500">{icon}</span>
       {label}
     </Link>
   );

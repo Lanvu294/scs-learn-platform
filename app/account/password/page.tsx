@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import AppHeader from "@/components/app/AppHeader";
 import PasswordForm from "@/components/auth/PasswordForm";
@@ -25,3 +26,5 @@ export default async function ChoosePasswordPage() {
     </main>
   );
 }
+
+export const metadata: Metadata = { title: "Change password" };

@@ -74,9 +74,9 @@ export default function StudentCourseClient({
   const selectedLesson = unitsWithProgress.flatMap((u) => u.lessons).find((l) => l.id === selectedLessonId);
 
   return (
-    <main className="h-screen bg-gray-50 text-black flex flex-col overflow-hidden">
+    <div className="h-screen bg-gray-50 text-black flex flex-col overflow-hidden">
       {header}
-      <div className="flex flex-1 min-h-0 overflow-hidden">
+      <main className="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden">
       <StudentSidebar
         courseCode={course.code}
         courseTitle={course.title}
@@ -85,7 +85,7 @@ export default function StudentCourseClient({
         onSelectLesson={selectLesson}
       />
 
-      <div className="flex-1 min-w-0 min-h-0 h-full overflow-hidden">
+      <div className="flex-1 min-w-0 min-h-0 md:h-full overflow-hidden">
         {selectedLesson ? (
           <StudentLessonViewer
             key={selectedLesson.id}
@@ -106,12 +106,12 @@ export default function StudentCourseClient({
             }
           />
         ) : (
-          <div className="h-full bg-white flex items-center justify-center text-sm text-gray-400">
+          <div className="h-full bg-white flex items-center justify-center text-sm text-gray-500">
             This courseware has no published lessons yet.
           </div>
         )}
       </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

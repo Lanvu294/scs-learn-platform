@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Crown, ShieldCheck, UserRound, Users, X } from "lucide-react";
 import AppHeader from "@/components/app/AppHeader";
 import CourseBanner from "@/components/app/CourseBanner";
@@ -36,7 +37,7 @@ export default async function AdminPage() {
         <section className={`${card} overflow-hidden`}>
           <div className="border-b border-gray-100 p-5">
             <h2 className="flex items-center gap-2 font-serif text-xl font-semibold">
-              <Users size={18} className="text-gray-400" />
+              <Users size={18} className="text-gray-500" />
               Instructors
             </h2>
             <p className="mt-1 mb-4 text-sm text-gray-600">
@@ -85,7 +86,7 @@ export default async function AdminPage() {
         {/* Course staff */}
         <section>
           <h2 className="mb-1 flex items-center gap-2 font-serif text-xl font-semibold">
-            <UserRound size={18} className="text-gray-400" />
+            <UserRound size={18} className="text-gray-500" />
             Courseware staff
           </h2>
           <p className="mb-4 text-sm text-gray-600">
@@ -121,7 +122,7 @@ export default async function AdminPage() {
                                 <button
                                   type="submit"
                                   aria-label={`Remove ${i.name} from ${course.code}`}
-                                  className="rounded-md p-1 text-gray-400 btn-fill-red-50 hover:text-red-700"
+                                  className="rounded-md p-1 text-gray-500 btn-fill-red-50 hover:text-red-700"
                                 >
                                   <X size={14} />
                                 </button>
@@ -143,7 +144,7 @@ export default async function AdminPage() {
         <section className={`${card} overflow-hidden`}>
           <div className="border-b border-gray-100 p-5">
             <h2 className="flex items-center gap-2 font-serif text-xl font-semibold">
-              <ShieldCheck size={18} className="text-gray-400" />
+              <ShieldCheck size={18} className="text-gray-500" />
               Admins
             </h2>
             <p className="mt-1 mb-4 text-sm text-gray-600">Admins can use this page. They need a confirmed email to sign in as admin.</p>
@@ -154,7 +155,7 @@ export default async function AdminPage() {
               <li key={a.email} className="flex items-center gap-3 px-5 py-3 text-sm">
                 <span className="min-w-0 flex-1 truncate">{a.email}</span>
                 {a.email === me.email ? (
-                  <span className="text-xs text-gray-400">You</span>
+                  <span className="text-xs text-gray-500">You</span>
                 ) : (
                   <form action={removeAdmin}>
                     <input type="hidden" name="email" value={a.email} />
@@ -174,3 +175,5 @@ export default async function AdminPage() {
     </main>
   );
 }
+
+export const metadata: Metadata = { title: "Admin" };

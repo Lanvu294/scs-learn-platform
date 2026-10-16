@@ -165,7 +165,7 @@ export default function QuizBlock({
 
       {submitted && (
         <div className="flex items-center gap-4 pb-2 border-b border-gray-100">
-          <p className="text-sm font-bold">
+          <p className="text-sm font-bold" role="status">
             Score: {formatPoints(correctCount)} /{" "}
             {submission?.gradableCount ?? gradableQuestions.reduce((sum, q) => sum + q.points, 0)}
             {submission && submission.gradableCount > 0 ? ` (${submission.scorePercent}%)` : ""}
@@ -204,16 +204,25 @@ export default function QuizBlock({
                 : "border-gray-200";
 
         return (
-          <div key={`${question.id}-v${variantIndex}`} className={`border p-4 ${borderClass}`}>
+          <div
+            key={`${question.id}-v${variantIndex}`}
+            className={`border p-4 ${borderClass}`}
+            role="group"
+            aria-labelledby={embedsPrompt ? `q-${question.id}-label` : `q-${question.id}-label q-${question.id}-prompt`}
+          >
             <div className="flex items-start justify-between gap-2 mb-2">
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-500" id={`q-${question.id}-label`}>
                 Question {index + 1} · {question.points} {question.points === 1 ? "point" : "points"}
               </p>
-              {feedbackState === "correct" && <CheckCircle2 size={16} className="text-green-600" />}
-              {feedbackState === "partial" && <MinusCircle size={16} className="text-amber-600" />}
-              {feedbackState === "incorrect" && <XCircle size={16} className="text-red-500" />}
+              {feedbackState === "correct" && <CheckCircle2 size={16} className="text-green-600" role="img" aria-label="Correct" />}
+              {feedbackState === "partial" && <MinusCircle size={16} className="text-amber-600" role="img" aria-label="Partially correct" />}
+              {feedbackState === "incorrect" && <XCircle size={16} className="text-red-500" role="img" aria-label="Incorrect" />}
             </div>
-            {!embedsPrompt && <RichText className="font-medium mb-3">{question.promptText}</RichText>}
+            {!embedsPrompt && (
+              <RichText className="font-medium mb-3" id={`q-${question.id}-prompt`}>
+                {question.promptText}
+              </RichText>
+            )}
 
             <QuestionInput
               questionId={question.id}
@@ -235,7 +244,7 @@ export default function QuizBlock({
             )}
             {graded && isFreeResponse && !previewMode && lessonId && (
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-xs text-gray-400">Was this grading fair?</span>
+                <span className="text-xs text-gray-500">Was this grading fair?</span>
                 <button
                   type="button"
                   onClick={() => handleRateFeedback(question.id, "up")}
@@ -244,7 +253,7 @@ export default function QuizBlock({
                   className={`p-1 rounded ${
                     score?.feedbackRating === "up"
                       ? "text-green-600 bg-green-50"
-                      : "text-gray-400 hover:text-gray-600 btn-fill-gray-50"
+                      : "text-gray-500 hover:text-gray-600 btn-fill-gray-50"
                   }`}
                 >
                   <ThumbsUp size={14} />
@@ -257,7 +266,7 @@ export default function QuizBlock({
                   className={`p-1 rounded ${
                     score?.feedbackRating === "down"
                       ? "text-red-600 bg-red-50"
-                      : "text-gray-400 hover:text-gray-600 btn-fill-gray-50"
+                      : "text-gray-500 hover:text-gray-600 btn-fill-gray-50"
                   }`}
                 >
                   <ThumbsDown size={14} />
@@ -313,7 +322,11 @@ export default function QuizBlock({
         )}
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-600" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import AppHeader from "@/components/app/AppHeader";
@@ -86,3 +87,5 @@ export default async function StudentDashboardPage() {
     </main>
   );
 }
+
+export const metadata: Metadata = { title: "My learning" };

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import InstructorCourseDashboard from "@/components/instructor/InstructorCourseDashboard";
 import { getCourseWithContent } from "@/lib/instructor/data/courses";
@@ -31,4 +32,13 @@ export default async function InstructorCourseDashboardPage({
       events={events.filter((e) => e.scope === "global" || e.courseCode === course.code)}
     />
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ courseCode: string }>;
+}): Promise<Metadata> {
+  const { courseCode } = await params;
+  return { title: `${courseCode} dashboard` };
 }

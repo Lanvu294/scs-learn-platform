@@ -189,7 +189,6 @@ export default function Footer() {
                   <button
                     type="button"
                     onClick={scrollToTop}
-                    aria-label="Scroll to top"
                     className="group relative mt-4 inline-flex min-h-[45px] w-full items-center self-end overflow-hidden border border-primary py-3 pr-5 pl-[calc(43px+1.25rem)] text-sm font-semibold lg:w-fit"
                   >
                     <span className="absolute inset-y-0 left-0 w-[43px] bg-primary transition-[width] duration-300 group-hover:w-full motion-reduce:transition-none" />
