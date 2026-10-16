@@ -109,10 +109,6 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
     <a
       href={playlist.playlistUrl ?? SCS_LEARN_YOUTUBE_URL}
       {...external}
-      // Say where the link really goes: the playlist once it exists, the channel until then.
-      aria-label={`${playlist.code} ${playlist.title}, ${names}: ${
-        playlist.playlistUrl ? "open the playlist on YouTube" : "open the SCS Learn channel on YouTube"
-      } (new tab)`}
       // Taller on phones (portraits on top, text across the bottom); 16:9 from sm up.
       className="group/card relative isolate block aspect-[4/5] w-full overflow-hidden bg-black text-white outline-none sm:aspect-video"
     >
@@ -140,6 +136,12 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
         <div aria-hidden className="mt-2 h-1 w-10 bg-primary" />
         <h3 className="mt-2 font-brand text-[1.375rem] font-semibold leading-tight text-balance sm:text-2xl lg:text-[1.75rem]">{playlist.title}</h3>
         <p className="mt-1 text-sm text-white/80">{names}</p>
+        {/* Say where the link really goes (the playlist once it exists, the channel until
+            then). Kept as hidden text after the visible text, not an aria-label, so the
+            link's spoken name still contains what's on screen (WCAG 2.5.3). */}
+        <span className="sr-only">
+          {playlist.playlistUrl ? ": open the playlist on YouTube" : ": open the SCS Learn channel on YouTube"} (new tab)
+        </span>
       </div>
 
       <span

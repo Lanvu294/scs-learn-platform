@@ -54,7 +54,7 @@ export default function HottextEditor({
           className="w-full text-base border border-gray-200 px-4 py-3 outline-none focus:border-iron-gray"
           placeholder="Enter the passage students will highlight words in."
         />
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-500">
           Question text above is shown separately as the intro. Add clickable terms below that appear in this passage.
         </p>
       </div>
@@ -99,7 +99,7 @@ export default function HottextEditor({
                 sync(config.passage, nextTerms, nextCorrect);
               }}
               disabled={terms.length <= 1}
-              className="text-gray-400 hover:text-red-500 p-1.5 disabled:opacity-30"
+              className="text-gray-500 hover:text-red-500 p-1.5 disabled:opacity-30"
               aria-label="Remove term"
             >
               <Trash2 size={14} />
@@ -134,7 +134,7 @@ export default function HottextEditor({
             Add
           </button>
         </div>
-        <p className="text-sm text-gray-400">Check the boxes for terms that earn credit.</p>
+        <p className="text-sm text-gray-500">Check the boxes for terms that earn credit.</p>
       </div>
     </div>
   );

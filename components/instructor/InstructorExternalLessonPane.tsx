@@ -48,7 +48,7 @@ export default function InstructorExternalLessonPane({
 
   if (tabs.length === 0) {
     return (
-      <div className="min-h-full flex items-center justify-center text-sm text-gray-400">
+      <div className="min-h-full flex items-center justify-center text-sm text-gray-500">
         This external assignment has no linked activity or writeup yet.
       </div>
     );

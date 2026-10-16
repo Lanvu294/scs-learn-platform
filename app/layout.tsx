@@ -27,7 +27,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SCS Learn",
+  title: { default: "SCS Learn", template: "%s | SCS Learn" },
   description: "Free computer science courseware from Carnegie Mellon, online, at your pace.",
 };
 

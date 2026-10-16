@@ -37,7 +37,7 @@ export default function MatchingEditor({
     onAnswerKeyChange(JSON.stringify(filtered));
   };
 
-  const ListEditor = ({
+  const renderListEditor = ({
     title,
     items,
     onChange,
@@ -56,6 +56,7 @@ export default function MatchingEditor({
             type="text"
             value={item}
             onChange={(e) => onChange(updateStringList(items, index, e.target.value))}
+            aria-label={`${title} ${index + 1}`}
             className="flex-1 text-base border border-gray-200 px-4 py-2.5 outline-none focus:border-iron-gray"
             placeholder={`${title} ${index + 1}`}
           />
@@ -63,7 +64,7 @@ export default function MatchingEditor({
             type="button"
             onClick={() => onChange(removeFromStringList(items, index, minItems))}
             disabled={items.length <= minItems}
-            className="text-gray-400 hover:text-red-500 p-1.5 disabled:opacity-30"
+            className="text-gray-500 hover:text-red-500 p-1.5 disabled:opacity-30"
             aria-label={`Remove ${title.toLowerCase()}`}
           >
             <Trash2 size={14} />
@@ -86,16 +87,8 @@ export default function MatchingEditor({
 
   return (
     <div className="flex flex-col gap-5">
-      <ListEditor
-        title="Left column"
-        items={left}
-        onChange={(nextLeft) => sync(nextLeft, right, mapping)}
-      />
-      <ListEditor
-        title="Right column"
-        items={right}
-        onChange={(nextRight) => sync(left, nextRight, mapping)}
-      />
+      {renderListEditor({ title: "Left column", items: left, onChange: (nextLeft) => sync(nextLeft, right, mapping) })}
+      {renderListEditor({ title: "Right column", items: right, onChange: (nextRight) => sync(left, nextRight, mapping) })}
 
       <div className="flex flex-col gap-2">
         <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">

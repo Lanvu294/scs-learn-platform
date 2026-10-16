@@ -64,7 +64,7 @@ function PasswordInput({ name, autoComplete, label }: { name: string; autoComple
           type="button"
           onClick={() => setVisible((v) => !v)}
           aria-label={visible ? "Hide password" : "Show password"}
-          className="absolute right-2 top-1/2 mt-[3px] -translate-y-1/2 rounded-md p-1.5 text-gray-400 hover:text-gray-700"
+          className="absolute right-2 top-1/2 mt-[3px] -translate-y-1/2 rounded-md p-1.5 text-gray-500 hover:text-gray-700"
         >
           {visible ? <EyeOff size={16} /> : <Eye size={16} />}
         </button>
@@ -75,7 +75,11 @@ function PasswordInput({ name, autoComplete, label }: { name: string; autoComple
 
 function ErrorText({ state, fallback }: { state: Stamped; fallback?: string }) {
   const message = state.status === "error" ? state.message : fallback;
-  return message ? <p className="text-sm text-red-600">{message}</p> : null;
+  return message ? (
+    <p className="text-sm text-red-600" role="alert">
+      {message}
+    </p>
+  ) : null;
 }
 
 const SENT_COPY = {
@@ -128,8 +132,8 @@ export default function LoginForm({
     const remaining = secondsLeft(sentState, now);
     return (
       <div className="space-y-5">
-        <div className="space-y-2 text-center">
-          <Mail className="mx-auto text-primary" size={28} />
+        <div className="space-y-2 text-center" role="status">
+          <Mail className="mx-auto text-primary" size={28} aria-hidden />
           <p className="font-bold">{copy.title}</p>
           <p className="text-sm text-gray-600">
             {copy.body} <span className="font-bold">{sentState.email}</span>. The link works in any browser. It can take
@@ -195,7 +199,7 @@ export default function LoginForm({
               aria-selected={mode === m}
               onClick={() => switchMode(m)}
               className={`rounded-md py-2 text-sm font-semibold transition ${
-                mode === m ? "bg-white text-black shadow-sm" : "text-gray-500 hover:text-black"
+                mode === m ? "bg-white text-black shadow-sm" : "text-gray-600 hover:text-black"
               }`}
             >
               {m === "signin" ? "Sign in" : "Create account"}
@@ -260,7 +264,7 @@ export default function LoginForm({
 
       {(mode === "signin" || mode === "signup") && (
         <div className="space-y-3">
-          <div className="flex items-center gap-3 text-xs text-gray-400">
+          <div className="flex items-center gap-3 text-xs text-gray-500">
             <span className="h-px flex-1 bg-gray-200" />
             or
             <span className="h-px flex-1 bg-gray-200" />

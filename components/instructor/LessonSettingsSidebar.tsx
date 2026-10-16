@@ -135,6 +135,7 @@ export default function LessonSettingsSidebar({
           <select
             value={selectedType}
             onChange={(e) => onTypeChange(e.target.value)}
+            aria-label="Lesson type"
             disabled={!lessonId}
             className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2.5 bg-white disabled:opacity-50"
           >
@@ -154,6 +155,7 @@ export default function LessonSettingsSidebar({
             <div className="flex items-center gap-2">
               <input
                 type="number"
+                aria-label="Completion threshold (percent)"
                 min={0}
                 max={100}
                 step={1}
@@ -198,7 +200,7 @@ export default function LessonSettingsSidebar({
             <p className="text-[11px] font-bold uppercase tracking-wider text-gray-500">
               Attachments
             </p>
-            <span className="text-sm text-gray-400">{localAttachments.length}</span>
+            <span className="text-sm text-gray-500">{localAttachments.length}</span>
           </div>
 
           <div className="flex flex-col gap-1 mb-4">
@@ -207,7 +209,7 @@ export default function LessonSettingsSidebar({
                 key={attachment.id}
                 className="group flex items-center gap-2 px-2 py-2.5 hover:bg-gray-50 rounded"
               >
-                <FileText size={14} className="text-gray-400 shrink-0" />
+                <FileText size={14} className="text-gray-500 shrink-0" />
                 <a
                   href={attachment.url}
                   target="_blank"
@@ -219,7 +221,7 @@ export default function LessonSettingsSidebar({
                 <button
                   type="button"
                   aria-label="Remove attachment"
-                  className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-500"
+                  className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:text-red-500"
                   onClick={() => removeAttachment(attachment.id)}
                 >
                   <X size={13} />

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import { handleTabListKeyDown } from "@/lib/a11y/tabs";
 
 export type TopicLessonBlock = {
   id: string;
@@ -58,7 +59,7 @@ function SlideFileContent({ block }: { block: TopicLessonBlock }) {
       </div>
     );
   }
-  return <p className="text-sm text-gray-400 py-2">This file could not be rendered.</p>;
+  return <p className="text-sm text-gray-500 py-2">This file could not be rendered.</p>;
 }
 
 function CollapsibleFileItem({
@@ -79,9 +80,9 @@ function CollapsibleFileItem({
         aria-expanded={open}
       >
         {open ? (
-          <ChevronDown size={18} className="shrink-0 text-gray-500" />
+          <ChevronDown size={18} className="shrink-0 text-gray-500" aria-hidden />
         ) : (
-          <ChevronRight size={18} className="shrink-0 text-gray-500" />
+          <ChevronRight size={18} className="shrink-0 text-gray-500" aria-hidden />
         )}
         <span className="supporting-file-toggle-label">{block.title ?? "Untitled file"}</span>
       </button>
@@ -101,7 +102,12 @@ function LessonVideoPanel({ block }: { block: TopicLessonBlock }) {
   return (
     <div className="lesson-video-wrap">
       {embedUrl ? (
-        <iframe src={embedUrl} className="lesson-video-embed" allowFullScreen title="Lesson video" />
+        <iframe
+          src={embedUrl}
+          className="lesson-video-embed"
+          allowFullScreen
+          title={block.title ? `Video: ${block.title}` : "Lesson video"}
+        />
       ) : (
         <a href={block.videoUrl} target="_blank" rel="noreferrer" className="text-sm text-primary underline">
           Watch video
@@ -114,7 +120,7 @@ function LessonVideoPanel({ block }: { block: TopicLessonBlock }) {
 function SupportingFilesPanel({ blocks }: { blocks: TopicLessonBlock[] }) {
   const renderable = blocks.filter(slideBlockHasContent);
   if (renderable.length === 0) {
-    return <p className="text-sm text-gray-400">No lesson files in this lesson.</p>;
+    return <p className="text-sm text-gray-500">No lesson files in this lesson.</p>;
   }
 
   return (
@@ -128,7 +134,7 @@ function SupportingFilesPanel({ blocks }: { blocks: TopicLessonBlock[] }) {
 
 function LessonContentPanel({ block }: { block: TopicLessonBlock }) {
   if (!block.bodyHtml) {
-    return <p className="text-sm text-gray-400">No lesson content in this lesson.</p>;
+    return <p className="text-sm text-gray-500">No lesson content in this lesson.</p>;
   }
 
   return (
@@ -182,7 +188,7 @@ export default function TopicLessonViewer({
         <div className="topic-lesson-header">
           <h1 className="topic-lesson-title">{lessonTitle}</h1>
         </div>
-        <p className="px-8 py-6 text-sm text-gray-400">
+        <p className="px-8 py-6 text-sm text-gray-500">
           No content loaded for this lesson. Re-import the courseware folder.
         </p>
       </article>
@@ -195,13 +201,16 @@ export default function TopicLessonViewer({
         <h1 className="topic-lesson-title">{lessonTitle}</h1>
 
         {availableTabs.length >= 1 && (
-          <div className="lesson-tab-bar" role="tablist" aria-label="Lesson sections">
+          <div className="lesson-tab-bar" role="tablist" aria-label="Lesson sections" onKeyDown={handleTabListKeyDown}>
             {availableTabs.map((tab) => (
               <button
                 key={tab}
                 type="button"
                 role="tab"
+                id={`lesson-tab-${tab}`}
+                aria-controls="lesson-tabpanel"
                 aria-selected={activeTab === tab}
+                tabIndex={activeTab === tab ? 0 : -1}
                 className={`lesson-tab${activeTab === tab ? " is-active" : ""}`}
                 onClick={() => setActiveTab(tab)}
               >
@@ -219,7 +228,12 @@ export default function TopicLessonViewer({
       )}
 
       {availableTabs.length > 0 && (
-        <div className="lesson-tab-panel" role="tabpanel">
+        <div
+          className="lesson-tab-panel"
+          role="tabpanel"
+          id="lesson-tabpanel"
+          aria-labelledby={`lesson-tab-${activeTab}`}
+        >
           {activeTab === "video" && videoBlock && (
             <>
               <LessonVideoPanel block={videoBlock} />

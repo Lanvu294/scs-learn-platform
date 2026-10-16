@@ -57,7 +57,7 @@ export default function ChoiceGridEditor({
     onAnswerKeyChange(JSON.stringify(filtered));
   };
 
-  const ListEditor = ({
+  const renderListEditor = ({
     title,
     items,
     onChange,
@@ -76,13 +76,14 @@ export default function ChoiceGridEditor({
             type="text"
             value={item}
             onChange={(e) => onChange(updateStringList(items, index, e.target.value))}
+            aria-label={`${title} ${index + 1}`}
             className="flex-1 text-base border border-gray-200 px-4 py-2.5 outline-none focus:border-iron-gray"
           />
           <button
             type="button"
             onClick={() => onChange(removeFromStringList(items, index, minItems))}
             disabled={items.length <= minItems}
-            className="text-gray-400 hover:text-red-500 p-1.5 disabled:opacity-30"
+            className="text-gray-500 hover:text-red-500 p-1.5 disabled:opacity-30"
             aria-label={`Remove ${title.toLowerCase()}`}
           >
             <Trash2 size={14} />
@@ -114,14 +115,9 @@ export default function ChoiceGridEditor({
 
   return (
     <div className="flex flex-col gap-5">
-      <ListEditor title="Rows" items={rows} onChange={(next) => sync(next, cols, options, gridAnswers)} />
-      <ListEditor title="Columns" items={cols} onChange={(next) => sync(rows, next, options, gridAnswers)} />
-      <ListEditor
-        title="Options"
-        items={options}
-        onChange={(next) => sync(rows, cols, next, gridAnswers)}
-        minItems={2}
-      />
+      {renderListEditor({ title: "Rows", items: rows, onChange: (next) => sync(next, cols, options, gridAnswers) })}
+      {renderListEditor({ title: "Columns", items: cols, onChange: (next) => sync(rows, next, options, gridAnswers) })}
+      {renderListEditor({ title: "Options", items: options, onChange: (next) => sync(rows, cols, next, gridAnswers), minItems: 2 })}
 
       {rows.filter(Boolean).length > 0 && cols.filter(Boolean).length > 0 && (
         <div className="flex flex-col gap-2">

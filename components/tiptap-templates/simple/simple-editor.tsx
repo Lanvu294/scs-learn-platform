@@ -132,7 +132,7 @@ const MainToolbarContent = ({
         ) : (
           <ColorHighlightPopoverButton onClick={onHighlighterClick} />
         )}
-        {!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
+        {!isMobile ? <LinkPopover autoOpenOnLinkActive={false} /> : <LinkButton onClick={onLinkClick} />}
       </ToolbarGroup>
 
       <ToolbarSeparator />
@@ -184,7 +184,7 @@ const MobileToolbarContent = ({
 }) => (
   <>
     <ToolbarGroup>
-      <Button variant="ghost" onClick={onBack}>
+      <Button variant="ghost" onClick={onBack} aria-label="Back to main toolbar">
         <ArrowLeftIcon className="tiptap-button-icon" />
         {type === "highlighter" ? (
           <HighlighterIcon className="tiptap-button-icon" />
@@ -230,7 +230,9 @@ export function SimpleEditor({
         autocomplete: "off",
         autocorrect: "off",
         autocapitalize: "off",
-        "aria-label": "Main content area, start typing to enter text.",
+        "aria-label": "Lesson content",
+        role: "textbox",
+        "aria-multiline": "true",
         class: "simple-editor",
       },
     },

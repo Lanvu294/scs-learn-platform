@@ -47,7 +47,7 @@ export default function SignificantFiguresEditor({
           />
         </label>
       </div>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-gray-500">
         Students are graded by rounding their answer to the required number of significant figures
         (e.g. 3.14 with 2 sig figs accepts 3.1).
       </p>

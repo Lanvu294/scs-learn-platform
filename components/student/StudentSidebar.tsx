@@ -6,12 +6,12 @@ import type { StudentUnit, StudentLesson } from "@/lib/student/types";
 
 function LessonIcon({ type }: { type: StudentLesson["type"] }) {
   if (type === "quiz") {
-    return <CircleHelp size={14} className="text-gray-400 shrink-0" />;
+    return <CircleHelp size={14} className="text-gray-500 shrink-0" role="img" aria-label="Quiz" />;
   }
   if (type === "external") {
-    return <ExternalLink size={14} className="text-gray-400 shrink-0" />;
+    return <ExternalLink size={14} className="text-gray-500 shrink-0" role="img" aria-label="External activity" />;
   }
-  return <FileText size={14} className="text-gray-400 shrink-0" />;
+  return <FileText size={14} className="text-gray-500 shrink-0" role="img" aria-label="Lesson" />;
 }
 
 export default function StudentSidebar({
@@ -34,7 +34,10 @@ export default function StudentSidebar({
       : Math.round((allLessons.filter((l) => l.completedAt != null).length / allLessons.length) * 100);
 
   return (
-    <aside className="w-80 shrink-0 h-full min-h-0 bg-white border-r border-gray-200 flex flex-col overflow-hidden">
+    <nav
+      aria-label="Course lessons"
+      className="w-full max-h-[45vh] md:max-h-none md:w-80 shrink-0 md:h-full min-h-0 bg-white border-b md:border-b-0 md:border-r border-gray-200 flex flex-col overflow-hidden"
+    >
       <div className="px-5 pt-5 pb-4 border-b border-gray-100">
         <Link
           href={`/student/${courseCode}`}
@@ -56,7 +59,7 @@ export default function StudentSidebar({
       <div className="flex-1 min-h-0 overflow-y-auto py-4">
         {units.map((unit) => (
           <div key={unit.id} className="mb-5">
-            <p className="px-5 py-2 text-[11px] font-bold text-gray-400 uppercase tracking-wide">
+            <p className="px-5 py-2 text-[11px] font-bold text-gray-500 uppercase tracking-wide">
               {unit.code} &middot; {unit.title}
             </p>
             <div className="flex flex-col gap-0.5">
@@ -86,13 +89,14 @@ export default function StudentSidebar({
                       {lesson.code} {lesson.title}
                     </span>
                     {isComplete ? (
-                      <CheckCircle2 size={13} className="text-green-500 shrink-0" aria-label="Completed" />
+                      <CheckCircle2 size={13} className="text-green-500 shrink-0" role="img" aria-label="Completed" />
                     ) : hasAutolab && lesson.autolab?.score != null ? (
-                      <CheckCircle2 size={13} className="text-green-500 shrink-0" />
+                      <CheckCircle2 size={13} className="text-green-500 shrink-0" role="img" aria-label="Scored" />
                     ) : hasLti && lesson.lti?.score != null ? (
-                      <CheckCircle2 size={13} className="text-green-500 shrink-0" />
+                      <CheckCircle2 size={13} className="text-green-500 shrink-0" role="img" aria-label="Scored" />
                     ) : !hasAutolab && isQuizLesson && hasQuizSubmission ? (
-                      <span className="text-[10px] font-bold text-green-600 shrink-0">
+                      <span className="text-[10px] font-bold text-green-700 shrink-0">
+                        <span className="sr-only">Quiz score </span>
                         {lesson.quizSubmission!.scorePercent}%
                       </span>
                     ) : null}
@@ -103,9 +107,9 @@ export default function StudentSidebar({
           </div>
         ))}
         {units.length === 0 && (
-          <p className="px-6 py-4 text-sm text-gray-400">No published lessons yet.</p>
+          <p className="px-6 py-4 text-sm text-gray-500">No published lessons yet.</p>
         )}
       </div>
-    </aside>
+    </nav>
   );
 }

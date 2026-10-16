@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import AppHeader from "@/components/app/AppHeader";
 import { card, eyebrow, pageTitle } from "@/components/app/ui";
 import CourseListSection from "@/components/instructor/CourseListSection";
@@ -38,3 +39,5 @@ export default async function InstructorDashboardPage() {
     </main>
   );
 }
+
+export const metadata: Metadata = { title: "My courseware" };

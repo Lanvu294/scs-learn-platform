@@ -29,14 +29,14 @@ function ReorderList({
     <div className="flex flex-col gap-2">
       <div>
         <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">{title}</p>
-        <p className="text-sm text-gray-400 mt-1">{hint}</p>
+        <p className="text-sm text-gray-500 mt-1">{hint}</p>
       </div>
       {order.map((item, index) => (
         <div
           key={`${item}-${index}`}
           className="flex items-center gap-3 text-base border border-gray-200 px-4 py-2.5 bg-white"
         >
-          <span className="text-sm text-gray-400 w-5 shrink-0">{index + 1}.</span>
+          <span className="text-sm text-gray-500 w-5 shrink-0">{index + 1}.</span>
           <span className="flex-1">{item}</span>
           <button
             type="button"
@@ -126,7 +126,7 @@ export default function OrderingEditor({
                 );
               }}
               disabled={config.items.length <= 2}
-              className="text-gray-400 hover:text-red-500 p-1.5 disabled:opacity-30"
+              className="text-gray-500 hover:text-red-500 p-1.5 disabled:opacity-30"
               aria-label="Remove item"
             >
               <Trash2 size={14} />

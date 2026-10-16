@@ -64,6 +64,7 @@ function VideoView({ node }: ReactNodeViewProps<HTMLDivElement>) {
         <div className="relative w-full rounded-md overflow-hidden bg-black" style={{ paddingTop: "56.25%" }}>
           <iframe
             src={embed.src}
+            title="Embedded video"
             className="absolute inset-0 w-full h-full border-0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

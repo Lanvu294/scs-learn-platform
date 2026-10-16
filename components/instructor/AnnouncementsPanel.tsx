@@ -41,6 +41,7 @@ export default function AnnouncementsPanel({
         <select
           value={targetCourseCode}
           onChange={(e) => setTargetCourseCode(e.target.value)}
+          aria-label="Course to post to"
           className="w-full rounded-lg text-sm font-semibold text-gray-700 border border-gray-300 px-3 py-2.5 mb-3 bg-white"
         >
           {courses.map((course) => (
@@ -53,6 +54,7 @@ export default function AnnouncementsPanel({
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           placeholder="Post an update to your students…"
+          aria-label="Announcement message"
           rows={3}
           className="w-full rounded-lg text-sm border border-gray-300 px-3 py-2.5 resize-none focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
         />
@@ -79,7 +81,7 @@ export default function AnnouncementsPanel({
                 <span className="text-xs font-bold text-iron-gray">
                   {announcement.courseCode}
                 </span>
-                <span className="text-xs text-gray-400">{announcement.timestamp}</span>
+                <span className="text-xs text-gray-500">{announcement.timestamp}</span>
               </div>
               <p className="text-base text-gray-700 mt-1 leading-relaxed">{announcement.message}</p>
             </div>
@@ -87,14 +89,14 @@ export default function AnnouncementsPanel({
               type="button"
               aria-label="Delete announcement"
               onClick={() => remove(announcement.id)}
-              className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-500 self-start"
+              className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:text-red-500 self-start"
             >
               <X size={15} />
             </button>
           </div>
         ))}
         {announcements.length === 0 && (
-          <p className="text-sm text-gray-400">No announcements yet.</p>
+          <p className="text-sm text-gray-500">No announcements yet.</p>
         )}
       </div>
     </div>

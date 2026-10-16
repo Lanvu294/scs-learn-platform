@@ -10,8 +10,12 @@ const button =
   "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white btn-fill-primary-dark disabled:opacity-60";
 
 function Feedback({ state }: { state: AdminActionState }) {
-  if (state.status === "idle") return null;
-  return <p className={`text-sm ${state.status === "ok" ? "text-green-700" : "text-red-600"}`}>{state.message}</p>;
+  // Always rendered, so screen readers announce the message when it appears.
+  return (
+    <p role="status" className={`text-sm ${state.status === "ok" ? "text-green-700" : "text-red-600"}`}>
+      {state.status === "idle" ? "" : state.message}
+    </p>
+  );
 }
 
 /** Resets the form after a successful add so the next one starts blank. */
@@ -67,7 +71,7 @@ export function AddCourseInstructorForm({
   options: { id: string; name: string; email: string | null }[];
 }) {
   const { formRef, state, formAction, pending } = useResettingAction(addCourseInstructor);
-  if (options.length === 0) return <p className="text-xs text-gray-400">Every instructor already teaches this courseware.</p>;
+  if (options.length === 0) return <p className="text-xs text-gray-500">Every instructor already teaches this courseware.</p>;
   return (
     <form ref={formRef} action={formAction} className="space-y-1.5">
       <input type="hidden" name="courseId" value={courseId} />

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AnalyticsClient from "@/components/instructor/AnalyticsClient";
 import { getCourseWithContent } from "@/lib/instructor/data/courses";
@@ -21,4 +22,13 @@ export default async function CourseAnalyticsPage({
       <AnalyticsClient course={course} />
     </main>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ courseCode: string }>;
+}): Promise<Metadata> {
+  const { courseCode } = await params;
+  return { title: `${courseCode} analytics` };
 }

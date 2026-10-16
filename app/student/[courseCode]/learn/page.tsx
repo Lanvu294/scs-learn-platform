@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import StudentCourseClient from "@/components/student/StudentCourseClient";
 import { getStudentCourse } from "@/lib/student/data/course";
@@ -25,4 +26,13 @@ export default async function StudentCoursePage({
       header={<AppHeader mode="learning" />}
     />
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ courseCode: string }>;
+}): Promise<Metadata> {
+  const { courseCode } = await params;
+  return { title: `Learn ${courseCode}` };
 }

@@ -163,7 +163,7 @@ export function MediaUploadButton({
               <>
                 <div className="flex items-center gap-2 py-1">
                   <span className="flex-1 h-px bg-gray-200" />
-                  <span className="text-[11px] text-gray-400">or</span>
+                  <span className="text-[11px] text-gray-500">or</span>
                   <span className="flex-1 h-px bg-gray-200" />
                 </div>
                 <CardItemGroup>

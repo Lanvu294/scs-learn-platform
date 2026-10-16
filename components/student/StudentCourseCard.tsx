@@ -9,7 +9,6 @@ export default function StudentCourseCard({ course }: { course: StudentCourseSum
   return (
     <Link
       href={`/student/${course.code}`}
-      aria-label={`Open ${course.title}`}
       className={`group flex flex-col overflow-hidden ${card} ${cardHover}`}
     >
       <CourseBanner code={course.code} className="h-28" />
@@ -23,15 +22,15 @@ export default function StudentCourseCard({ course }: { course: StudentCourseSum
 
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
           <span className="inline-flex items-center gap-1.5">
-            <Layers size={13} className="text-gray-400" />
+            <Layers size={13} className="text-gray-500" />
             {course.unitCount} {course.unitCount === 1 ? "unit" : "units"}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <BookOpen size={13} className="text-gray-400" />
+            <BookOpen size={13} className="text-gray-500" />
             {course.contentLessonCount} {course.contentLessonCount === 1 ? "lesson" : "lessons"}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <CircleHelp size={13} className="text-gray-400" />
+            <CircleHelp size={13} className="text-gray-500" />
             {course.quizLessonCount} {course.quizLessonCount === 1 ? "quiz" : "quizzes"}
           </span>
         </div>

@@ -53,7 +53,7 @@ export default function AutogradedAssignmentCard({
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-bold text-primary tracking-wide mb-1">AUTOGRADED · AUTOLAB</p>
-          <h3 className="text-base font-bold">{status.title}</h3>
+          <h2 className="text-base font-bold">{status.title}</h2>
           <p className="text-sm text-gray-500 mt-1">
             {status.courseName} / {status.assessmentName}
           </p>
@@ -62,13 +62,13 @@ export default function AutogradedAssignmentCard({
           {status.score != null ? (
             <p className="text-2xl font-bold">
               {status.score}
-              <span className="text-sm text-gray-400"> / {status.pointsPossible}</span>
+              <span className="text-sm text-gray-500"> / {status.pointsPossible}</span>
             </p>
           ) : (
-            <p className="text-sm text-gray-400">{status.noSubmission ? "No submission yet" : "Not synced yet"}</p>
+            <p className="text-sm text-gray-500">{status.noSubmission ? "No submission yet" : "Not synced yet"}</p>
           )}
           {status.syncedAt && (
-            <p className="text-[11px] text-gray-400 mt-0.5">
+            <p className="text-[11px] text-gray-500 mt-0.5">
               Synced {new Date(status.syncedAt).toLocaleString()}
             </p>
           )}

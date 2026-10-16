@@ -284,7 +284,7 @@ export default function ExternalActivity({
               allow="clipboard-write"
             />
           ) : (
-            <div className={`${frameClassName} flex items-center justify-center text-sm text-stone-500`}>
+            <div className={`${frameClassName} flex items-center justify-center text-sm text-stone-500`} role="status">
               Signing you in to Cogniterra...
             </div>
           )}

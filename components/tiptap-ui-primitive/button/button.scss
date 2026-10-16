@@ -20,7 +20,8 @@
 
   // focus-visible
   &:focus-visible {
-    outline: none;
+    outline: 2px solid var(--tt-brand-color-500, #6366f1);
+    outline-offset: 2px;
   }
 
   &[data-highlighted="true"],

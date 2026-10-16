@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { GraduationCap } from "lucide-react";
@@ -72,3 +73,5 @@ export default async function InstructorAccessPage() {
     </main>
   );
 }
+
+export const metadata: Metadata = { title: "Instructor access" };

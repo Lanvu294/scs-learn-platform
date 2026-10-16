@@ -13,8 +13,17 @@ import Footer from "@/components/landing/Footer";
 
 export default function Home() {
   return (
-    <main>
+    <>
+      {/* Lets keyboard users jump past the header's dozen links (WCAG 2.4.1). */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
+      >
+        Skip to main content
+      </a>
       <NavBar />
+      {/* Header and footer sit outside main so they keep their banner and contentinfo landmarks. */}
+      <main id="main-content" tabIndex={-1} className="outline-none">
       <HeroSection />
       {/* <CoursewareSection /> */}
       {/* <ProblemSection /> */}
@@ -25,7 +34,8 @@ export default function Home() {
       <OfferingsSection />
       {/* <FinalCtaSection /> */}
       <BuiltBySection />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

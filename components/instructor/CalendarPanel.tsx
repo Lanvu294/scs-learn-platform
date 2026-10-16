@@ -75,7 +75,7 @@ export default function CalendarPanel({
           return (
             <div key={event.id} className="flex gap-3 py-2.5">
               <div className="w-9 shrink-0 text-center">
-                <p className="text-[10px] text-gray-400">
+                <p className="text-[10px] text-gray-500">
                   {date.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase()}
                 </p>
                 <p className="text-sm font-bold">{date.getDate()}</p>
@@ -87,7 +87,7 @@ export default function CalendarPanel({
                   {TYPE_LABEL[event.type].toUpperCase()}
                 </span>
                 <p className="text-xs font-bold leading-tight">{event.title}</p>
-                <p className="text-[11px] text-gray-400 mt-0.5">
+                <p className="text-[11px] text-gray-500 mt-0.5">
                   {event.time ? `${event.time} · ` : ""}
                   {event.description}
                 </p>
@@ -96,7 +96,7 @@ export default function CalendarPanel({
           );
         })}
         {upcomingEvents.length === 0 && (
-          <p className="text-xs text-gray-400 py-2">No upcoming events.</p>
+          <p className="text-xs text-gray-500 py-2">No upcoming events.</p>
         )}
       </div>
 

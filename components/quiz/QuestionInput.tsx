@@ -62,7 +62,7 @@ function textFieldClass(submitted: boolean, feedback?: "correct" | "partial" | "
   if (submitted && feedback === "incorrect") {
     return `${base} border-red-500 bg-red-50`;
   }
-  return `${base} border-gray-200 focus:border-primary/50`;
+  return `${base} border-gray-200 focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/30`;
 }
 
 function parseResponseObject(response: string): Record<string, string> {
@@ -104,7 +104,7 @@ function TextField({
         placeholder={placeholder ?? "Type your answer..."}
         className={textFieldClass(disabled, feedback)}
       />
-      {hint && !disabled && <p className="text-xs text-gray-400">{hint}</p>}
+      {hint && !disabled && <p className="text-xs text-gray-500">{hint}</p>}
     </div>
   );
 }
@@ -216,7 +216,7 @@ function InlineDropdownInput({
             disabled={submitted}
             onChange={(e) => setResponseField(response, blank.id, e.target.value, onChange)}
             className={inlineSelectClass(submitted)}
-            aria-label={blank.id}
+            aria-label={`Blank ${i + 1}`}
           >
             <option value="">…</option>
             {options.map((opt) => (
@@ -256,6 +256,7 @@ function MatchingInput({
             disabled={submitted}
             onChange={(e) => setResponseField(response, item, e.target.value, onChange)}
             className="w-full text-sm border border-gray-200 px-2 py-1.5 bg-white"
+            aria-label={`Match for ${item}`}
           >
             <option value="">Select a match…</option>
             {right.map((opt) => (
@@ -294,6 +295,7 @@ function CategorizationInput({
             disabled={submitted}
             onChange={(e) => setResponseField(response, item, e.target.value, onChange)}
             className="flex-1 text-sm border border-gray-200 px-2 py-1.5 bg-white"
+            aria-label={`Category for ${item}`}
           >
             <option value="">Choose category…</option>
             {categories.map((cat) => (
@@ -339,7 +341,7 @@ function OrderingInput({
           key={`${item}-${index}`}
           className="flex items-center gap-2 text-sm border border-gray-200 px-3 py-2 bg-white"
         >
-          <span className="text-xs text-gray-400 w-5 shrink-0">{index + 1}.</span>
+          <span className="text-xs text-gray-500 w-5 shrink-0">{index + 1}.</span>
           <span className="flex-1">{item}</span>
           {!submitted && (
             <>
@@ -348,7 +350,7 @@ function OrderingInput({
                 onClick={() => move(index, index - 1)}
                 disabled={index === 0}
                 className="text-xs text-gray-500 hover:text-gray-800 disabled:opacity-30 px-1"
-                aria-label="Move up"
+                aria-label={`Move ${item} up`}
               >
                 ↑
               </button>
@@ -357,7 +359,7 @@ function OrderingInput({
                 onClick={() => move(index, index + 1)}
                 disabled={index === ordered.length - 1}
                 className="text-xs text-gray-500 hover:text-gray-800 disabled:opacity-30 px-1"
-                aria-label="Move down"
+                aria-label={`Move ${item} down`}
               >
                 ↓
               </button>
@@ -432,6 +434,7 @@ function HottextInput({
               key={i}
               type="button"
               disabled={submitted}
+              aria-pressed={isSelected}
               onClick={() => toggle(token.term!)}
               className={`inline font-medium px-0.5 border-b-2 ${
                 isSelected
@@ -487,6 +490,7 @@ function ChoiceGridInput({
                     disabled={submitted}
                     onChange={(e) => setCell(row, col, e.target.value)}
                     className="text-sm border border-gray-200 px-2 py-1 bg-white"
+                    aria-label={`${row}, ${col}`}
                   >
                     <option value="">—</option>
                     {options.map((opt) => (
@@ -543,7 +547,7 @@ function MultiBlankInput({
             disabled={submitted}
             onChange={(e) => setResponseField(response, id, e.target.value, onChange)}
             className={inlineTextInputClass(submitted)}
-            aria-label={id}
+            aria-label={`Blank ${i + 1}`}
           />
         );
       })}
@@ -573,6 +577,7 @@ function ClozeInput({
               disabled={submitted}
               onChange={(e) => setResponseField(response, seg.id ?? "", e.target.value, onChange)}
               className={inlineSelectClass(submitted)}
+              aria-label={`Blank ${i + 1}`}
             >
               <option value="">…</option>
               {seg.options.map((opt) => (
@@ -589,6 +594,7 @@ function ClozeInput({
             disabled={submitted}
             onChange={(e) => setResponseField(response, seg.id ?? "", e.target.value, onChange)}
             className={inlineTextInputClass(submitted)}
+            aria-label={`Blank ${i + 1}`}
           />
         );
       })}
@@ -657,7 +663,7 @@ function MatrixCellInput({
                         updateWholeCell(rowIndex, colIndex, e.target.value);
                       }
                     }}
-                    className="w-16 text-sm border border-gray-200 px-1 py-0.5 text-center outline-none focus:border-iron-gray"
+                    className="w-16 text-sm border border-gray-200 px-1 py-0.5 text-center outline-none focus:border-iron-gray focus-visible:ring-2 focus-visible:ring-iron-gray/30"
                     aria-label={`${rowLabel}, ${colLabels[colIndex]}`}
                   />
                 </td>
@@ -712,6 +718,7 @@ function VectorInput({ response, submitted, onChange, choices }: Omit<QuestionIn
           disabled={submitted}
           onChange={(e) => setComponent(i, e.target.value)}
           className="w-16 text-sm border border-gray-200 px-2 py-1 text-center"
+          aria-label={`Component ${i + 1} of ${dims}`}
         />
       ))}
       <span>]</span>
@@ -737,6 +744,7 @@ function SliderInput({ choices, response, submitted, onChange }: Omit<QuestionIn
         disabled={submitted}
         onChange={(e) => onChange(e.target.value)}
         className="w-full"
+        aria-label="Answer"
       />
       <p className="text-sm text-gray-600 text-center">{value}</p>
     </div>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight, GraduationCap, User } from "lucide-react";
@@ -45,7 +46,7 @@ export default async function AccountPage() {
           <ul className="flex flex-col divide-y divide-gray-100">
             <li>
               <Link href="/student" className="flex items-center gap-3 py-3 text-sm hover:text-primary">
-                <User size={16} className="text-gray-400" />
+                <User size={16} className="text-gray-500" />
                 <span className="flex-1">
                   <span className="font-bold">Student</span>
                   <span className="block text-xs text-gray-500">Your courseware and progress</span>
@@ -56,7 +57,7 @@ export default async function AccountPage() {
             {instructor ? (
               <li>
                 <Link href="/instructor" className="flex items-center gap-3 py-3 text-sm hover:text-primary">
-                  <GraduationCap size={16} className="text-gray-400" />
+                  <GraduationCap size={16} className="text-gray-500" />
                   <span className="flex-1">
                     <span className="font-bold">Instructor</span>
                     <span className="block text-xs text-gray-500">Courseware you teach</span>
@@ -78,3 +79,5 @@ export default async function AccountPage() {
     </main>
   );
 }
+
+export const metadata: Metadata = { title: "Account" };
