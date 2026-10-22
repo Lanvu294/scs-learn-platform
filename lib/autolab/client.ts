@@ -3,7 +3,7 @@ import { createServiceClient } from "@/lib/supabase/service";
 // Autolab REST API client.
 //
 // This exists because Autolab's LTI support is roster sync only, with no grade
-// services, so LTI cannot deliver an Autolab score to SCS Learn. The REST API
+// services, so LTI cannot deliver an Autolab score to CS Learn. The REST API
 // can: GET /api/v1/courses/:course/assessments/:assessment/scores/:email.
 //
 // Auth is OAuth2 authorization_code (the only grant flow Autolab enables) with

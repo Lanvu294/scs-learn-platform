@@ -32,7 +32,7 @@ export default async function InstructorAccessPage() {
         <h1 className="mt-4 font-brand text-2xl font-semibold">No instructor access yet</h1>
         <p className="mt-2 text-sm text-gray-600">
           You&apos;re signed in as <span className="font-bold text-black">{user.email}</span>, which isn&apos;t
-          registered as an instructor. Ask an SCS Learn admin to add this email to the instructors list, then sign in
+          registered as an instructor. Ask an CS Learn admin to add this email to the instructors list, then sign in
           again.
         </p>
 

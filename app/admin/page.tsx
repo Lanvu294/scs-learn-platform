@@ -20,7 +20,7 @@ export default async function AdminPage() {
       <section className="border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-10">
           <p className={`${eyebrow} mb-2`}>Admin</p>
-          <h1 className={pageTitle}>Manage SCS Learn</h1>
+          <h1 className={pageTitle}>Manage CS Learn</h1>
           <p className="mt-2 text-gray-600">Grant instructor access, staff courseware, and manage admins.</p>
         </div>
       </section>

@@ -1,4 +1,4 @@
-/** YouTube's play-button mark, for links to the SCS Learn channel (lucide 1.x dropped brand icons). */
+/** YouTube's play-button mark, for links to the CS Learn channel (lucide 1.x dropped brand icons). */
 export default function YouTubeIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">

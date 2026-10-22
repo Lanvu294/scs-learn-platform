@@ -53,7 +53,7 @@ export default function NavLogo({ menuOpen = false }: { menuOpen?: boolean }) {
     <Link
       ref={linkRef}
       href="/"
-      aria-label="SCS Learn home"
+      aria-label="CS Learn home"
       style={
         {
           "--logo-wordmark": 1,

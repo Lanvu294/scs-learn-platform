@@ -64,7 +64,7 @@ export function buildLaunchParams(args: {
     tool_consumer_info_product_family_code: TOOL_CONSUMER_PRODUCT_FAMILY,
     tool_consumer_info_version: TOOL_CONSUMER_VERSION,
 
-    // The learner never leaves SCS Learn: the tool renders inside our iframe.
+    // The learner never leaves CS Learn: the tool renders inside our iframe.
     launch_presentation_document_target: "iframe",
     launch_presentation_locale: "en-US",
     launch_presentation_return_url: `${platformBaseUrl}/api/lti/return`,
