@@ -19,7 +19,7 @@ export default function BuiltBySection() {
           ScottyLabs
         </a>
         <span aria-hidden className="hidden h-8 w-px bg-steel-gray md:block" />
-        <p className="text-base leading-relaxed">CS Learn is built with love by students in ScottyLabs.</p>
+        <p className="text-base leading-relaxed">CS Learn is built with love by students, with the support of ScottyLabs.</p>
       </Container>
     </section>
   );
