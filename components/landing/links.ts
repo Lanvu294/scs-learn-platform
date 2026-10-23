@@ -1,6 +1,6 @@
 // Placeholder until the real channel URL is settled - every YouTube link on the
 // landing page (nav, "Ready for more?", footer) reads this one constant.
-export const SCS_LEARN_YOUTUBE_URL = "https://www.youtube.com/@SCSLearn";
+export const SCS_LEARN_YOUTUBE_URL = "https://www.youtube.com/@CMULearn";
 // Opens the channel with YouTube's "Subscribe?" confirmation for signed-in viewers.
 export const SCS_LEARN_YOUTUBE_SUBSCRIBE_URL = `${SCS_LEARN_YOUTUBE_URL}?sub_confirmation=1`;
 
