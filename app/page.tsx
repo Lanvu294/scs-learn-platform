@@ -7,7 +7,8 @@ import HowItWorksSection from "@/components/landing/HowItWorksSection";
 // import AiTutorSection from "@/components/landing/AiTutorSection";
 // import EducatorsSection from "@/components/landing/EducatorsSection";
 import OfferingsSection from "@/components/landing/OfferingsSection";
-import ChannelsSection from "@/components/landing/ChannelsSection";
+// Parked 10/19: belongs on the learn.cs.cmu.edu platform site, not the cs.cmu.edu/learn landing page.
+// import ChannelsSection from "@/components/landing/ChannelsSection";
 // import FinalCtaSection from "@/components/landing/FinalCtaSection";
 import BuiltBySection from "@/components/landing/BuiltBySection";
 import Footer from "@/components/landing/Footer";
@@ -33,7 +34,7 @@ export default function Home() {
       {/* <AiTutorSection /> */}
       {/* <EducatorsSection /> */}
       <OfferingsSection />
-      <ChannelsSection />
+      {/* <ChannelsSection /> */}
       {/* <FinalCtaSection /> */}
       <BuiltBySection />
       </main>
