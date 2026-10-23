@@ -20,7 +20,7 @@ type CoursewarePlaylist = {
 };
 
 // Courseware from faculty who said yes after seeing their demo (source of truth:
-// the "SCS Learn participating instructors" sheet). Each card opens the course's
+// the "CS Learn participating instructors" sheet). Each card opens the course's
 // playlist in a new tab.
 const PLAYLISTS: CoursewarePlaylist[] = [
   {
@@ -63,7 +63,7 @@ function byline(instructors: Instructor[]): string {
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-// Placeholder for the Welcome to SCS Learn video: a 16:9 frame on CMU's black
+// Placeholder for the Welcome to CS Learn video: a 16:9 frame on CMU's black
 // tartan wave that says it's coming. No play icon until there's a video to play. Swap the whole frame for the YouTube embed when it's live.
 function WelcomeVideoComingSoon() {
   return (
@@ -71,7 +71,7 @@ function WelcomeVideoComingSoon() {
       <Image src="/landing/textures/cmu-tartan-wave-black.jpg" alt="" fill sizes="(min-width: 1280px) 1200px, 100vw" quality={75} className="-z-20 object-cover" />
       {/* Darken the middle so the title reads; the pattern shows toward the edges. */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.35)_75%)]" />
-      <p className="font-brand text-2xl font-semibold leading-tight sm:text-4xl lg:text-5xl">Welcome to SCS Learn</p>
+      <p className="font-brand text-2xl font-semibold leading-tight sm:text-4xl lg:text-5xl">Welcome to CS Learn</p>
       <div aria-hidden className="h-1 w-14 bg-primary" />
       <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/70 sm:text-sm">Video coming soon</p>
     </div>
@@ -140,7 +140,7 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
             then). Kept as hidden text after the visible text, not an aria-label, so the
             link's spoken name still contains what's on screen (WCAG 2.5.3). */}
         <span className="sr-only">
-          {playlist.playlistUrl ? ": open the playlist on YouTube" : ": open the SCS Learn channel on YouTube"} (new tab)
+          {playlist.playlistUrl ? ": open the playlist on YouTube" : ": open the CS Learn channel on YouTube"} (new tab)
         </span>
       </div>
 

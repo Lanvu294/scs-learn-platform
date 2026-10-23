@@ -37,7 +37,7 @@ export default async function LoginPage({
 
   return (
     <main className="grid min-h-screen bg-white text-black lg:grid-cols-2">
-      {/* Brand panel (desktop): close-up of the landing-page hero learner, named SCS Learn at the bottom. */}
+      {/* Brand panel (desktop): close-up of the landing-page hero learner, named CS Learn at the bottom. */}
       <section className="relative isolate hidden flex-col justify-end overflow-hidden bg-black p-10 text-white lg:order-2 lg:flex xl:p-14">
         <Image
           src="/landing/photos/learner-headphones.jpg"
@@ -49,10 +49,10 @@ export default async function LoginPage({
         />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
         <div className="max-w-md">
-          {/* Named like the landing-page hero: SCS Learn, a short red rule, then the line.
+          {/* Named like the landing-page hero: CS Learn, a short red rule, then the line.
               No logo up top: it sat over her face and broke the photo. */}
           <Link href="/" className="text-5xl font-bold tracking-tight text-white hover:text-white/85">
-            SCS Learn
+            CS Learn
           </Link>
           <div aria-hidden className="mt-2.5 h-1 w-14 bg-primary" />
           <p className="mt-6 font-serif text-4xl font-semibold leading-tight">Start learning computer science and AI from Carnegie Mellon for free.</p>
@@ -67,7 +67,7 @@ export default async function LoginPage({
             goes top left on every web page. With the form on the left, it sits on
             white at the page's top left, and nothing covers the photo. */}
         <header className="flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-3 lg:border-b-0 lg:px-10 lg:pt-8 xl:px-14">
-          <Link href="/" aria-label="SCS Learn home" className="block">
+          <Link href="/" aria-label="CS Learn home" className="block">
             <Image
               src="/scs-2026-primary-red-white.svg"
               alt="Carnegie Mellon University Kenneth C. Griffin School of Computer Science"
@@ -77,12 +77,12 @@ export default async function LoginPage({
               className="h-14 w-auto lg:h-20 xl:h-24"
             />
           </Link>
-          <span className="text-[15px] font-bold tracking-tight lg:hidden">SCS Learn</span>
+          <span className="text-[15px] font-bold tracking-tight lg:hidden">CS Learn</span>
         </header>
 
         <div className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
           <div className="w-full max-w-sm">
-            <h1 className="mb-8 font-serif text-4xl font-semibold">Sign in to SCS Learn</h1>
+            <h1 className="mb-8 font-serif text-4xl font-semibold">Sign in to CS Learn</h1>
             <LoginForm
               next={next}
               initialError={error ? ERROR_MESSAGES[error] : undefined}

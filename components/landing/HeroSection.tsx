@@ -24,7 +24,7 @@ export default function HeroSection() {
           className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.22)_100%)]"
         />
         <div className="relative mx-auto flex min-h-[480px] w-full max-w-[1440px] flex-col justify-end px-6 pt-28 pb-12 sm:px-12 lg:min-h-[532px] lg:px-24 lg:pt-36">
-          <p className="text-5xl font-bold tracking-tight text-white lg:text-6xl">SCS Learn</p>
+          <p className="text-5xl font-bold tracking-tight text-white lg:text-6xl">CS Learn</p>
           <div aria-hidden className="mt-2.5 h-1 w-14 bg-primary" />
           <h1 className="mt-5 max-w-[800px] font-brand text-[2rem] font-semibold leading-[1.1] text-white sm:text-[2.5rem] lg:text-[3rem]">
             Computer science from Carnegie Mellon. Free, online, at your pace.
@@ -42,7 +42,7 @@ export default function HeroSection() {
             className="mt-6 inline-flex items-center gap-2.5 text-lg font-semibold text-white hover:text-white/80"
           >
             <YouTubeIcon className="h-6 w-6" />
-            <span className="link-swipe">Subscribe to SCS Learn on YouTube.</span>
+            <span className="link-swipe">Subscribe to CS Learn on YouTube.</span>
           </a>
         </div>
       </section>

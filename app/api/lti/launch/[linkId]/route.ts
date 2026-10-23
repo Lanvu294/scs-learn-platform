@@ -16,13 +16,13 @@ async function getLessonContext(lessonId: string) {
     .eq("id", lessonId)
     .maybeSingle();
   if (error || !data) {
-    return { courseCode: "unknown", courseTitle: "SCS Learn" };
+    return { courseCode: "unknown", courseTitle: "CS Learn" };
   }
 
   const unit = Array.isArray(data.unit) ? data.unit[0] : data.unit;
   const course = unit && (Array.isArray(unit.course) ? unit.course[0] : unit.course);
   if (!course) {
-    return { courseCode: "unknown", courseTitle: "SCS Learn" };
+    return { courseCode: "unknown", courseTitle: "CS Learn" };
   }
   return { courseCode: course.code as string, courseTitle: course.title as string };
 }

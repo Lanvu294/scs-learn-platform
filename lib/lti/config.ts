@@ -7,7 +7,7 @@ import { displayNameFor, getSessionUser } from "@/lib/auth/session";
 // changing it after a launch has happened orphans every learner's progress on
 // the tool side. It is a constant, not an env var, for exactly that reason.
 export const TOOL_CONSUMER_INSTANCE_GUID = "learn.cs.cmu.edu";
-export const TOOL_CONSUMER_INSTANCE_NAME = "SCS Learn";
+export const TOOL_CONSUMER_INSTANCE_NAME = "CS Learn";
 export const TOOL_CONSUMER_PRODUCT_FAMILY = "scs-learn";
 export const TOOL_CONSUMER_VERSION = "0.1";
 

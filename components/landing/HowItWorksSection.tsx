@@ -130,7 +130,7 @@ export default function HowItWorksSection() {
   return (
     <section id="whats-coming" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12 lg:px-16">
-        <h2 className={`${heading2} max-w-3xl`}>What&apos;s coming to SCS Learn</h2>
+        <h2 className={`${heading2} max-w-3xl`}>What&apos;s coming to CS Learn</h2>
 
         {/* Three columns from 1100px; below that each step is a row (picture beside text), stacking on phones. */}
         <ol className="mt-12 grid grid-cols-1 gap-14 lg:mt-16 min-[1100px]:grid-cols-3 min-[1100px]:gap-8">

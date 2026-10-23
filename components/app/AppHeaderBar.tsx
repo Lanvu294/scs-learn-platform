@@ -57,8 +57,8 @@ export default function AppHeaderBar({
     <header className="sticky top-0 z-40 shrink-0 border-b border-gray-200 bg-white/95 backdrop-blur">
       <div className="flex h-14 items-center gap-4 px-4 sm:px-6">
         <Link href={home} className="flex shrink-0 items-center gap-2.5">
-          <Image src="/brand/scs-learn-icon-red.png" alt="" width={32} height={32} className="h-8 w-8 rounded-md" />
-          <span className="sr-only text-[15px] font-bold tracking-tight sm:not-sr-only">SCS Learn</span>
+          <Image src="/brand/cs-learn-icon-red.png" alt="" width={32} height={32} className="h-8 w-8 rounded-md" />
+          <span className="sr-only text-[15px] font-bold tracking-tight sm:not-sr-only">CS Learn</span>
         </Link>
 
         {mode === "admin" && (
