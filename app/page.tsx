@@ -23,7 +23,7 @@ export default function Home() {
       >
         Skip to main content
       </a>
-      <NavBar />
+      <NavBar overlay />
       {/* Header and footer sit outside main so they keep their banner and contentinfo landmarks. */}
       <main id="main-content" tabIndex={-1} className="outline-none">
       <HeroSection />

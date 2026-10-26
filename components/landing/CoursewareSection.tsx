@@ -3,7 +3,7 @@ import { heading2 } from "./ui/typography";
 
 // Parked 10/14: the page starts with video (YouTubeSection) and builds on top of
 // it later. Re-enable in app/page.tsx; give the section an id if it needs one
-// (#courses now points at the YouTube section).
+// (#lectures now points at the YouTube section).
 const COURSES: CarouselCourse[] = [
   {
     code: "06-204",

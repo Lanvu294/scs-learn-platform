@@ -170,7 +170,7 @@ export default function YouTubeSection() {
   }
 
   return (
-    <section id="courses" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
+    <section id="lectures" className={`scroll-mt-32 bg-white text-black ${sectionPadding}`}>
       <div className={COLUMN}>
         {/* ~55/45, both columns starting on the same line. */}
         <div className="grid gap-5 lg:grid-cols-11 lg:items-start lg:gap-10">
