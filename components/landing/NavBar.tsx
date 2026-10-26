@@ -55,7 +55,7 @@ export default function NavBar() {
             Partner
           </a>
           <a
-            href="https://givenow.cmu.edu/campaigns/42968/donations/new?a=8338659"
+            href="/give"
             className={UTILITY_BUTTON}
             target="_blank"
             rel="noopener noreferrer"
@@ -112,7 +112,7 @@ export default function NavBar() {
             Partner
           </a>
           <a
-            href="https://givenow.cmu.edu/campaigns/42968/donations/new?a=8338659"
+            href="/give"
             className="flex items-center gap-1.5 py-3 text-sm font-semibold md:hidden"
             target="_blank"
             rel="noopener noreferrer"
