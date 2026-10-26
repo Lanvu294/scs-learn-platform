@@ -12,6 +12,11 @@ import OfferingsSection from "@/components/landing/OfferingsSection";
 // import FinalCtaSection from "@/components/landing/FinalCtaSection";
 import BuiltBySection from "@/components/landing/BuiltBySection";
 import Footer from "@/components/landing/Footer";
+import DesignNotes from "@/components/DesignNotes";
+
+// Premiere tags ("Premieres Nov 3" / "Premiering now") depend on the date, so
+// rebuild the static page daily.
+export const revalidate = 86400;
 
 export default function Home() {
   return (
@@ -39,6 +44,7 @@ export default function Home() {
       <BuiltBySection />
       </main>
       <Footer />
+      <DesignNotes />
     </>
   );
 }

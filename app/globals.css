@@ -33,6 +33,13 @@
   --color-steel-gray: var(--color-steel-gray);
   --color-gray-light: var(--color-gray-light);
   --color-gray-medium: var(--color-gray-medium);
+  /* Neutral hover tint for rows on the course pages. */
+  --color-tint: #f5f5f5;
+  /* Quiz feedback only, always paired with a check or cross icon. Low saturation. */
+  --color-success: #3c6e57;
+  --color-success-tint: #eef4f0;
+  --color-error: #9c4848;
+  --color-error-tint: #f8efef;
 
   --color-scots-rose: #ef3a47;
   --color-gold-thread: #fdb515;
@@ -503,5 +510,185 @@ html {
   .animate-fade-in,
   .animate-fade-in-up {
     animation: none;
+  }
+}
+
+/* Course pages ------------------------------------------------------------ */
+
+/* Carnegie Red focus ring on every interactive element. On these pages red
+   means three things only: the primary action, the current lecture, focus. */
+.course-page :focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* A lecture marked done: its check draws in. */
+.check-draw {
+  stroke-dasharray: 1;
+  animation: check-draw 200ms ease-out both;
+}
+
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Quiz feedback icons settle in. */
+.quiz-pop {
+  animation: quiz-pop 150ms ease-out both;
+}
+
+@keyframes quiz-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+/* The Up next half of the Finish block, briefly, after a lecture is marked done. */
+.flash-tint {
+  animation: flash-tint 600ms ease-out;
+}
+
+@keyframes flash-tint {
+  from {
+    background-color: var(--color-gray-light);
+  }
+}
+
+/* Quiz explanation slides in under the options. */
+.slide-in {
+  animation: slide-in 200ms ease-out both;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* A perfect score: segment checks pop in one after another (delay set inline). */
+.stagger-pop {
+  animation: quiz-pop 200ms ease-out both;
+}
+
+/* The course outline sheet rises from the bottom edge. */
+.sheet-up[open] {
+  animation: sheet-up 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check-draw,
+  .quiz-pop,
+  .flash-tint,
+  .slide-in,
+  .stagger-pop,
+  .sheet-up[open] {
+    animation: none;
+  }
+}
+
+/* Design review notes (components/DesignNotes.tsx), ported from the p4l IDE prototype ---- */
+
+/* Inter, like p4l (loaded in app/layout.tsx). */
+.p4l-type {
+  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Pins live inside their targets so they scroll with the page. */
+[data-annotation] {
+  position: relative;
+}
+.annotation-pin {
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  left: calc(100% + 8px);
+  transform: translateY(-50%);
+}
+[data-annotation-side="left"] > .annotation-host > .annotation-pin {
+  left: auto;
+  right: calc(100% + 8px);
+}
+[data-annotation-side="inside"] > .annotation-host > .annotation-pin {
+  top: 12px;
+  left: auto;
+  right: 16px;
+  transform: none;
+}
+/* The section a note describes, outlined in p4l's focus blue. */
+[data-annotation-active] {
+  outline: 2px solid rgb(121 184 255) !important;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+[data-annotation-side="inside"][data-annotation-active] {
+  outline-offset: -2px;
+}
+
+/* CS Learn: phones have no gutter, so main-column pins sit inside their section's top-right corner. */
+@media (max-width: 639px) {
+  main [data-annotation-side="left"] > .annotation-host > .annotation-pin {
+    top: 0;
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+}
+
+/* Note card: arrow points at its pin (--arrow-x set in JS); 120ms fade, no movement. */
+.note-card {
+  animation: note-fade 120ms ease-out;
+}
+.note-card::before {
+  content: "";
+  position: absolute;
+  left: var(--arrow-x, 24px);
+  width: 10px;
+  height: 10px;
+  background: #0a0a0a;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  transform: translateX(-50%) rotate(45deg);
+}
+.note-card[data-placement="below"]::before {
+  top: -6px;
+  border-right: none;
+  border-bottom: none;
+}
+.note-card[data-placement="above"]::before {
+  bottom: -6px;
+  border-left: none;
+  border-top: none;
+}
+@keyframes note-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .note-card {
+    animation: none;
+  }
+}
+
+/* The notes toggle sits in the bottom-right corner; it lifts only while the
+   phone's sticky Up next bar is on screen, so it never covers that button. */
+@media (max-width: 1023px) {
+  body:has(.sticky-up-next:not([inert])) .notes-toggle {
+    bottom: 88px;
   }
 }

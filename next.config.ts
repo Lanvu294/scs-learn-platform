@@ -9,6 +9,8 @@ const GIVING_FORM_URL =
   "https://givenow.cmu.edu/campaigns/42968/donations/new?a=14281285&designation=scscomputingeducationinnovationfund";
 
 const nextConfig: NextConfig = {
+  // Keeps the floating "N" badge out of dev screenshots.
+  devIndicators: false,
   turbopack: {
     root: path.resolve(__dirname),
   },

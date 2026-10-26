@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
+import { SCS_SITE_LINKS } from "./links";
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
@@ -114,11 +115,25 @@ function scrollToTop() {
 }
 
 // Matches cs.cmu.edu: stacked wordmark, social row, four link columns under red
-// rules, and the white legal bar.
-export default function Footer() {
+// rules, and the white legal bar. Pages with a slim product nav (the course
+// pages) pass siteLinks to carry the SCS section links the landing header has.
+export default function Footer({ siteLinks = false }: { siteLinks?: boolean }) {
   return (
     <footer className="bg-white text-black">
-      <div className="bg-gray-light">
+      {siteLinks ? (
+        <nav aria-label="School of Computer Science" className="border-t border-steel-gray">
+          <ul className="flex w-full flex-wrap gap-x-6 gap-y-1 px-4 py-4 text-sm font-semibold sm:px-6 md:px-12">
+            {SCS_SITE_LINKS.map((link) => (
+              <li key={link.label}>
+                <a href={link.href} className="inline-block py-2 hover:text-primary">
+                  <span className="link-swipe">{link.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : null}
+      <div className={`bg-gray-light ${siteLinks ? "mt-16 lg:mt-20" : ""}`}>
         <div className="flex w-full flex-col gap-10 px-4 pt-14 pb-16 sm:px-6 md:px-12 lg:flex-row lg:gap-16 lg:pt-16 lg:pb-8">
           <div className="flex w-full max-w-xs flex-col items-start gap-6 lg:max-w-[12.5rem]">
             <a href="https://www.cmu.edu" {...external} className="-mt-14 mb-14 block w-[180px] lg:-mt-16 lg:mb-16 lg:w-[200px]">

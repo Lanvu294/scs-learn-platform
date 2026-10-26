@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { Award, Check, Play } from "lucide-react";
 import CmuLink from "./ui/CmuLink";
+import { catalogHasStarted, firstPremiereDate, formatMonthDay } from "@/lib/courses";
 import EmailSignupForm from "./EmailSignupForm";
 import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL } from "./links";
 import YouTubeIcon from "./ui/YouTubeIcon";
@@ -100,7 +101,7 @@ function TutorVisual() {
 const STAGES: Stage[] = [
   {
     title: "Lectures on YouTube",
-    when: "Premieres in November",
+    when: catalogHasStarted() ? "Premiering now" : `Premieres ${formatMonthDay(firstPremiereDate())}`,
     description: "Full classroom lectures from Carnegie Mellon faculty, free to watch.",
     visual: <LectureVisual />,
     action: (

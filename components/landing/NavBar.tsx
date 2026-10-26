@@ -3,15 +3,9 @@
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import NavLogo from "./NavLogo";
+import { SCS_SITE_LINKS } from "./links";
 
-const LINKS = [
-  { label: "About", href: "https://www.cs.cmu.edu/about/index" },
-  { label: "Education", href: "https://www.cs.cmu.edu/education/index" },
-  { label: "Research", href: "https://www.cs.cmu.edu/research/index" },
-  { label: "News & Events", href: "https://www.cs.cmu.edu/news/index" },
-  { label: "Industry & Entrepreneurship", href: "https://www.cs.cmu.edu/partnerships/index" },
-  { label: "Giving", href: "https://www.cs.cmu.edu/giving/index" },
-];
+const LINKS = SCS_SITE_LINKS;
 
 // Outlined utility actions, matching the Partner / Give buttons on cs.cmu.edu.
 const UTILITY_BUTTON =

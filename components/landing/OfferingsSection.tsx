@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Container from "./ui/Container";
+import { CMU_ONLINE_URL, SCS_ADMISSIONS_URL, SCS_EXEC_ED_URL } from "./links";
 import { heading2, sectionPadding } from "./ui/typography";
 
 type Offering = {
@@ -27,7 +28,7 @@ const OFFERINGS: Offering[] = [
     title: "Earn a CMU credential",
     description: "Go deeper with graded work and an official credential through CMU Online.",
     cta: "Explore CMU Online",
-    href: "https://www.cmu.edu/online/",
+    href: CMU_ONLINE_URL,
     texture: "/landing/textures/cmu-tartan-wave-red.jpg",
     color: "bg-primary",
   },
@@ -35,7 +36,7 @@ const OFFERINGS: Offering[] = [
     title: "Train your organization",
     description: "Bring Carnegie Mellon computer science to your team with SCS Executive Education.",
     cta: "Learn more",
-    href: "https://exec.cs.cmu.edu/",
+    href: SCS_EXEC_ED_URL,
     texture: "/landing/textures/cmu-tartan-wave-black.jpg",
     color: "bg-black",
   },
@@ -43,7 +44,7 @@ const OFFERINGS: Offering[] = [
     title: "Study on campus",
     description: "Join the Kenneth C. Griffin School of Computer Science in Pittsburgh as a full-time student at Carnegie Mellon University.",
     cta: "Explore admissions",
-    href: "https://www.cs.cmu.edu/education",
+    href: SCS_ADMISSIONS_URL,
     image: "/landing/photos/campus-walk.jpg",
     wide: true,
   },

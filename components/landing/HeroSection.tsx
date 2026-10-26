@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { catalogHasStarted, firstPremiereDate, formatMonthDay } from "@/lib/courses";
 import EmailSignupForm from "./EmailSignupForm";
 import YouTubeSection from "./YouTubeSection";
 import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL } from "./links";
@@ -30,7 +31,7 @@ export default function HeroSection() {
             Computer science from Carnegie Mellon. Free, online, at your pace.
           </h1>
           <p className="mt-5 max-w-[640px] text-lg leading-relaxed text-white/90">
-            Free lectures premiere in November, free courseware coming next.
+            {catalogHasStarted() ? "Free lectures now premiering on YouTube" : `Free lectures premiere ${formatMonthDay(firstPremiereDate())}`}, free courseware coming next.
           </p>
           <div id="updates" className="mt-10 scroll-mt-32">
             <EmailSignupForm buttonLabel="Keep me posted" source="hero" />

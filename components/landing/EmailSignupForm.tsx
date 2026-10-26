@@ -14,6 +14,12 @@ type EmailSignupFormProps = {
   tone?: "dark" | "light";
   /** Stack the input over the button (for narrow columns). */
   stacked?: boolean;
+  /** Where the signup goes. Defaults to the landing page's list. */
+  action?: (prev: EmailSignupState, formData: FormData) => Promise<EmailSignupState>;
+  /** "outline" where a Carnegie Red action already owns the page (course pages). */
+  variant?: "primary" | "outline";
+  /** Ends the confirmation sentence: "You're in. We'll email you at {email} {doneMessage}." */
+  doneMessage?: string;
 };
 
 // Square input fused to a Carnegie Red submit, matching cmu.edu's form style.
@@ -25,19 +31,24 @@ export default function EmailSignupForm({
   source = "landing",
   tone = "dark",
   stacked = false,
+  action = joinEmailList,
+  variant = "primary",
+  doneMessage,
 }: EmailSignupFormProps) {
   const light = tone === "light";
-  const [state, formAction, pending] = useActionState<EmailSignupState, FormData>(joinEmailList, {
+  const [state, formAction, pending] = useActionState<EmailSignupState, FormData>(action, {
     status: "idle",
   });
 
   if (state.status === "done") {
     return (
       <p role="status" className={`flex items-center gap-2 text-base font-semibold ${className}`}>
-        <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-primary text-white">
+        <span className={`flex h-6 w-6 shrink-0 items-center justify-center text-white ${variant === "outline" ? "bg-black" : "bg-primary"}`}>
           <Check size={15} strokeWidth={3} />
         </span>
-        You&apos;re in. We&apos;ll keep you posted at {state.email} as courseware opens up.
+        {doneMessage
+          ? `You're in. We'll email you at ${state.email} ${doneMessage}.`
+          : `You're in. We'll keep you posted at ${state.email} as courseware opens up.`}
       </p>
     );
   }
@@ -59,7 +70,11 @@ export default function EmailSignupForm({
         <button
           type="submit"
           disabled={pending}
-          className="shrink-0 whitespace-nowrap bg-primary px-6 py-3 text-sm font-semibold text-white btn-fill-primary-dark disabled:opacity-70"
+          className={`shrink-0 px-6 py-3 text-sm font-semibold disabled:opacity-70 ${
+            variant === "outline"
+              ? "border border-black bg-white text-black hover:underline hover:underline-offset-4"
+              : "whitespace-nowrap bg-primary text-white btn-fill-primary-dark"
+          }`}
         >
           {pending ? "Saving…" : buttonLabel}
         </button>

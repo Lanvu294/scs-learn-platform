@@ -27,6 +27,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  // Resolves relative canonical and Open Graph URLs (course pages).
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://scs-learn-platform.vercel.app"),
   title: { default: "CS Learn", template: "%s | CS Learn" },
   description: "Free computer science courseware from Carnegie Mellon, online, at your pace.",
 };

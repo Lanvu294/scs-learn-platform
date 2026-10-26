@@ -1,64 +1,21 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { instructorByline, listCourses, premiereLabel, type Course, type Instructor } from "@/lib/courses";
 import Carousel from "./ui/Carousel";
 import { sectionPadding } from "./ui/typography";
-import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL, SCS_LEARN_YOUTUBE_URL } from "./links";
+import { SCS_LEARN_YOUTUBE_SUBSCRIBE_URL } from "./links";
 import { YouTubeColorIcon } from "./ui/YouTubeIcon";
 
-type Instructor = {
-  name: string;
-  // Background-removed portrait (public/landing/faculty), from the department directory.
-  photo: string;
-};
-
-type CoursewarePlaylist = {
-  code: string;
-  title: string;
-  instructors: Instructor[];
-  // The course's YouTube playlist. Until it exists, the card opens the channel.
-  playlistUrl: string | null;
-};
+type CoursewarePlaylist = Pick<Course, "code" | "title" | "instructors" | "premiereDate">;
 
 // Courseware from faculty who said yes after seeing their demo (source of truth:
-// the "CS Learn participating instructors" sheet). Each card opens the course's
-// playlist in a new tab.
-const PLAYLISTS: CoursewarePlaylist[] = [
-  {
-    code: "17-437",
-    title: "Web Application Development",
-    instructors: [{ name: "Terry Lee", photo: "/landing/faculty/lee.png" }],
-    playlistUrl: null,
-  },
-  {
-    code: "10-701",
-    title: "Introduction to Machine Learning",
-    instructors: [
-      { name: "Geoff Gordon", photo: "/landing/faculty/gordon.png" },
-      { name: "Pradeep Ravikumar", photo: "/landing/faculty/ravikumar.png" },
-    ],
-    playlistUrl: null,
-  },
-  {
-    code: "17-214",
-    title: "Principles of Software Construction",
-    instructors: [{ name: "Hammad Ahmad", photo: "/landing/faculty/ahmad.png" }],
-    playlistUrl: null,
-  },
-  {
-    code: "10-725",
-    title: "Optimization for Machine Learning",
-    instructors: [{ name: "Barnabás Póczos", photo: "/landing/faculty/poczos.png" }],
-    playlistUrl: null,
-  },
-];
+// the "CS Learn participating instructors" sheet, mirrored in lib/courses). Each
+// card opens the course's CS Learn page, which links on to the YouTube playlist.
+const PLAYLISTS: CoursewarePlaylist[] = listCourses();
 
 function byline(instructors: Instructor[]): string {
-  const names: string[] = [];
-  for (const instructor of instructors) {
-    names.push(instructor.name);
-  }
-  if (names.length < 3) return names.join(" and ");
-  return `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}`;
+  return instructorByline(instructors.map((instructor) => instructor.name));
 }
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
@@ -78,9 +35,8 @@ function WelcomeVideoComingSoon() {
   );
 }
 
-// A 16:9 card that opens the course's playlist in a new tab: campus photo under a
-// dark wash, a red "Premieres in November" tag, the course, and its faculty.
-// A series poster: black-and-white portraits of the faculty on CMU's black tartan,
+// A series poster, opening the course page: a red "Premieres Nov 5" (or "Premiering now") tag, the
+// course, and its faculty. A series poster: black-and-white portraits of the faculty on CMU's black tartan,
 // course title on the left. Portraits warm into color on hover. Two instructors
 // stand side by side, the second slightly behind the first.
 function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
@@ -106,9 +62,8 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
   }
 
   return (
-    <a
-      href={playlist.playlistUrl ?? SCS_LEARN_YOUTUBE_URL}
-      {...external}
+    <Link
+      href={`/courses/${playlist.code}`}
       // Taller on phones (portraits on top, text across the bottom); 16:9 from sm up.
       className="group/card relative isolate block aspect-[4/5] w-full overflow-hidden bg-black text-white outline-none sm:aspect-video"
     >
@@ -125,7 +80,7 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
       </div>
 
       <p className="absolute top-0 left-0 z-10 bg-primary px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] sm:text-sm">
-        Premieres in November
+        {premiereLabel(playlist)}
       </p>
 
       {/* Phones: a dark fade under the text, which spans the card's width. */}
@@ -136,24 +91,21 @@ function PlaylistCard({ playlist }: { playlist: CoursewarePlaylist }) {
         <div aria-hidden className="mt-2 h-1 w-10 bg-primary" />
         <h3 className="mt-2 font-brand text-[1.375rem] font-semibold leading-tight text-balance sm:text-2xl lg:text-[1.75rem]">{playlist.title}</h3>
         <p className="mt-1 text-sm text-white/80">{names}</p>
-        {/* Say where the link really goes (the playlist once it exists, the channel until
-            then). Kept as hidden text after the visible text, not an aria-label, so the
+        {/* Kept as hidden text after the visible text, not an aria-label, so the
             link's spoken name still contains what's on screen (WCAG 2.5.3). */}
-        <span className="sr-only">
-          {playlist.playlistUrl ? ": open the playlist on YouTube" : ": open the CS Learn channel on YouTube"} (new tab)
-        </span>
+        <span className="sr-only">: course page with lectures and materials</span>
       </div>
 
       <span
         aria-hidden
         className="absolute top-3 right-3 z-10 flex size-10 items-center justify-center rounded-full border-2 border-white/60 bg-black/30 transition-colors group-hover/card:border-white group-hover/card:bg-white group-hover/card:text-black sm:top-4 sm:right-4 sm:size-12"
       >
-        <ArrowUpRight className="size-5" />
+        <ArrowRight className="size-5" />
       </span>
 
       {/* Keyboard focus ring, drawn on top (an outline would be clipped by the carousel). */}
       <span aria-hidden className="pointer-events-none absolute inset-0 z-20 opacity-0 ring-4 ring-primary ring-inset group-focus-visible/card:opacity-100" />
-    </a>
+    </Link>
   );
 }
 
@@ -197,7 +149,7 @@ export default function YouTubeSection() {
         </div>
       </div>
 
-      <div className="mt-14">
+      <div className="mt-14" data-annotation="9" data-annotation-side="inside">
         <Carousel
           slides={slides}
           label="Lecture playlists"
