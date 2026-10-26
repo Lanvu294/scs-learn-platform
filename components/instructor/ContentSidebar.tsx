@@ -11,10 +11,24 @@ import {
   FolderInput,
   UploadCloud,
   RefreshCw,
+  FileText,
+  CircleHelp,
+  ExternalLink,
 } from "lucide-react";
-import { type Unit } from "@/lib/instructor/mock-data";
+import { type Unit, type LessonItem } from "@/lib/instructor/mock-data";
 import GoogleDriveImportModal from "@/components/instructor/GoogleDriveImportModal";
 import { syncCogniterraAssignments } from "@/lib/instructor/data/cogniterra";
+
+// Same icons as the student sidebar, so both views read alike.
+function LessonIcon({ type }: { type: LessonItem["type"] }) {
+  if (type === "quiz") {
+    return <CircleHelp size={14} className="text-gray-500 shrink-0" role="img" aria-label="Quiz" />;
+  }
+  if (type === "external") {
+    return <ExternalLink size={14} className="text-gray-500 shrink-0" role="img" aria-label="External activity" />;
+  }
+  return <FileText size={14} className="text-gray-500 shrink-0" role="img" aria-label="Lesson" />;
+}
 
 function AddUnitModal({
   onCreate,
@@ -263,21 +277,23 @@ export default function ContentSidebar({
 
   return (
     <div className="h-full min-h-0 bg-white flex flex-col overflow-hidden border-r border-gray-200">
-      <div className="px-3 py-4 border-b border-gray-100 flex flex-col text-left">
+      <div className="px-5 pt-5 pb-4 border-b border-gray-100 flex flex-col text-left">
         <Link
           href={`/instructor/${courseCode}`}
-          className="inline-flex items-center gap-1.5 self-start pl-1.5 text-xs font-semibold text-gray-500 hover:text-black"
+          className="inline-flex items-center gap-1.5 self-start text-xs font-semibold text-gray-500 hover:text-black"
         >
           <ArrowLeft size={14} />
           Courseware dashboard
         </Link>
-        <div className="mt-3 w-full min-w-0 pl-1.5 flex items-start justify-between gap-2">
+        <div className="mt-3 w-full min-w-0 flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="font-serif text-lg font-semibold truncate">{courseTitle}</p>
-            <p className="text-sm text-gray-500 mt-0.5">
-              {courseCode}
-              <span className="mx-1.5 text-gray-300">·</span>
+            <p className="text-xs font-bold text-primary">{courseCode}</p>
+            <p className="font-serif text-lg font-semibold leading-snug line-clamp-2">{courseTitle}</p>
+            <p className="mt-1 text-xs font-bold text-gray-600">
               {lessonCount} lessons
+              {unpublishedCount > 0 && (
+                <span className="font-semibold text-gray-500"> &middot; {unpublishedCount} unpublished</span>
+              )}
             </p>
           </div>
           <button
@@ -292,14 +308,14 @@ export default function ContentSidebar({
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto py-2">
+      <div className="flex-1 min-h-0 overflow-y-auto py-4">
         {units.map((unit) => {
           const isOpen = !!expanded[unit.id];
           const isUnitDragOver =
             dragOverUnitId === unit.id &&
             (draggingUnitId ? draggingUnitId !== unit.id : draggingLessonUnitId !== unit.id);
           return (
-            <div key={unit.id} className="mb-1">
+            <div key={unit.id} className={isOpen ? "mb-5" : "mb-1"}>
               <div
                 draggable
                 onClick={() => toggleUnit(unit.id)}
@@ -310,7 +326,7 @@ export default function ContentSidebar({
                 }
                 onDrop={(e) => handleUnitDrop(e, unit.id)}
                 onDragEnd={handleUnitDragEnd}
-                className={`group flex items-center gap-1.5 px-3 py-2.5 hover:bg-gray-50 border-t-2 cursor-pointer ${
+                className={`group flex items-center gap-1.5 px-5 py-2 hover:bg-gray-50 border-t-2 cursor-pointer ${
                   isUnitDragOver ? "border-primary" : "border-transparent"
                 } ${draggingUnitId === unit.id ? "opacity-40" : ""}`}
               >
@@ -323,9 +339,9 @@ export default function ContentSidebar({
                     e.stopPropagation();
                     toggleUnit(unit.id);
                   }}
-                  className="shrink-0 text-gray-500"
+                  className="shrink-0 -ml-1 text-gray-400"
                 >
-                  {isOpen ? <ChevronDown size={14} aria-hidden /> : <ChevronRight size={14} aria-hidden />}
+                  {isOpen ? <ChevronDown size={13} aria-hidden /> : <ChevronRight size={13} aria-hidden />}
                 </button>
                 <div className="flex-1 min-w-0 text-left">
                   {editingUnitId === unit.id ? (
@@ -340,10 +356,10 @@ export default function ContentSidebar({
                         if (e.key === "Escape") cancelEditingUnit();
                       }}
                       aria-label="Unit title"
-                      className="w-full text-sm font-bold leading-tight bg-white border border-primary rounded px-1 -mx-1 outline-none"
+                      className="w-full text-[11px] font-bold uppercase tracking-wide text-gray-600 leading-tight bg-white border border-primary rounded px-1 -mx-1 outline-none"
                     />
                   ) : (
-                    <p className="text-sm font-bold leading-tight truncate">
+                    <p className="text-[11px] font-bold leading-snug uppercase tracking-wide text-gray-500 line-clamp-2">
                       {editingUnitNumberId === unit.id ? (
                         <input
                           autoFocus
@@ -358,7 +374,7 @@ export default function ContentSidebar({
                             if (e.key === "Escape") cancelEditingUnitNumber();
                           }}
                           aria-label="Unit number"
-                          className="w-12 text-sm font-bold bg-white border border-primary rounded px-1 outline-none"
+                          className="w-12 text-[11px] font-bold bg-white border border-primary rounded px-1 outline-none"
                         />
                       ) : (
                         <span
@@ -372,7 +388,7 @@ export default function ContentSidebar({
                           {unit.code}
                         </span>
                       )}
-                      {" — "}
+                      {" · "}
                       <span
                         onDoubleClick={(e) => {
                           e.stopPropagation();
@@ -412,7 +428,7 @@ export default function ContentSidebar({
               </div>
 
               {isOpen && (
-                <div>
+                <div className="flex flex-col gap-0.5">
                   {unit.lessons.map((lesson) => {
                     const isSelected = lesson.id === selectedLessonId;
                     const isDragOver = dragOverLessonId === lesson.id && draggingLessonId !== lesson.id;
@@ -431,7 +447,7 @@ export default function ContentSidebar({
                           setDraggingLessonUnitId(null);
                           setDragOverLessonId(null);
                         }}
-                        className={`group flex items-center gap-1.5 pl-8 pr-3 py-2.5 cursor-pointer border-t-2 ${
+                        className={`group flex items-center gap-3 mx-2 rounded-lg px-3 py-2.5 cursor-pointer border-t-2 transition-colors ${
                           isDragOver ? "border-primary" : "border-transparent"
                         } ${
                           isSelected
@@ -440,6 +456,7 @@ export default function ContentSidebar({
                         } ${draggingLessonId === lesson.id ? "opacity-40" : ""}`}
                         onClick={() => onSelectLesson(lesson.id)}
                       >
+                        <LessonIcon type={lesson.type} />
                         <button
                           type="button"
                           aria-current={isSelected ? "true" : undefined}
@@ -451,16 +468,11 @@ export default function ContentSidebar({
                             isSelected ? "text-primary font-semibold" : "text-gray-700"
                           }`}
                         >
-                          {lesson.title}
+                          {lesson.code} {lesson.title}
                         </button>
-                        {lesson.type === "quiz" && (
-                          <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-gray-500">
-                            Quiz
-                          </span>
-                        )}
-                        {lesson.type === "external" && (
-                          <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-gray-500">
-                            External
+                        {!lesson.isPublished && (
+                          <span className="shrink-0 text-[10px] font-bold uppercase tracking-wide text-gray-400">
+                            Draft
                           </span>
                         )}
                         <button

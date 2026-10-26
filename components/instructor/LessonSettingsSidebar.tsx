@@ -89,7 +89,7 @@ export default function LessonSettingsSidebar({
 
   return (
     <div className="h-full min-h-0 bg-white flex flex-col overflow-hidden border-l border-gray-200">
-      <div className="px-4 py-5 border-b border-gray-100">
+      <div className="px-5 pt-5 pb-4 border-b border-gray-100">
         <h2 className="text-lg font-bold mb-5">Lesson settings</h2>
 
         {lessonLabel ? (

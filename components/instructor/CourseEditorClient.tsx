@@ -447,7 +447,7 @@ export default function CourseEditorClient({
   return (
     <main className="h-screen bg-gray-50 text-black flex flex-col overflow-hidden">
       {header}
-      <div className="flex-1 min-h-0 grid grid-cols-[1fr_3fr_1fr] overflow-hidden">
+      <div className="flex-1 min-h-0 grid grid-cols-[20rem_minmax(0,1fr)_20rem] overflow-hidden">
       <ContentSidebar
         courseCode={course.code}
         courseTitle={course.title}
@@ -467,7 +467,7 @@ export default function CourseEditorClient({
         onPublishAll={publishAll}
       />
 
-      <div className="min-h-0 h-full overflow-hidden bg-white border-x border-gray-300">
+      <div className="min-h-0 h-full overflow-hidden bg-white">
         {selectedLessonId && selectedLesson && selectedLesson.contentSource === "blocks" ? (
           selectedLesson.type === "external" || selectedLesson.ltiLinkId ? (
             <InstructorExternalLessonPane

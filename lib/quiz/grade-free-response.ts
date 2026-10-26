@@ -13,6 +13,9 @@ export type FreeResponseGradingResult = {
   feedback: string;
 };
 
+/** Scores at or above this percent are rounded up to full credit. */
+const FULL_CREDIT_THRESHOLD_PERCENT = 90;
+
 const RESULTS_SCHEMA = {
   type: "object",
   properties: {
@@ -39,7 +42,10 @@ const GRADING_PROMPT = `You are grading student answers to open-ended quiz quest
 For each item, compare the student's response to the reference answer for its specific content and reasoning — not exact wording. Return, for every item:
 - questionId: copied verbatim from the item.
 - scorePercent: 0-100, how much of the reference answer's required content the response correctly captures. 100 = fully correct and complete. 0 = blank, off-topic, or entirely wrong. Use intermediate values for partially correct or incomplete answers.
-- feedback: ONE short sentence (under ~20 words) addressed directly to the student, naming only the single most important thing that was wrong or missing — or, if fully correct, a brief confirmation. Never restate the question or the full reference answer, never hedge with multiple caveats, and never pad with pleasantries ("Great job!", "Good effort") beyond a terse acknowledgment.
+- feedback: ONE short sentence (under ~20 words) addressed directly to the student, pointing at the single most important thing that was wrong or missing — or, if fully correct, a brief confirmation. Never restate the question or the full reference answer, never hedge with multiple caveats, and never pad with pleasantries ("Great job!", "Good effort") beyond a terse acknowledgment.
+  The feedback must NOT give away the answer. Point to where the gap is (which part of the problem, step, or concept to revisit) or ask a guiding question, so the student has to work out the fix themselves. Never state the missing fact, formula, step, or correction outright.
+  Bad (gives it away): "Missing the free ride out: take the maximum over the entire last column, not just the final cell."
+  Good (points the way): "Revisit where your alignment is allowed to end in the longer string — is the final cell the only option?"
 
 Grade generously for phrasing, formatting, and ordering differences; grade strictly for missing or incorrect substance.`;
 
@@ -89,8 +95,10 @@ export async function gradeFreeResponseBatch(
 
   for (const result of parsed.results ?? []) {
     const clampedPercent = Math.max(0, Math.min(100, Math.round(result.scorePercent)));
+    // Near-perfect answers (e.g. 97%) get full credit rather than a nitpicked deduction.
+    const finalPercent = clampedPercent >= FULL_CREDIT_THRESHOLD_PERCENT ? 100 : clampedPercent;
     results.set(result.questionId, {
-      scoreFraction: clampedPercent / 100,
+      scoreFraction: finalPercent / 100,
       feedback: result.feedback?.trim() || "",
     });
   }
