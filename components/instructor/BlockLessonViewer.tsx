@@ -3,6 +3,7 @@
 import { useState } from "react";
 import TopicLessonViewer, { type TopicLessonBlock } from "@/components/lesson/TopicLessonViewer";
 import InstructorQuizEditor from "@/components/instructor/InstructorQuizEditor";
+import LessonTitle from "@/components/lesson/LessonTitle";
 import type { LessonBlockView, LessonType, QuestionView } from "@/lib/instructor/mock-data";
 
 export default function BlockLessonViewer({
@@ -10,6 +11,7 @@ export default function BlockLessonViewer({
   blocks,
   lessonType,
   lessonTitle,
+  onTitleChange,
   onQuestionSaved,
   onQuestionAdded,
   onQuestionDeleted,
@@ -18,6 +20,7 @@ export default function BlockLessonViewer({
   blocks: LessonBlockView[];
   lessonType: LessonType;
   lessonTitle: string;
+  onTitleChange?: (title: string) => void;
   onQuestionSaved?: (question: QuestionView) => void;
   onQuestionAdded?: (question: QuestionView) => void;
   onQuestionDeleted?: (questionId: string) => void;
@@ -29,14 +32,19 @@ export default function BlockLessonViewer({
 
   if (blocks.length === 0) {
     return (
-      <div className="min-h-full flex items-center justify-center text-sm text-gray-500">
-        This lesson has no content yet.
+      <div className="topic-lesson min-h-full flex flex-col">
+        <div className="topic-lesson-header">
+          <LessonTitle title={lessonTitle} onChange={onTitleChange} />
+        </div>
+        <div className="flex-1 flex items-center justify-center text-sm text-gray-500">
+          This lesson has no content yet.
+        </div>
       </div>
     );
   }
 
   if (lessonType === "external") {
-    return <TopicLessonViewer blocks={blocks as TopicLessonBlock[]} lessonTitle={lessonTitle} />;
+    return <TopicLessonViewer blocks={blocks as TopicLessonBlock[]} lessonTitle={lessonTitle} onTitleChange={onTitleChange} />;
   }
 
   if (lessonType === "quiz" || questionBlocks.length > 0) {
@@ -44,6 +52,7 @@ export default function BlockLessonViewer({
       <InstructorQuizEditor
         courseCode={courseCode}
         lessonTitle={lessonTitle}
+        onTitleChange={onTitleChange}
         questionGroupId={questionGroupId}
         questions={questions}
         onQuestionSaved={(updated) => {
@@ -62,5 +71,5 @@ export default function BlockLessonViewer({
     );
   }
 
-  return <TopicLessonViewer blocks={blocks as TopicLessonBlock[]} lessonTitle={lessonTitle} />;
+  return <TopicLessonViewer blocks={blocks as TopicLessonBlock[]} lessonTitle={lessonTitle} onTitleChange={onTitleChange} />;
 }

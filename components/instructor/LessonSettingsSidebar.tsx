@@ -26,6 +26,7 @@ function SectionBlock({ label, children }: { label: string; children: ReactNode 
 export default function LessonSettingsSidebar({
   lessonId,
   attachments,
+  onAttachmentsChange,
   unitLabel,
   lessonLabel,
   currentModule,
@@ -46,6 +47,8 @@ export default function LessonSettingsSidebar({
 }: {
   lessonId: string;
   attachments: Attachment[];
+  /** Keeps the editor's copy of the lesson in sync, so uploads survive switching lessons. */
+  onAttachmentsChange: (lessonId: string, update: (prev: Attachment[]) => Attachment[]) => void;
   unitLabel: string;
   lessonLabel: string;
   currentModule: string;
@@ -70,7 +73,9 @@ export default function LessonSettingsSidebar({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const removeAttachment = (id: string) => {
-    setLocalAttachments((prev) => prev.filter((a) => a.id !== id));
+    const without = (prev: Attachment[]) => prev.filter((a) => a.id !== id);
+    setLocalAttachments(without);
+    onAttachmentsChange(lessonId, without);
     deleteAttachment(id).catch((err) => window.alert(err.message));
   };
 
@@ -79,7 +84,9 @@ export default function LessonSettingsSidebar({
     try {
       const uploaded = await uploadLessonFile(lessonId, file);
       const attachment = await addAttachment(lessonId, { name: file.name, ...uploaded });
-      setLocalAttachments((prev) => [...prev, attachment]);
+      const withNew = (prev: Attachment[]) => [...prev, attachment];
+      setLocalAttachments(withNew);
+      onAttachmentsChange(lessonId, withNew);
     } catch (err) {
       window.alert(err instanceof Error ? err.message : "Failed to upload file");
     } finally {

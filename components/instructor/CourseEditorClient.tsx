@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useRef, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import ContentSidebar from "@/components/instructor/ContentSidebar";
 import LessonSettingsSidebar from "@/components/instructor/LessonSettingsSidebar";
 import LessonEditor from "@/components/instructor/LessonEditor";
@@ -30,7 +29,6 @@ import {
   updateQuizCompletionThreshold,
   updateShowReferenceAnswers,
 } from "@/lib/instructor/data/lessons";
-import { deleteCourse as deleteCourseAction } from "@/lib/instructor/data/courses";
 import { DEFAULT_QUIZ_COMPLETION_THRESHOLD } from "@/lib/quiz/types";
 
 function wordCountOf(html: string) {
@@ -75,7 +73,6 @@ export default function CourseEditorClient({
   /** The app bar, rendered by the (server) page and passed through. */
   header?: React.ReactNode;
 }) {
-  const router = useRouter();
   const [units, setUnits] = useState<Unit[]>(course.units);
 
   const firstLessonId = units.find((u) => u.lessons.length > 0)?.lessons[0]?.id ?? "";
@@ -350,21 +347,6 @@ export default function CourseEditorClient({
     }
   };
 
-  const deleteCourse = () => {
-    const lessonCount = units.reduce((sum, u) => sum + u.lessons.length, 0);
-    const message =
-      lessonCount > 0
-        ? `Delete "${course.title}" (${course.code}) and all ${lessonCount} lessons? This cannot be undone.`
-        : `Delete "${course.title}" (${course.code})? This cannot be undone.`;
-    if (!window.confirm(message)) return;
-
-    flushPendingSave();
-    startTransition(async () => {
-      await deleteCourseAction(course.code);
-      router.push("/instructor");
-    });
-  };
-
   const publish = () => {
     if (!selectedLessonId) return;
     flushPendingSave();
@@ -463,7 +445,6 @@ export default function CourseEditorClient({
         onMoveLessonToUnit={moveLessonToUnit}
         onAddUnit={addUnit}
         onReorderUnits={reorderUnits}
-        onDeleteCourse={deleteCourse}
         onPublishAll={publishAll}
       />
 
@@ -474,6 +455,7 @@ export default function CourseEditorClient({
               key={`external-${selectedLessonId}`}
               lessonId={selectedLesson.id}
               lessonTitle={selectedLesson.title}
+              onTitleChange={(title) => updateSelectedLesson({ title })}
               ltiLinkId={selectedLesson.ltiLinkId}
               ltiDirectUrl={selectedLesson.ltiDirectUrl}
               blocks={selectedLesson.blocks}
@@ -486,6 +468,7 @@ export default function CourseEditorClient({
                 blocks={selectedLesson.blocks}
                 lessonType={selectedLesson.type}
                 lessonTitle={selectedLesson.title}
+                onTitleChange={(title) => updateSelectedLesson({ title })}
                 onQuestionSaved={(updated) => {
                   setUnits((prev) =>
                     prev.map((unit) => ({
@@ -581,6 +564,16 @@ export default function CourseEditorClient({
         key={`module-settings-${selectedLessonId}`}
         lessonId={selectedLessonId}
         attachments={selectedLesson?.attachments ?? []}
+        onAttachmentsChange={(lessonId, update) =>
+          setUnits((prev) =>
+            prev.map((u) => ({
+              ...u,
+              lessons: u.lessons.map((l) =>
+                l.id === lessonId ? { ...l, attachments: update(l.attachments) } : l
+              ),
+            }))
+          )
+        }
         unitLabel={moduleLabel(selectedUnit)}
         lessonLabel={selectedLesson ? `Lesson ${selectedLesson.code}` : ""}
         currentModule={selectedLesson ? `Lesson ${selectedLesson.code} — ${selectedLesson.title}` : ""}

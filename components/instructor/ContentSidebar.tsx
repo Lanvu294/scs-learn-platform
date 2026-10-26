@@ -11,6 +11,7 @@ import {
   FolderInput,
   UploadCloud,
   RefreshCw,
+  Pencil,
   FileText,
   CircleHelp,
   ExternalLink,
@@ -104,7 +105,6 @@ export default function ContentSidebar({
   onMoveLessonToUnit,
   onAddUnit,
   onReorderUnits,
-  onDeleteCourse,
   onPublishAll,
 }: {
   courseCode: string;
@@ -126,7 +126,6 @@ export default function ContentSidebar({
   ) => void;
   onAddUnit: (title: string) => Promise<string>;
   onReorderUnits: (draggedUnitId: string, targetUnitId: string) => void;
-  onDeleteCourse: () => void;
   onPublishAll: () => void;
 }) {
   const lessonCount = units.reduce((sum, u) => sum + u.lessons.length, 0);
@@ -285,7 +284,7 @@ export default function ContentSidebar({
           <ArrowLeft size={14} />
           Courseware dashboard
         </Link>
-        <div className="mt-3 w-full min-w-0 flex items-start justify-between gap-2">
+        <div className="mt-3 w-full min-w-0">
           <div className="min-w-0">
             <p className="text-xs font-bold text-primary">{courseCode}</p>
             <p className="font-serif text-lg font-semibold leading-snug line-clamp-2">{courseTitle}</p>
@@ -296,15 +295,6 @@ export default function ContentSidebar({
               )}
             </p>
           </div>
-          <button
-            type="button"
-            aria-label="Delete courseware"
-            title="Delete courseware"
-            className="shrink-0 text-gray-500 hover:text-red-500 mt-0.5"
-            onClick={onDeleteCourse}
-          >
-            <Trash2 size={16} />
-          </button>
         </div>
       </div>
 
@@ -318,7 +308,11 @@ export default function ContentSidebar({
             <div key={unit.id} className={isOpen ? "mb-5" : "mb-1"}>
               <div
                 draggable
-                onClick={() => toggleUnit(unit.id)}
+                onClick={(e) => {
+                  // Only the first click of a double-click toggles, so double-clicking
+                  // the unit number to edit it doesn't open and re-close the unit.
+                  if (e.detail <= 1) toggleUnit(unit.id);
+                }}
                 onDragStart={(e) => handleUnitDragStart(e, unit.id)}
                 onDragOver={(e) => handleUnitDragOver(e, unit.id)}
                 onDragLeave={() =>
@@ -389,19 +383,22 @@ export default function ContentSidebar({
                         </span>
                       )}
                       {" · "}
-                      <span
-                        onDoubleClick={(e) => {
-                          e.stopPropagation();
-                          startEditingUnit(unit);
-                        }}
-                        className="cursor-text"
-                        title="Double-click to rename"
-                      >
-                        {unit.title}
-                      </span>
+                      <span>{unit.title}</span>
                     </p>
                   )}
                 </div>
+                <button
+                  type="button"
+                  aria-label={`Rename ${unit.code}`}
+                  title="Rename unit"
+                  className="shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:text-gray-600"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    startEditingUnit(unit);
+                  }}
+                >
+                  <Pencil size={13} />
+                </button>
                 <button
                   type="button"
                   aria-label={`Add lesson to ${unit.code}`}

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { handleTabListKeyDown } from "@/lib/a11y/tabs";
+import LessonTitle from "@/components/lesson/LessonTitle";
 
 export type TopicLessonBlock = {
   id: string;
@@ -157,9 +158,12 @@ const TAB_LABELS: Record<LessonTab, string> = {
 export default function TopicLessonViewer({
   blocks,
   lessonTitle,
+  onTitleChange,
 }: {
   blocks: TopicLessonBlock[];
   lessonTitle: string;
+  /** Instructor editor only: makes the title an inline input. */
+  onTitleChange?: (title: string) => void;
 }) {
   const videoBlock = blocks.find((b) => b.kind === "video" && b.videoUrl);
   const slideBlocks = blocks.filter((b) => b.kind === "slide_file");
@@ -186,7 +190,7 @@ export default function TopicLessonViewer({
     return (
       <article className="topic-lesson min-h-full flex flex-col w-full">
         <div className="topic-lesson-header">
-          <h1 className="topic-lesson-title">{lessonTitle}</h1>
+          <LessonTitle title={lessonTitle} onChange={onTitleChange} />
         </div>
         <p className="px-8 py-6 text-sm text-gray-500">
           No content loaded for this lesson. Re-import the courseware folder.
@@ -198,7 +202,7 @@ export default function TopicLessonViewer({
   return (
     <article className="topic-lesson min-h-full flex flex-col w-full">
       <div className="topic-lesson-header">
-        <h1 className="topic-lesson-title">{lessonTitle}</h1>
+        <LessonTitle title={lessonTitle} onChange={onTitleChange} />
 
         {availableTabs.length >= 1 && (
           <div className="lesson-tab-bar" role="tablist" aria-label="Lesson sections" onKeyDown={handleTabListKeyDown}>

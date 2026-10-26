@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, Trash2 } from "lucide-react";
-import RichText from "@/components/quiz/RichText";
+import MarkdownField from "@/components/quiz/MarkdownField";
 import {
   decodeMultipleSelectResponse,
   encodeMultipleSelectResponse,
@@ -534,28 +534,13 @@ export function QuestionEditorFields({
         </label>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-          Question text
-        </label>
-        <textarea
-          value={state.promptText}
-          aria-label="Question text"
-          onChange={(e) => onChange({ promptText: e.target.value })}
-          rows={4}
-          className="w-full text-base border border-gray-200 px-4 py-3 outline-none focus:border-iron-gray"
-          placeholder={promptPlaceholder(questionType)}
-        />
-        <p className="text-xs text-gray-500">
-          Supports Markdown — fenced ``` code blocks and | tables render for students.
-        </p>
-        {state.promptText.trim() && (
-          <div className="border border-gray-100 bg-gray-50 px-3 py-2">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Preview</p>
-            <RichText>{state.promptText}</RichText>
-          </div>
-        )}
-      </div>
+      <MarkdownField
+        label="Question text"
+        value={state.promptText}
+        onChange={(promptText) => onChange({ promptText })}
+        placeholder={promptPlaceholder(questionType)}
+        hint="Saved as Markdown — fenced ``` code blocks and | tables render for students."
+      />
 
       {questionType === "ordering" ? (
         <OrderingEditor
@@ -643,23 +628,13 @@ export function QuestionEditorFields({
           placeholder="e.g. x^2 + 1"
         />
       ) : questionType === "free_response" ? (
-        <div className="flex flex-col gap-2">
-          <AnswerKeyField
-            value={answerKey}
-            onChange={(k) => onChange({ answerKey: k })}
-            label="Reference answer"
-            placeholder="Write the actual answer a strong student would give — not grading notes."
-            hint="This is shown to students as the reference answer, so write the real answer itself (not 'award credit if...' rubric language) — Claude compares each student's response to it and gives partial credit. Markdown (code blocks, tables) is supported."
-            multiline
-            monospace={false}
-          />
-          {answerKey.trim() && (
-            <div className="border border-gray-100 bg-gray-50 px-3 py-2">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Preview</p>
-              <RichText>{answerKey}</RichText>
-            </div>
-          )}
-        </div>
+        <MarkdownField
+          label="Reference answer"
+          value={answerKey}
+          onChange={(k) => onChange({ answerKey: k })}
+          placeholder="Write the actual answer a strong student would give — not grading notes."
+          hint="This is shown to students as the reference answer, so write the real answer itself (not 'award credit if...' rubric language) — Claude compares each student's response to it and gives partial credit. Markdown (code blocks, tables) is supported."
+        />
       ) : (
         <AnswerKeyField
           value={answerKey}

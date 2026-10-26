@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ExternalActivity from "@/components/lti/ExternalActivity";
 import type { LessonBlockView } from "@/lib/instructor/mock-data";
+import LessonTitle from "@/components/lesson/LessonTitle";
 
 type ExternalTab = "assignment" | "writeup";
 
@@ -14,12 +15,14 @@ const TAB_LABELS: Record<ExternalTab, string> = {
 export default function InstructorExternalLessonPane({
   lessonId,
   lessonTitle,
+  onTitleChange,
   ltiLinkId,
   ltiDirectUrl,
   blocks,
 }: {
   lessonId: string;
   lessonTitle: string;
+  onTitleChange?: (title: string) => void;
   ltiLinkId: string | null;
   ltiDirectUrl: string | null;
   blocks: LessonBlockView[];
@@ -60,7 +63,7 @@ export default function InstructorExternalLessonPane({
   return (
     <div className="h-full min-h-0 flex flex-col">
       <div className="topic-lesson-header shrink-0">
-        <h1 className="topic-lesson-title">{lessonTitle}</h1>
+        <LessonTitle title={lessonTitle} onChange={onTitleChange} />
         {showTabBar && (
           <div className="lesson-tab-bar" role="tablist" aria-label="External assignment sections">
             {tabs.map((tab) => (

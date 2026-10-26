@@ -14,6 +14,7 @@ import {
   validateEditorState,
 } from "@/components/quiz/QuestionEditorFields";
 import type { QuestionView } from "@/lib/instructor/mock-data";
+import LessonTitle from "@/components/lesson/LessonTitle";
 
 function toQuestionView(question: Question): QuestionView {
   return {
@@ -133,6 +134,7 @@ function QuestionEditorCard({
 export default function InstructorQuizEditor({
   courseCode,
   lessonTitle,
+  onTitleChange,
   questionGroupId,
   questions,
   onQuestionSaved,
@@ -141,6 +143,7 @@ export default function InstructorQuizEditor({
 }: {
   courseCode: string;
   lessonTitle: string;
+  onTitleChange?: (title: string) => void;
   questionGroupId: string | null;
   questions: QuestionView[];
   onQuestionSaved: (question: QuestionView) => void;
@@ -173,7 +176,7 @@ export default function InstructorQuizEditor({
   return (
     <div className="topic-lesson min-h-full flex flex-col">
       <div className="px-8 pt-8 pb-4 flex items-baseline justify-between gap-4">
-        <h1 className="topic-lesson-title">{lessonTitle}</h1>
+        <LessonTitle title={lessonTitle} onChange={onTitleChange} />
         {questions.length > 0 && (
           <p className={`text-sm font-semibold ${totalPoints === 100 ? "text-gray-500" : "text-amber-700"}`}>
             Total: {totalPoints} / 100 points
